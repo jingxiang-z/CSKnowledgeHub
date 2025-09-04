@@ -88,5 +88,8 @@ I transitioned from a bachelor's degree in Environmental Engineering at Tsinghua
 - [Alex Xu's System Design](https://bytebytego.com/)
 - [Grokking System Design](https://www.educative.io/courses/grokking-modern-system-design-interview-for-engineers-managers)
 - [labuladong's Algorithm Preparation](https://github.com/labuladong/fucking-algorithm)
-
 - [CS DIY Learning](https://csdiy.wiki/)
+
+## Roadmap
+
+(September 2025) Since most AI tools (ChatGPT, NotebookLM, etc.) handle note summarization well, we will no longer update this repository. It will be archived as read-only.

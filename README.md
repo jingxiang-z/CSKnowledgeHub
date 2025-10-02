@@ -1,95 +1,119 @@
-# Computer Science Knowledge Hub
+# CSKnowledgeHub
 
-Welcome to CSKnowledgeHub, your go-to open-source repository for sharing computer science knowledge and preparing for interviews. Our mission is to provide a dedicated space for aspiring software engineers, helping them navigate the path from being a student to becoming a successful engineer in U.S. tech companies.
+> A curated, exam-and-interview-ready knowledge base for CS students and early SWE.
+> Focus: **OS, DB, Networks, DS&A, Machine Learning, and Statistics.**
 
-Within our repository, you will find a diverse range of content, including:
+- **License**: Apache-2.0 (see `LICENSE`)
+- **Contribute**: see `CONTRIBUTING.md`
+- **Why this exists**: fast retrieval, consistent structure, diagrams-first explanations
+- **Origin**: Notes curated from Georgia Tech OMSCS and Columbia University courses
 
-1. **Computer Science Fundamentals:** Access comprehensive course content covering the essential basics of computer science.
-2. **Interview Preparation for System Design:** Sharpen your skills and knowledge to excel in system design interviews, a critical aspect of tech job interviews.
-3. **Work-Related Computer Science and Frameworks:** Explore resources related to real-world applications of computer science concepts and various frameworks commonly used in industry settings.
-4. **Study Resources:** Discover a curated collection of study materials to support your journey in becoming a proficient software engineer.
+Status: actively curated (accepting contributions).
 
-## About me
+Within this repository, you will find a diverse range of content, including:
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect%20with%20me-blue?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/jingxiangzhang/)   [![Zhihu](https://img.shields.io/badge/Zhihu-Follow%20Me-blue?style=for-the-badge&logo=zhihu)](https://www.zhihu.com/people/zhangjx831)   [![Sponsor Me on Alipay](https://img.shields.io/badge/Alipay-Sponsor%20Me-blue?style=for-the-badge&logo=alipay)](Images/alipay.jpeg)   [![Consult](https://img.shields.io/badge/Zoom-Consult%20Me-blue?style=for-the-badge&logo=zoom)](https://calendly.com/zhangjx/30min)
+1. **Computer Science Fundamentals:** essential basics of computer science
+2. **Study Resources:** curated links for deeper learning
 
-I transitioned from a bachelor's degree in Environmental Engineering at Tsinghua University to a career in software engineering. I hold master's degrees in Data Science from Columbia University and Computer Science from Georgia Tech. This unique academic journey has given me valuable insights into becoming a software engineer, particularly from a non-computer science background. I excel at finding and utilizing resources effectively for continuous learning in this field.
+---
 
-- **Connect With Me**: Connect with me on Linkedin to stay updated on my professional journey, share insights, or collaborate on interesting projects.
-- **Follow me**: Follow me on Zhihu to learn about why and how I make a switch to Software Engineer career.
+## Table of Contents
 
-- **Sponsor Me:** Did you find this repository useful? If so, consider sponsoring to buy me a beer as a token of appreciation. Your support goes a long way in helping me continue my work and provide valuable resources to the community.
-- **Consult Me:** Schedule a 30-minute phone call and follow up services with 50 RMB. I specialize in consultation services in the following areas:
-  - **School Admission:** Planning to pursue higher education? I can guide you through the admissions process, helping you choose the right school and navigate the application journey.
-  - **Software Engineer Career:** Looking to transition into a software engineering career? I offer tailored suggestions and insights to help you succeed in your career switch.
-  - **U.S. Life Preparation:** Preparing for life in the United States? I can provide valuable advice and tips to ensure a smooth transition and a successful stay in the U.S.
+- [Topics](#topics)
+- [Studying Resources](#studying-resources)
+- [How to use this hub](#how-to-use-this-hub)
+- [What this hub is not](#what-this-hub-is-not)
+- [Call for contributions](#call-for-contributions)
+- [Acknowledgments](#acknowledgments)
 
-## Catalog
+---
 
-### Basic Knowledge
+## Topics
 
-- [Data Structures & Algorithms](Basic%20Knowledge/Data%20Structure%20&%20Algorithm/)
-  - [Sorting and Searching](Basic%20Knowledge/Data%20Structure%20&%20Algorithm/Sorting%20and%20Searching.md)
-  - [Tree](Basic%20Knowledge/Data%20Structure%20&%20Algorithm/Tree.md)
-  - [Graph](Basic%20Knowledge/Data%20Structure%20&%20Algorithm/Graph.md)
-  - [Backtrack](Basic%20Knowledge/Data%20Structure%20&%20Algorithm/Backtrack.md)
-  - [Dynamic Programming](Basic%20Knowledge/Data%20Structure%20&%20Algorithm/Dynamic%20Programming.md)
-  - [Design](Basic%20Knowledge/Data%20Structure%20&%20Algorithm/Design.md)
-- [Operating System](Basic%20Knowledge/Operating%20System/)
-  - [Introduction](Basic%20Knowledge/Operating%20System/Introduction.md)
-  - [Process Management](Basic%20Knowledge/Operating%20System/Process%20Management.md)
-  - [Thread Management](Basic%20Knowledge/Operating%20System/Thread%20Management.md)
-  - [Memory Management](Basic%20Knowledge/Operating%20System/Memory%20Management.md)
-  - [Device Management](Basic%20Knowledge/Operating%20System/Device%20Management.md)
-- [Database](Basic%20Knowledge/Database/)
-  - [Introduction](Basic%20Knowledge/Database/Introduction.md)
-  - [SQL](Basic%20Knowledge/Database/SQL.md)
-  - [Data Model](Basic%20Knowledge/Database/Data%20Model.md)
-  - [Database Design](Basic%20Knowledge/Database/Database%20Design.md)
-- [Computer Network](Basic%20Knowledge/Computer%20Network/)
-  - [Introduction](Basic%20Knowledge/Computer%20Network/Introduction.md)
-  - [Application Layer](Basic%20Knowledge/Computer%20Network/Application%20Layer.md)
-  - [Transport Layer](Basic%20Knowledge/Computer%20Network/Transport%20Layer.md)
-  - [Network Layer](Basic%20Knowledge/Computer%20Network/Network%20Layer.md)
-  - [Link Layer](Basic%20Knowledge/Computer%20Network/Link%20Layer.md)
-- [Machine Learning](Basic%20Knowledge/Machine%20Learning/)
-  - [Machine Learning](Basic%20Knowledge/Machine%20Learning/Machine%20Learning.md)
-  - [Deep Learning](Basic%20Knowledge/Machine%20Learning/Deep%20Learning.md)
-  - [Computer Vision](Basic%20Knowledge/Machine%20Learning/Computer%20Vision.md)
-  - [Natural Language Processing](Basic%20Knowledge/Machine%20Learning/Natural%20Language%20Processing.md)
-  - [Recommender System](Basic%20Knowledge/Machine%20Learning/Recommder%20System.md)
-  - [Reinforcement Learning](Basic%20Knowledge/Machine%20Learning/Reinforcement%20Learning.md)
-  - [MLOps](Basic%20Knowledge/Machine%20Learning/MLOps.md)
-- [Statistics](Basic%20Knowledge/Statistics/)
-  - [Probabilities and Statistics](Basic%20Knowledge/Statistics/Probs%20and%20Stats.md)
-  - [Statistical Inference](Basic%20Knowledge/Statistics/Stats%20Inference.md)
-  - [Statistical Modelling](Basic%20Knowledge/Statistics/Stats%20Modelling.md)
+### Data Structures & Algorithms
+- [Sorting and Searching](Data%20Structure%20&%20Algorithm/Sorting%20and%20Searching.md)
+- [Tree](Data%20Structure%20&%20Algorithm/Tree.md)
+- [Graph](Data%20Structure%20&%20Algorithm/Graph.md)
+- [Backtrack](Data%20Structure%20&%20Algorithm/Backtrack.md)
+- [Dynamic Programming](Data%20Structure%20&%20Algorithm/Dynamic%20Programming.md)
+- [Design](Data%20Structure%20&%20Algorithm/Design.md)
 
-### Frameworks
+### Operating System
+- [Introduction](Operating%20System/Introduction.md)
+- [Process Management](Operating%20System/Process%20Management.md)
+- [Thread Management](Operating%20System/Thread%20Management.md)
+- [Memory Management](Operating%20System/Memory%20Management.md)
+- [Device Management](Operating%20System/Device%20Management.md)
 
-- [Web Development](Frameworks/Web%20Development/)
-  - [React](Frameworks/Web%20Development/React.md)
-  - [Flask](Frameworks/Web%20Development/Flask.md)
-- [DevOps](Frameworks/DevOps/)
-  - [Git](Frameworks/DevOps/Git.md)
-  - [Docker](Frameworks/DevOps/Docker.md)
-  - [Kubernetes](Frameworks/DevOps/Kubernetes.md)
-- [AWS](Frameworks/AWS/)
-  - [IAM](Frameworks/AWS/IAM.md)
-  - [VPC](Frameworks/AWS/VPC.md)
-  - [Lambda](Frameworks/AWS/Lambda.md)
+### Database
+- [Introduction](Database/Introduction.md)
+- [SQL](Database/SQL.md)
+- [Data Model](Database/Data%20Model.md)
+- [Database Design](Database/Database%20Design.md)
 
-### System Desing
+### Computer Network
+- [Introduction](Computer%20Network/Introduction.md)
+- [Application Layer](Computer%20Network/Application%20Layer.md)
+- [Transport Layer](Computer%20Network/Transport%20Layer.md)
+- [Network Layer](Computer%20Network/Network%20Layer.md)
+- [Link Layer](Computer%20Network/Link%20Layer.md)
 
-- [Web Application](System%20Design/Web%20Application.md)
+### Computer Architecture
+- [Overview](Computer%20Architecture/)
+
+### Programming Language
+- [Overview](Programming%20Language/)
+
+### Information Security
+- [Overview](Information%20Security/)
+
+### Machine Learning
+- [Machine Learning](Machine%20Learning/Machine%20Learning.md)
+- [Deep Learning](Machine%20Learning/Deep%20Learning.md)
+- [Computer Vision](Machine%20Learning/Computer%20Vision.md)
+- [Natural Language Processing](Machine%20Learning/Natural%20Language%20Processing.md)
+- [Recommender System](Machine%20Learning/Recommder%20System.md)
+- [Reinforcement Learning](Machine%20Learning/Reinforcement%20Learning.md)
+- [MLOps](Machine%20Learning/MLOps.md)
+
+### Statistics
+- [Probabilities and Statistics](Statistics/Probs%20and%20Stats.md)
+- [Statistical Inference](Statistics/Stats%20Inference.md)
+- [Statistical Modelling](Statistics/Stats%20Modelling.md)
 
 ## Studying Resources
 
-- [Alex Xu's System Design](https://bytebytego.com/)
-- [Grokking System Design](https://www.educative.io/courses/grokking-modern-system-design-interview-for-engineers-managers)
 - [labuladong's Algorithm Preparation](https://github.com/labuladong/fucking-algorithm)
 - [CS DIY Learning](https://csdiy.wiki/)
+- [MIT OpenCourseWare - Computer Science](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/)
+- [Operating Systems: Three Easy Pieces](https://pages.cs.wisc.edu/~remzi/OSTEP/)
 
-## Roadmap
+---
 
-(September 2025) Since most AI tools (ChatGPT, NotebookLM, etc.) handle note summarization well, we will no longer update this repository. It will be archived as read-only.
+## How to use this hub
+
+- Exam cram: skim each page's top summary for definitions, formulas, pitfalls
+- Interview prep: use diagrams and worked examples to explain concepts aloud
+- Fundamentals review: deep-dive into core CS concepts for technical interviews
+
+## What this hub is not
+
+- Not a LeetCode dump; not a replacement for full textbooks
+- Not a copy-paste farm; we cite sources and encourage deeper reading
+
+## Call for contributions
+
+- Add concise "exam cram" summaries to existing pages
+- Add or improve diagrams for complex topics
+- File content requests or bugs via issue templates
+
+## Acknowledgments
+
+The foundational content in this repository is curated from coursework and materials from:
+
+- **Georgia Institute of Technology** - Online Master of Science in Computer Science (OMSCS)
+- **Columbia University** - Graduate Computer Science courses
+
+We are grateful to the faculty, teaching assistants, and course designers whose work has contributed to this educational resource. This repository represents a synthesis and reorganization of these materials for exam preparation and interview readiness.
+
+Additional content has been contributed by the open-source community, focused on core computer science fundamentals.

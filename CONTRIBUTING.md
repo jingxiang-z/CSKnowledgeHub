@@ -1,25 +1,27 @@
 # Contributing to CSKnowledgeHub
 
-Thank you for helping improve this knowledge hub. This guide explains scope, style, and the workflow to add or update content.
+Thank you for helping improve this **Computer Science Fundamentals Knowledge Hub**. This guide explains scope, style, and the workflow to add or update content.
 
 ## About This Repository
 
-This repository contains notes and materials originally curated from **Georgia Tech OMSCS** and **Columbia University** courses, reorganized for exam preparation and interview readiness. We welcome contributions that enhance, correct, or expand upon this foundation while maintaining academic integrity and proper attribution.
+CSKnowledgeHub originated from **Georgia Tech** and **Columbia University** computer science courses. Our mission is to provide learners with a **comprehensive view of CS fundamentals**—helping them understand not just individual topics, but the overall structure and interconnections within computer science.
+
+We welcome contributions that enhance, correct, or expand upon this foundation while maintaining academic integrity, clarity, and proper attribution.
 
 ## Scope
 
-- Computer Science fundamentals: DS&A, OS, DB, Networks, Machine Learning, Statistics
-- Study resources: curated links with brief annotations
+- **Core Topics**: Data Structures & Algorithms, Computer Architecture, Computer Networks, Operating Systems, Databases, Distributed Systems, Machine Learning, Deep Learning, Natural Language Processing, Information Security, Statistics
+- **Study resources**: curated links with brief annotations
 
 Out of scope: full problem dumps, proprietary content, AI-generated dumps without review, framework-specific tutorials, or production/DevOps guides.
 
-## Content style
+## Content Style
 
-- Two-level pages: start each page with a 5-minute exam-cram summary (definitions, key formulas, pitfalls). Then provide deeper notes.
-- Diagram-first: include at least one diagram for complex topics.
-- References: cite sources at the end with title, author, link, and license.
-- Worked examples: small, concrete examples (e.g., Gantt chart, EXPLAIN diff, packet walk).
-- Tone: concise, neutral, technical. Avoid personal marketing.
+- **Structured pages**: Start each page with a brief summary of key concepts, definitions, and common pitfalls. Then provide deeper explanations.
+- **Diagram-first**: Include at least one diagram for complex topics to aid visual understanding.
+- **References**: Cite sources at the end with title, author, link, and license when applicable.
+- **Worked examples**: Provide small, concrete examples (e.g., code snippets, calculations, diagrams).
+- **Tone**: Keep content concise, neutral, and technical. Avoid personal opinions or marketing language.
 
 ## Structure and headings
 
@@ -36,17 +38,26 @@ Out of scope: full problem dumps, proprietary content, AI-generated dumps withou
 
 ## Git workflow
 
-- Create a feature branch from `main`.
-- If adding content, open an issue first (Content Request) to discuss scope.
-- Submit a PR referencing the issue. Fill in the PR checklist.
-- Pass CI: markdown lint, spellcheck, and link checker.
+1. **Fork the repository** to your own GitHub account.
+2. **Clone your fork** locally: `git clone https://github.com/YOUR_USERNAME/CSKnowledgeHub.git`
+3. **Create a feature branch** from `main` or `master`: `git checkout -b feature/your-topic-name`
+4. **Make your changes** following the content and style guidelines above.
+5. **Commit your changes** with clear, descriptive commit messages.
+6. **Push to your fork**: `git push origin feature/your-topic-name`
+7. **Open a Pull Request** from your fork to the main repository.
+   - Reference any related issues (e.g., "Closes #123")
+   - Fill in the PR template checklist
+   - Ensure your changes pass basic quality checks (markdown formatting, working links)
+
+**Note:** For significant content additions, consider opening an issue first (Content Request) to discuss scope and approach.
 
 ## Writing guidelines
 
 - Wrap lines at ~100 characters where reasonable.
 - Use lists and tables for scannability; avoid long prose blocks.
 - Prefer relative links to repo files; use absolute links for external resources.
-- Use English file names. For bilingual files, name `README.en.md` and `README.zh.md` and link them at top.
+- For bilingual content, use clear naming: `README.md` (primary), `README.zh.md` (Chinese), etc.
+- Provide alt-text for images to ensure accessibility.
 
 ## Licensing
 

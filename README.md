@@ -1,32 +1,10 @@
 # CSKnowledgeHub
 
-> A curated, exam-and-interview-ready knowledge base for CS students and early SWE.
-> Focus: **OS, DB, Networks, DS&A, Machine Learning, and Statistics.**
+Originated from Georgia Tech and Columbia University computer science courses, this repository provides a comprehensive overview of core CS knowledge. Whether you're preparing for exams, technical interviews, or seeking to understand the full landscape of computer science, this hub offers a structured view of CS fundamentals.
 
 - **License**: Apache-2.0 (see `LICENSE`)
 - **Contribute**: see `CONTRIBUTING.md`
-- **Why this exists**: fast retrieval, consistent structure, diagrams-first explanations
-- **Origin**: Notes curated from Georgia Tech OMSCS and Columbia University courses
-
-Status: actively curated (accepting contributions).
-
-Within this repository, you will find a diverse range of content, including:
-
-1. **Computer Science Fundamentals:** essential basics of computer science
-2. **Study Resources:** curated links for deeper learning
-
----
-
-## Table of Contents
-
-- [Topics](#topics)
-- [Studying Resources](#studying-resources)
-- [How to use this hub](#how-to-use-this-hub)
-- [What this hub is not](#what-this-hub-is-not)
-- [Call for contributions](#call-for-contributions)
-- [Acknowledgments](#acknowledgments)
-
----
+- **Status**: Actively curated (accepting contributions)
 
 ## Topics
 
@@ -37,6 +15,11 @@ Within this repository, you will find a diverse range of content, including:
 - [Backtrack](Data%20Structure%20&%20Algorithm/Backtrack.md)
 - [Dynamic Programming](Data%20Structure%20&%20Algorithm/Dynamic%20Programming.md)
 - [Design](Data%20Structure%20&%20Algorithm/Design.md)
+
+### Computer Architecture
+- [Introduction](Computer%20Architecture/Introduction.md)
+- [Processor](Computer%20Architecture/Processor.md)
+- [Memory](Computer%20Architecture/Memory.md)
 
 ### Operating System
 - [Introduction](Operating%20System/Introduction.md)
@@ -58,62 +41,63 @@ Within this repository, you will find a diverse range of content, including:
 - [Network Layer](Computer%20Network/Network%20Layer.md)
 - [Link Layer](Computer%20Network/Link%20Layer.md)
 
-### Computer Architecture
-- [Overview](Computer%20Architecture/)
-
-### Programming Language
-- [Overview](Programming%20Language/)
-
 ### Information Security
-- [Overview](Information%20Security/)
+- [Cryptography](Information%20Security/Cryptography.md)
+- [Database Security](Information%20Security/Database%20Security.md)
+- [Web Security](Information%20Security/Web%20Security.md)
+
+### Distributed Systems
+- *Coming soon*
 
 ### Machine Learning
 - [Machine Learning](Machine%20Learning/Machine%20Learning.md)
 - [Deep Learning](Machine%20Learning/Deep%20Learning.md)
 - [Computer Vision](Machine%20Learning/Computer%20Vision.md)
 - [Natural Language Processing](Machine%20Learning/Natural%20Language%20Processing.md)
-- [Recommender System](Machine%20Learning/Recommder%20System.md)
-- [Reinforcement Learning](Machine%20Learning/Reinforcement%20Learning.md)
-- [MLOps](Machine%20Learning/MLOps.md)
 
 ### Statistics
 - [Probabilities and Statistics](Statistics/Probs%20and%20Stats.md)
 - [Statistical Inference](Statistics/Stats%20Inference.md)
 - [Statistical Modelling](Statistics/Stats%20Modelling.md)
 
-## Studying Resources
-
-- [labuladong's Algorithm Preparation](https://github.com/labuladong/fucking-algorithm)
-- [CS DIY Learning](https://csdiy.wiki/)
-- [MIT OpenCourseWare - Computer Science](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/)
-- [Operating Systems: Three Easy Pieces](https://pages.cs.wisc.edu/~remzi/OSTEP/)
-
----
-
 ## How to use this hub
 
-- Exam cram: skim each page's top summary for definitions, formulas, pitfalls
-- Interview prep: use diagrams and worked examples to explain concepts aloud
-- Fundamentals review: deep-dive into core CS concepts for technical interviews
+**Get the Full Picture:**  
+Start by exploring the [Topics](#topics) section to understand the breadth of computer science fundamentals. See how algorithms connect to systems, how databases relate to distributed computing, and how ML builds on statistics.
+
+**Targeted Study:**
+- **Exam prep**: Skim each page's top summary for key definitions, formulas, and common pitfalls
+- **Interview prep**: Use diagrams and worked examples to explain concepts clearly and confidently
+- **Knowledge gaps**: Jump to specific topics to fill in missing pieces of your CS foundation
+- **Big picture**: Browse multiple topics to understand how different areas of CS interconnect
 
 ## What this hub is not
 
-- Not a LeetCode dump; not a replacement for full textbooks
-- Not a copy-paste farm; we cite sources and encourage deeper reading
+- **Not a LeetCode problem dump** - This is a fundamentals knowledge base, not a coding practice site
+- **Not a textbook replacement** - Think of it as structured notes and a roadmap; we cite sources for deeper learning
+- **Not framework/tool tutorials** - Focus is on timeless CS fundamentals, not specific technologies
+- **Not a copy-paste resource** - We emphasize understanding concepts and their connections
 
 ## Call for contributions
 
-- Add concise "exam cram" summaries to existing pages
-- Add or improve diagrams for complex topics
-- File content requests or bugs via issue templates
+We welcome contributions from the community to help improve this knowledge hub:
+
+- **Error correction**: Fix typos, inaccuracies, or outdated information
+- **New knowledge sharing**: Add new topics or expand coverage of existing areas
+- **Improve existing content**: Enhance explanations, add examples, or clarify complex concepts
+- **Add diagrams**: Create or improve visual representations for better understanding
+- **Add summaries**: Contribute concise summaries to existing pages
+- **Share resources**: Suggest high-quality learning materials and references
+
+Please review our [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines, and feel free to file content requests or report issues via our [issue templates](.github/ISSUE_TEMPLATE/).
 
 ## Acknowledgments
 
-The foundational content in this repository is curated from coursework and materials from:
+This repository originated from coursework and materials from:
 
-- **Georgia Institute of Technology** - Online Master of Science in Computer Science (OMSCS)
+- **Georgia Institute of Technology** - Graduate Computer Science courses
 - **Columbia University** - Graduate Computer Science courses
 
-We are grateful to the faculty, teaching assistants, and course designers whose work has contributed to this educational resource. This repository represents a synthesis and reorganization of these materials for exam preparation and interview readiness.
+We are deeply grateful to the faculty, teaching assistants, and course designers at both institutions whose excellent teaching formed the foundation of this knowledge base. This repository represents a synthesis, reorganization, and expansion of those materials to help learners grasp the full structure of computer science fundamentals.
 
-Additional content has been contributed by the open-source community, focused on core computer science fundamentals.
+Additional contributions from the open-source community continue to enhance and expand this knowledge hub.

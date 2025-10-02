@@ -6,7 +6,7 @@
 
 ### Concepts
 
-![Different Types of Binary Tree with colourful illustrations | by Anand K  Parmar | Towards Data Science](../../Images/1*CMGFtehu01ZEBgzHG71sMg.png)
+![Different Types of Binary Tree with colourful illustrations | by Anand K  Parmar | Towards Data Science](../Images/1*CMGFtehu01ZEBgzHG71sMg.png)
 
 1. **Structure:** In a binary tree, each node has, at most, two children, which are themselves binary trees. Nodes in a binary tree consist of a data element (or value) and references (or pointers) to the left and right children.
 2. **Root:** The topmost node of the tree is called the root. It serves as the starting point for accessing all other nodes in the tree.
@@ -299,7 +299,7 @@ print(trie.starts_with("app"))  # True
 
 ## Huffman Tree
 
-<img src="../../Images/1200px-Huffman_tree_2.svg.png" alt="Huffman coding - Wikipedia" style="zoom:50%;" />
+<img src="../Images/1200px-Huffman_tree_2.svg.png" alt="Huffman coding - Wikipedia" style="zoom:50%;" />
 
 ```python
 import heapq

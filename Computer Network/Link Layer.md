@@ -32,7 +32,7 @@ In summary, the network link layer is a critical component in local area network
 
 **Prompt: How does link layer frame look like?**
 
-![formatting data for transmission](../../Images/157-Datalink-PDU2.jpg)
+![formatting data for transmission](../Images/157-Datalink-PDU2.jpg)
 
 A link layer frame varies in structure and content depending on the specific networking technology being used, but I can provide an example of what a basic Ethernet frame, one of the most common types, looks like. An Ethernet frame typically consists of the following components:
 

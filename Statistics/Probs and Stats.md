@@ -146,7 +146,7 @@ Bayesian interpretation: the probability of an outcome is considered a statement
   - associative law: $(E\cup F)\cup G=E\cup (F\cup G)$
   - distributive law: $(E\cup F)\cap G=(E\cap G) \cup (F\cap G)$
 
-![image-20210725182157150](../../Images/2CDNtEvHIomxnzf.png)
+![image-20210725182157150](../Images/2CDNtEvHIomxnzf.png)
 
 ### Principal of Counting
 
@@ -352,7 +352,7 @@ $$
 
 The Poisson random variable may be used as an approximation for a binomial random variable with parameters (*n*, *p*) when *n* is large and *p* is small, in that case $\lambda=np$
 
-<img src="../../Images/Xy32mSYOxFnrVwz.png" alt="image-20210726235942973" style="zoom:25%;" />
+<img src="../Images/Xy32mSYOxFnrVwz.png" alt="image-20210726235942973" style="zoom:25%;" />
 
 The passion process is the events occurring at random time points, and N(t) denotes the number of events that occurs in the time interval [0, t]
 
@@ -497,11 +497,11 @@ MLE for Uniform Distribution: $\hat \theta=max(X_1, X_2, ..., X_m)$
 
 - Confidence Interval for a Normal Mean and Variance
 
-![image-20210820114602135](https://tva1.sinaimg.cn/large/e6c9d24egy1gztp0myhgtj21420lgtbm.jpg)
+![image-20210820114602135](../Images/stats-image-1.jpg)
 
 - THE DIFFERENCE IN MEANS OF TWO NORMAL POPULATIONS
 
-![image-20210820115756232](https://tva1.sinaimg.cn/large/e6c9d24egy1gztp0tyghxj20zn0u077w.jpg)
+![image-20210820115756232](../Images/stats-image-2.jpg)
 
 - CONFIDENCE INTERVAL FOR THE MEAN OF A BERNOULLI RANDOM VARIABLE: *X* is approximately normally distributed with mean *np* and variance *np*(1 − *p*)
 
@@ -566,15 +566,15 @@ $$
 
 - Known Variance
 
-![image-20210820121250808](https://tva1.sinaimg.cn/large/e6c9d24egy1gztp0uwwxnj21120f4ace.jpg)
+![image-20210820121250808](../Images/stats-image-3.jpg)
 
 - Unknown Variance
 
-![image-20210820121349544](https://tva1.sinaimg.cn/large/e6c9d24egy1gztp0p99s6j216q0gmju8.jpg)
+![image-20210820121349544](../Images/stats-image-4.jpg)
 
 ### Means of Two Normal Populations
 
-![image-20210820121434365](https://tva1.sinaimg.cn/large/e6c9d24egy1gztp0psf7zj21680jyadd.jpg)
+![image-20210820121434365](../Images/stats-image-5.jpg)
 
 ### Mean of Paired Population
 
@@ -757,7 +757,7 @@ $$
 H_1: not\ all\ means\ are\ equal
 $$
 
-![image-20210821205459560](https://tva1.sinaimg.cn/large/e6c9d24egy1gztp0vvfi4j21a60jsq5z.jpg)
+![image-20210821205459560](../Images/stats-image-6.jpg)
 
 ### TWO-WAY ANOVA
 
@@ -769,7 +769,7 @@ $$
 X_{ij}\sim N(\mu+\alpha_i+\beta_j, \sigma^2)
 $$
 
-![image-20210821210523786](https://tva1.sinaimg.cn/large/e6c9d24egy1gztp0t2asij21ae0qegpn.jpg)
+![image-20210821210523786](../Images/stats-image-7.jpg)
 
 ## Goodness of Fit
 

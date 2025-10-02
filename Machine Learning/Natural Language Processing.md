@@ -37,13 +37,13 @@
 - Transition matrix: transition probability between each speech tags
 - Emission matrix: emission probability between speech tag and word
 
-<img src="../../Images/008i3skNgy1gyu0c5s7gaj31c6092wfc.jpg" alt="image-20220121194512835" style="zoom:50%;" />
+<img src="../Images/008i3skNgy1gyu0c5s7gaj31c6092wfc.jpg" alt="image-20220121194512835" style="zoom:50%;" />
 
 Viterbi Algorithm:
 
-<img src="../../Images/008i3skNgy1gyu0c83rl1j31ci0ju76k.jpg" alt="image-20220121195316069" style="zoom:50%;" />
+<img src="../Images/008i3skNgy1gyu0c83rl1j31ci0ju76k.jpg" alt="image-20220121195316069" style="zoom:50%;" />
 
-<img src="../../Images/008i3skNgy1gyu0cax566j31ac0is75t.jpg" alt="image-20220121195818619" style="zoom:50%;" />
+<img src="../Images/008i3skNgy1gyu0cax566j31ac0is75t.jpg" alt="image-20220121195818619" style="zoom:50%;" />
 
 ### N-Gram Language Model
 
@@ -60,7 +60,7 @@ $$
 p(A,B,C,D)=P(s)P(A|s)P(B|A)P(C|B)P(D|C)P(/s|D)
 $$
 
-<img src="../../Images/008i3skNgy1gyu0cen7olj319q0a0t9w.jpg" alt="image-20220121204605339" style="zoom: 33%;" />
+<img src="../Images/008i3skNgy1gyu0cen7olj319q0a0t9w.jpg" alt="image-20220121204605339" style="zoom: 33%;" />
 
 Model Evaluation: 
 
@@ -95,7 +95,7 @@ Smoothing:
 
 ### CBOW
 
-<img src="../../Images/1*cuOmGT7NevP9oJFJfVpRKA.png" alt="NLP 101: Word2Vec — Skip-gram and CBOW | by Ria Kulshrestha | Towards Data  Science" style="zoom:50%;" />
+<img src="../Images/1*cuOmGT7NevP9oJFJfVpRKA.png" alt="NLP 101: Word2Vec — Skip-gram and CBOW | by Ria Kulshrestha | Towards Data  Science" style="zoom:50%;" />
 
 - **Input Layer**: The context words are represented as one-hot vectors and are input into the model. If the context size is *C* (i.e., *C* words before and after the target word), and the vocabulary size is *V*, the input layer will have *C* one-hot encoded vectors of size *V*.
 - **Projection Layer**: The one-hot vectors are projected onto a shared, dense embedding layer, which reduces the dimensionality. This layer essentially averages the context word vectors.
@@ -116,7 +116,7 @@ Smoothing:
 
 ### Siamese Network
 
-![A friendly introduction to Siamese Networks | by Sean Benhur | Towards Data  Science](../../Images/1*LwOBbwGXMZUy6OzkFAPTzw.png)
+![A friendly introduction to Siamese Networks | by Sean Benhur | Towards Data  Science](../Images/1*LwOBbwGXMZUy6OzkFAPTzw.png)
 
 - **Architecture**: The core architecture of a Siamese network consists of two identical neural networks, each taking one of the two input vectors. The outputs of these networks are then fed into a metric function that computes a distance or similarity score between the inputs.
 - **Weight Sharing**: The two subnetworks share the same weights and architecture, ensuring that they process their respective inputs in the same way. This shared learning helps the network learn more efficiently and reduces the number of parameters needed, which can mitigate overfitting.
@@ -160,7 +160,7 @@ In this setup, $W_i^Q$, $W_i^K$, $W_i^V$, and $W^O$ are parameter matrices, and 
 - **Encoder**: The encoder maps an input sequence of symbol representations (words, for instance) to a sequence of continuous representations. The Transformer encoder consists of a stack of identical layers, each with two main sub-layers: a multi-head self-attention mechanism and a position-wise fully connected feed-forward network.
 - **Decoder**: The decoder is responsible for transforming the encoder's output into the final output sequence. Like the encoder, the decoder is composed of a stack of identical layers. However, in addition to the two sub-layers found in the encoder layers, each decoder layer has a third sub-layer that performs multi-head attention over the encoder's output. This setup enables the decoder to focus on appropriate parts of the input sequence when producing the output.
 
-<img src="../../Images/attention_research_1.png" alt="The Transformer Model - MachineLearningMastery.com" style="zoom: 33%;" />
+<img src="../Images/attention_research_1.png" alt="The Transformer Model - MachineLearningMastery.com" style="zoom: 33%;" />
 
 - **Self-Attention**: This mechanism allows the model to weigh the importance of different words in the input sequence relative to each other. It's a crucial component for understanding the context and relationships between words in a sentence.
 - **Multi-Head Attention**: By splitting the attention mechanism into multiple "heads," the model can simultaneously attend to information from different representation subspaces at different positions. This approach increases the model's ability to focus on various aspects of the context.
@@ -168,7 +168,7 @@ In this setup, $W_i^Q$, $W_i^K$, $W_i^V$, and $W^O$ are parameter matrices, and 
 
 ### BERT
 
-![img](../../Images/BERT.png)
+![img](../Images/BERT.png)
 
 - **Bidirectional Training**: Unlike previous models that processed text either from left to right or combined both left-to-right and right-to-left training, BERT is designed to read text in both directions simultaneously. This bidirectionality allows the model to understand the context of a word based on all of its surroundings (both left and right of the word).
 - **Transformer Architecture**: BERT is based on the Transformer architecture, specifically utilizing its encoder mechanism. The Transformer model's ability to process words in relation to all other words in a sentence simultaneously allows BERT to capture the nuanced context of each word very effectively.

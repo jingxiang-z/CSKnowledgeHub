@@ -76,7 +76,7 @@ Device management is a fundamental aspect of the overall user experience, ensuri
 
 ### Workflow
 
-![img](../../Images/1C2567BE-17C9-43AE-98C9-A864103CCE98.png)
+![img](../Images/1C2567BE-17C9-43AE-98C9-A864103CCE98.png)
 
 **Prompt: What are the workflow from user devices interaction to user process?**
 
@@ -123,7 +123,7 @@ This workflow highlights the role of device drivers in bridging the gap between 
 
 ### Introduction
 
-![Hierarchical file system - Wikipedia](../../Images/File_Hierarchy.png)
+![Hierarchical file system - Wikipedia](../Images/File_Hierarchy.png)
 
 **Prompt: Give me an introduction about file system management in operating system.**
 
@@ -153,7 +153,7 @@ File system management is a critical component of an operating system, as it inf
 
 ### Virtual File System
 
-![Are device files implemented by the specific file systems or the virtual  file system in Linux? - Stack Overflow](../../Images/kHyHs.png)
+![Are device files implemented by the specific file systems or the virtual  file system in Linux? - Stack Overflow](../Images/kHyHs.png)
 
 The Virtual File System (VFS) is an essential component of an operating system that provides a unified interface for applications to interact with files and directories. It abstracts the underlying physical file systems and facilitates cross-platform compatibility. Here are some key components of the Virtual File System:
 
@@ -185,7 +185,7 @@ The Virtual File System is a crucial component of modern operating systems, prov
 
 ### Physical File System
 
-![18.2. Ext2 Disk Data Structures - Understanding the Linux Kernel, 3rd  Edition [Book]](../../Images/httpatomoreillycomsourceoreillyimages9320.png)
+![18.2. Ext2 Disk Data Structures - Understanding the Linux Kernel, 3rd  Edition [Book]](../Images/httpatomoreillycomsourceoreillyimages9320.png)
 
 The physical file system refers to the actual file system implemented on a specific storage device, such as a hard drive or SSD. It dictates how data is organized, stored, and accessed on the physical medium. Key components of a physical file system include:
 

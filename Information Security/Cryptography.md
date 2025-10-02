@@ -83,7 +83,7 @@ The Vigenere cipher is an example of a symmetric key cryptographic algorithm. In
 
 **To decrypt a cipher,** we start with the first letter of the key and traverse that row until we reach the corresponding letter from the cipher. The label of this column is our decrypted letter. Using our same **GEORGIA**/**TECH** example, to decrypt the cipher we would start with the first letter of our key **T** and traverse that row until we reached the first letter of the cipher **Z**. The label of this column is **G** - the first letter in our message.
 
-![image6](../../Images/image6-7664108.png)
+![image6](../Images/image6-7664108.png)
 
 ### AES
 

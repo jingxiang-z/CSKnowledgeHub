@@ -51,7 +51,7 @@ A *data model* is a collection of concepts for describing the data in a database
 - The ANSI/SPARC three-level architecture includes conceptual, internal, and external schema. Conceptual schema focuses on data meaning, internal schema on storage, and external schema on application-specific use.
 - The database management system translates queries and responses between schema for efficient data retrieval and presentation.
 
-![A diagram of the ANSI/SPARC 3-level database architecture.](../../Images/20220829220512.png)
+![A diagram of the ANSI/SPARC 3-level database architecture.](../Images/20220829220512.png)
 
 ### Conceptual Schema
 
@@ -90,4 +90,4 @@ A *data model* is a collection of concepts for describing the data in a database
 - The process is reversed when the database system prepares a response to return to the user.
 - In production database systems, this process is optimized for efficiency, but the overall functionality remains the same.
 
-![The ANSI/SPARC DBMS Framework.](../../Images/20220830151759.png)
+![The ANSI/SPARC DBMS Framework.](../Images/20220830151759.png)

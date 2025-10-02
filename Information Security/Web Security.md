@@ -152,7 +152,7 @@ JWT authentication is widely adopted because it provides a secure and efficient 
 
 ## Man-in-the-Middle Attack
 
-![What is MITM (Man in the Middle) Attack | Imperva](../../Images/man-in-the-middle-mitm-attack.png)
+![What is MITM (Man in the Middle) Attack | Imperva](../Images/man-in-the-middle-mitm-attack.png)
 
 **Prompt: What is the man in the middle attack?**
 

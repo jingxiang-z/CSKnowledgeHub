@@ -14,7 +14,7 @@
 
 ### Neurons
 
-<img src="../../Images/1*vbRXwvbk4ep_kK3dgfAWzQ.png" alt="Introduction to Neurons in Neural Networks | by Samuel Rowe | Artificial Neural  Networks | Medium" style="zoom: 67%;" />
+<img src="../Images/1*vbRXwvbk4ep_kK3dgfAWzQ.png" alt="Introduction to Neurons in Neural Networks | by Samuel Rowe | Artificial Neural  Networks | Medium" style="zoom: 67%;" />
 
 - **Inputs (x₁, x₂, ..., xn)**: Each neuron receives multiple inputs. These inputs can be raw data or outputs from other neurons.
 - **Weights (w₁, w₂, ..., wn)**: Each input is assigned a weight that represents its importance. The neural network learns by updating these weights.
@@ -24,11 +24,11 @@
   - **ReLU (Rectified Linear Unit)**: Outputs the input if it's positive; otherwise, it outputs zero. It's widely used for its computational efficiency and because it allows models to learn fast and effectively.
   - **Tanh (Hyperbolic Tangent)**: Similar to the sigmoid but maps the input to values between -1 and 1, making it more suitable for certain types of normalized data.
 
-<img src="../../Images/1620764635917.png" alt="A new activation function for Neural Networks - logmoid" style="zoom:50%;" />
+<img src="../Images/1620764635917.png" alt="A new activation function for Neural Networks - logmoid" style="zoom:50%;" />
 
 ### Feedforward Network
 
-<img src="../../Images/1538057889628.png" alt="Feed Forward Neural Network" style="zoom:67%;" />
+<img src="../Images/1538057889628.png" alt="Feed Forward Neural Network" style="zoom:67%;" />
 
 - **Input Layer**: The first layer that receives the input signal to be processed. Each neuron in the input layer represents a feature of the input data.
 - **Hidden Layers**: One or more layers that perform computations with signals received from the previous layer. Each neuron in these layers applies a weighted sum on its inputs, adds a bias, and then passes the result through an activation function.
@@ -42,7 +42,7 @@
 4. **Update Weights**: Adjust the weights by a fraction (defined by the learning rate) of their gradients.
 5. **Repeat**: Perform multiple iterations of forward and backward passes with weight updates until the network's performance is satisfactory or a certain number of iterations is reached.
 
-![8.png](../../Images/U3iEf2QnpCOFqsS.png)
+![8.png](../Images/U3iEf2QnpCOFqsS.png)
 $$
 E_k=\frac{1}{2}\sum_j^l(\hat y_j^k-y_j^k)^2
 $$
@@ -105,7 +105,7 @@ $$
 
   - **Convergence**: More stable convergence than SGD but with some of the benefits of noise, helping to escape local minima.
 
-<img src="../../Images/58182variations_comparison.png" alt="Gradient Descent and its Types - Analytics Vidhya" style="zoom:50%;" />
+<img src="../Images/58182variations_comparison.png" alt="Gradient Descent and its Types - Analytics Vidhya" style="zoom:50%;" />
 
 - **Gradient descent with Momentum:** Accelerates SGD in the relevant direction and dampens oscillations, improving convergence speed
 
@@ -213,7 +213,7 @@ $$
 
 ### Architecture
 
-<img src="../../Images/1*u2el-HrqRPVk7x0xlvs_CA.png" alt="Beginners Guide to Convolutional Neural Networks | by Sabina Pokhrel |  Towards Data Science" style="zoom: 67%;" />
+<img src="../Images/1*u2el-HrqRPVk7x0xlvs_CA.png" alt="Beginners Guide to Convolutional Neural Networks | by Sabina Pokhrel |  Towards Data Science" style="zoom: 67%;" />
 
 - **Convolutional Layer: **The convolutional layer is the core building block of a Convolutional Neural Network (CNN). Its primary function is to detect patterns such as edges, colors, textures, and complex shapes within the input images.
   - **Filters/Kernels**: A convolutional layer consists of several filters (or kernels) that are small but extend through the full depth of the input volume. For instance, in an RGB image, a filter would have a depth of 3, corresponding to the three color channels.
@@ -222,7 +222,7 @@ $$
   - **Padding**: To control the size of the feature maps, padding can be added to the input image. Zero-padding pads the input image with zeros around the border, allowing for control over the spatial size of the output volumes.
   - **Activation Function**: Typically, after a convolution operation, an activation function like ReLU (Rectified Linear Unit) is applied to introduce non-linearity, enabling the network to learn complex patterns.
 
-<img src="../../Images/Screenshot-2019-07-21-at-2.57.13-AM.png" alt="CNN | Introduction to Pooling Layer - GeeksforGeeks" style="zoom: 50%;" />
+<img src="../Images/Screenshot-2019-07-21-at-2.57.13-AM.png" alt="CNN | Introduction to Pooling Layer - GeeksforGeeks" style="zoom: 50%;" />
 
 - **Pooling Layer: **Pooling layers follow convolutional layers and are used to reduce the spatial dimensions (width and height) of the input volume for the next convolutional layer. This reduction in dimensionality means less computation and memory usage, as well as less chance of overfitting.
   - **Max Pooling**: The most common form of pooling, where the maximum element is selected from the region of the feature map covered by the filter, typically of size 2x2.
@@ -231,7 +231,7 @@ $$
 
 ### LeNet
 
-![Lenet-5 | Lenet-5 Architecture | Introduction to Lenet-5](../../Images/Screenshot-from-2021-03-18-12-47-59.png)
+![Lenet-5 | Lenet-5 Architecture | Introduction to Lenet-5](../Images/Screenshot-from-2021-03-18-12-47-59.png)
 
 - **Input Layer**: The original LeNet-5 architecture accepts a 32×32 pixel grayscale image as input. This size is chosen to ensure that the handwritten digits fit well within the field of view of the convolutional layers.
 - **Convolutional Layers**: The network uses convolutional layers with small filter sizes (e.g., 5×5) to learn spatial hierarchies of features from the input image. These layers apply a set of learnable filters to the input, creating a series of feature maps.
@@ -242,7 +242,7 @@ $$
 
 ### AlexNet
 
-![AlexNet Architecture Explained. The convolutional neural network (CNN)… |  by Siddhesh Bangar | Medium](../../Images/1*0dsWFuc0pDmcAmHJUh7wqg.png)
+![AlexNet Architecture Explained. The convolutional neural network (CNN)… |  by Siddhesh Bangar | Medium](../Images/1*0dsWFuc0pDmcAmHJUh7wqg.png)
 
 - **Convolutional Layers: **These layers perform convolution operations, applying filters (or kernels) to the input images to extract features such as edges, textures, and other patterns. The filters are learned during the training process.
 
@@ -260,7 +260,7 @@ $$
 
 ### VGG
 
-![VGG-Net Architecture Explained. The company Visual Geometry Group… | by  Siddhesh Bangar | Medium](https://miro.medium.com/v2/resize:fit:1400/1*VPm-hHOM14OisbFUU4cL6Q.png)
+![VGG-Net Architecture Explained. The company Visual Geometry Group… | by  Siddhesh Bangar | Medium](../Images/vgg-net-architecture.png)
 
 - **Convolutional Layers:** VGG networks use 3x3 convolutional filters with a stride of 1 pixel; this small receptive field allows capturing fine details in the image. The convolutional layers are arranged in blocks, with each block followed by a max-pooling layer for spatial downsampling.
 - **Depth:** The networks are notably deep, with VGG-16 and VGG-19 having 16 and 19 layers respectively. This depth is crucial for learning a hierarchy of features at different scales and complexities.

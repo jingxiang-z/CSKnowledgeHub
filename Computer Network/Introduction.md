@@ -4,7 +4,7 @@
 
 ## Structure
 
-![img](../../Images/400px-Sample-network-diagram.png)
+![img](../Images/400px-Sample-network-diagram.png)
 
 **Prompts: What's the structure of the entire computer network?**
 
@@ -131,7 +131,7 @@ The total latency combines these components to give you the overall delay a pack
 
 Network layers refer to a conceptual framework used to design and understand the functionality of networking protocols and devices in a systematic and organized way. The layers represent distinct levels of communication and provide a structured approach to network design, management, and troubleshooting.
 
-<img src="../../Images/2335a085-5678-472d-8bf6-509f073cce6c.png" alt="What is TCP/IP? - Definition from Techopedia" style="zoom:50%;" />
+<img src="../Images/2335a085-5678-472d-8bf6-509f073cce6c.png" alt="What is TCP/IP? - Definition from Techopedia" style="zoom:50%;" />
 
 ### OSI
 

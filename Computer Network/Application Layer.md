@@ -143,7 +143,7 @@ Web caching is a technique used in computer networks and web servers to temporar
 
 ### History
 
-![img](../../Images/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F641bd7c1-f965-4144-99c3-06d733c3be14_3486x2853.jpeg)
+![img](../Images/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F641bd7c1-f965-4144-99c3-06d733c3be14_3486x2853.jpeg)
 
 **Prompt: Compare HTTP 1.0, HTTP 1.1, HTTP 2.0, and HTTP 3.0.**
 
@@ -220,7 +220,7 @@ In summary, HTTPS works by establishing a secure connection between the user's b
 
 ## SMTP
 
-![Bizagi Studio > Process wizard > Business Rules > Defining notifications >  Email server configuration > Using an SMTP server](../../Images/smtp_1.png)
+![Bizagi Studio > Process wizard > Business Rules > Defining notifications >  Email server configuration > Using an SMTP server](../Images/smtp_1.png)
 
 ### Workflow
 
@@ -404,7 +404,7 @@ The BitTorrent protocol's distributed nature and ability to leverage the upload 
 
 ## DNS
 
-![DNS root server | Cloudflare](../../Images/dns-root-server.png)
+![DNS root server | Cloudflare](../Images/dns-root-server.png)
 
 **Prompt: Give me an introduction about DNS.**
 

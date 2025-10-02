@@ -50,7 +50,7 @@
 - Platter surfaces are split into sectors (512 bytes) and tracks.
 - Collection of tracks passing under the heads is called a cylinder.
 
-![An Overview of Disk Structure - Administration Practice Windows Server 2003](../../Images/1783_2454_329-fat32-file-system.jpg)
+![An Overview of Disk Structure - Administration Practice Windows Server 2003](../Images/1783_2454_329-fat32-file-system.jpg)
 
 - Blocks are a unit of information transferred between disk and main memory.
 - Several records can be stored in a single block.

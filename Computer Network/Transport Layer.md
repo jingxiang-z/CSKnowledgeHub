@@ -52,7 +52,7 @@ In summary, UDP is a protocol that prioritizes speed, simplicity, and low overhe
 
 **Prompt: What does UDP segment look like?**
 
-![UDP – User Datagram Protocol (UDP Structure) - IP With Ease](../../Images/091-udp-user-datagram-protocol-01.jpeg)
+![UDP – User Datagram Protocol (UDP Structure) - IP With Ease](../Images/091-udp-user-datagram-protocol-01.jpeg)
 
 A User Datagram Protocol (UDP) segment, like any network protocol, is composed of a header and, in some cases, payload data. The UDP header is relatively simple and consists of the following fields:
 
@@ -137,7 +137,7 @@ A User Datagram Protocol (UDP) segment, like any network protocol, is composed o
 
 ### Stop and Wait
 
-<img src="../../Images/Stop-and-Wait-ARQ.png" alt="Stop and Wait ARQ - GeeksforGeeks" style="zoom:50%;" />
+<img src="../Images/Stop-and-Wait-ARQ.png" alt="Stop and Wait ARQ - GeeksforGeeks" style="zoom:50%;" />
 
 - **Overview:** Stop-and-Wait is one of the simplest ARQ protocols. It operates as a one-way communication model, with the sender transmitting one data packet and then waiting for an acknowledgment from the receiver before sending the next packet.
 - **Advantages:** Simplicity and ease of implementation make it a straightforward protocol for point-to-point communication.
@@ -145,7 +145,7 @@ A User Datagram Protocol (UDP) segment, like any network protocol, is composed o
 
 ### Go Back N
 
-<img src="../../Images/Sliding_SET_2-1.jpg" alt="Sliding Window Protocol | Set 2 (Receiver Side) - GeeksforGeeks" style="zoom:50%;" />
+<img src="../Images/Sliding_SET_2-1.jpg" alt="Sliding Window Protocol | Set 2 (Receiver Side) - GeeksforGeeks" style="zoom:50%;" />
 
 - **Overview:** Go-Back-N is a sliding window protocol that allows the sender to transmit multiple packets before waiting for acknowledgments. The sender maintains a window of unacknowledged packets, and upon the receipt of acknowledgments, the window slides forward.
 
@@ -155,7 +155,7 @@ A User Datagram Protocol (UDP) segment, like any network protocol, is composed o
 
 ### Selective Repeat
 
-<img src="../../Images/Sliding-Window-Protocol.jpg" alt="Sliding Window Protocol | Set 3 (Selective Repeat) - GeeksforGeeks" style="zoom:50%;" />
+<img src="../Images/Sliding-Window-Protocol.jpg" alt="Sliding Window Protocol | Set 3 (Selective Repeat) - GeeksforGeeks" style="zoom:50%;" />
 
 - **Overview:** Selective Repeat is another sliding window protocol, but it allows the sender to selectively retransmit only the lost or corrupted packets rather than resending the entire window.
 - **Advantages:** Efficient use of network resources as it minimizes unnecessary retransmissions. It is suitable for environments with a moderate level of packet loss.
@@ -193,7 +193,7 @@ In summary, TCP is a robust and versatile transport layer protocol that emphasiz
 
 **Prompt: What does TCP segment look like?**
 
-![TCP Header](../../Images/tcp-header.png)
+![TCP Header](../Images/tcp-header.png)
 
 A Transmission Control Protocol (TCP) segment consists of a header and, optionally, a data payload. The TCP header contains various fields that control and manage the transmission of data. Here's an overview of what a TCP segment looks like:
 
@@ -235,7 +235,7 @@ The TCP header is more extensive than the User Datagram Protocol (UDP) header be
 
 **Prompt: How to initiate a TCP connection?**
 
-![TCP: How the Transmission Control Protocol works - IONOS](../../Images/EN-tcp-20231012130628676.png)
+![TCP: How the Transmission Control Protocol works - IONOS](../Images/EN-tcp-20231012130628676.png)
 
 Initiating a TCP connection involves a three-way handshake process between the sender (client) and the receiver (server). The three-way handshake establishes a reliable and connection-oriented communication channel. Here are the steps to initiate a TCP connection:
 
@@ -260,7 +260,7 @@ At this point, the three-way handshake is complete, and the TCP connection is co
 
 **Prompt: How to close a TCP Connection?**
 
-![TCP: How the Transmission Control Protocol works - IONOS](../../Images/EN-tcp-verbindungsabbau.png)
+![TCP: How the Transmission Control Protocol works - IONOS](../Images/EN-tcp-verbindungsabbau.png)
 
 Closing a TCP connection is a coordinated process between the sender (client) and the receiver (server) to ensure the orderly termination of the connection. The process typically involves a four-way handshake. Here are the steps to close a TCP connection:
 

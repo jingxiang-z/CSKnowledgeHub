@@ -12,7 +12,7 @@ An operating system process is a fundamental concept where each **program's exec
 
 **Prompt: What are the key components of a process?**
 
-![image-20230114111840096](../../Images/image-20230114111840096.png)
+![image-20230114111840096](../Images/image-20230114111840096.png)
 
 The key components of a process and how to represent a process can be summarized as follows:
 
@@ -36,7 +36,7 @@ The key components of a process and how to represent a process can be summarized
 
 **Representation of a Process:**
 
-![Linux Kernel — task_struct. As stated in my previous writeup about… | by  Shlomi Boutnaru, Ph.D. | Medium](../../Images/1*x4BemYz3TpQxAiMx4E_1qQ.png)
+![Linux Kernel — task_struct. As stated in my previous writeup about… | by  Shlomi Boutnaru, Ph.D. | Medium](../Images/1*x4BemYz3TpQxAiMx4E_1qQ.png)
 
 - A process is represented using a **Process Control Block (PCB)** or **Task Control Block (TCB)**, which is a data structure.
 - The PCB contains all the information about a process, including its state, program counter, CPU registers, stack pointer, memory management details, priority, program code, data, and more.
@@ -83,7 +83,7 @@ In summary, the stack and heap serve different purposes in managing a process's 
 
 **What is the process lifecycle?**
 
-<img src="../../Images/image-20230114114412320.png" alt="image-20230114114412320" style="zoom: 67%;" />
+<img src="../Images/image-20230114114412320.png" alt="image-20230114114412320" style="zoom: 67%;" />
 
 The process lifecycle, also known as the process state lifecycle, refers to the various states and transitions that a process goes through during its existence in an operating system. These states and transitions are managed by the operating system's process scheduler. The typical process lifecycle includes the following states:
 

@@ -30,7 +30,7 @@ Effective memory management is crucial for optimizing a computer's performance a
 
 ### Overview
 
-![Page table - Wikipedia](../../Images/440px-Virtual_address_space_and_physical_address_space_relationship.svg.png)
+![Page table - Wikipedia](../Images/440px-Virtual_address_space_and_physical_address_space_relationship.svg.png)
 
 **Prompt: Give me an overview about virtual address and physical address and how virtual address is translated into physical address.**
 
@@ -73,7 +73,7 @@ Page tables are a fundamental component of modern computer memory management, en
 
 ### Page Table Entry
 
-<img src="../../Images/Capture-24.png" alt="Page Table Entries in Page Table - GeeksforGeeks" style="zoom:50%;" />
+<img src="../Images/Capture-24.png" alt="Page Table Entries in Page Table - GeeksforGeeks" style="zoom:50%;" />
 
 **Prompt: What is the structures of a page table entry?**
 
@@ -96,7 +96,7 @@ A typical page table entry (PTE) includes the following components:
 
 ### Multi-Level Page Table
 
-<img src="../../Images/Iz7Ti-20231025130710487.png" alt="operating system - How do Multi-Level Page Tables Actually Save Space -  Stack Overflow" style="zoom:50%;" />
+<img src="../Images/Iz7Ti-20231025130710487.png" alt="operating system - How do Multi-Level Page Tables Actually Save Space -  Stack Overflow" style="zoom:50%;" />
 
 **Prompt: Why do we need multi-level page table and how does it work?**
 

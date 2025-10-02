@@ -8,7 +8,7 @@
 
 **Prompt: Give me an introduction about IP datagram.**
 
-![Internet Protocol version 4 - Wikipedia](../../Images/1200px-IPv4_Packet-en.svg.png)
+![Internet Protocol version 4 - Wikipedia](../Images/1200px-IPv4_Packet-en.svg.png)
 
 An IP datagram is a fundamental unit of data in the Internet Protocol (IP), a core protocol of the internet and computer networking. It represents a packet of information that is used to transmit data across interconnected networks, including the internet. IP datagrams play a crucial role in routing and delivering data from a source to a destination in a network.
 

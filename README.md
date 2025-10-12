@@ -4,7 +4,7 @@
 
 Originated from Georgia Tech and Columbia University computer science courses, this repository provides a comprehensive overview of core CS knowledge. Whether you're preparing for exams, technical interviews, or seeking to understand the full landscape of computer science, this hub offers a structured view of CS fundamentals.
 
-- **License**: Apache-2.0 (see `LICENSE`)
+- **License**: CC BY 4.0 (see `LICENSE`)
 - **Contribute**: see `CONTRIBUTING.md`
 - **Status**: Actively curated (accepting contributions)
 

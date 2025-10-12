@@ -61,7 +61,7 @@ Out of scope: full problem dumps, proprietary content, AI-generated dumps withou
 
 ## Licensing
 
-This project is licensed under Apache License 2.0. By contributing, you agree your contributions will be licensed under the same terms.
+This project is licensed under Creative Commons Attribution 4.0 International (CC BY 4.0). By contributing, you agree your contributions will be licensed under the same terms.
 
 ## Getting help
 

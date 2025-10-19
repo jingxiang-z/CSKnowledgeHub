@@ -700,10 +700,12 @@ Understanding these foundational concepts is essential for studying advanced ope
 
 ## Related Topics
 
-- **[Process Management](Process%20Management.md)** - Process creation, scheduling, synchronization
-- **[Memory Management](Memory%20Management.md)** - Virtual memory, paging, segmentation
-- **[Thread Management](Thread%20Management.md)** - Concurrency, multithreading
-- **[Device Management](Device%20Management.md)** - I/O systems, device drivers
+- **[Process and Thread Management](Process%20and%20Thread.md)** - Process creation, scheduling, thread management, and synchronization
+- **[Memory Management](Memory%20Management.md)** - Virtual memory, paging, and memory allocation
+- **[Device Management](Device%20Management.md)** - I/O systems, device drivers, and file systems
+- **[Synchronization](Synchronization.md)** - Synchronization primitives and concurrent programming
+- **[Parallel System](Parallel%20System.md)** - Parallel computing and distributed systems
+- **[Virtualization](Virtualization.md)** - Virtualization techniques and virtual machines
 
 ## References
 

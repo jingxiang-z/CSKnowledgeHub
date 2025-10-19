@@ -24,10 +24,12 @@ Originated from Georgia Tech and Columbia University computer science courses, t
 
 ### Operating System
 - [Introduction](Operating%20System/Introduction.md)
-- [Process Management](Operating%20System/Process%20Management.md)
-- [Thread Management](Operating%20System/Thread%20Management.md)
+- [Process and Thread](Operating%20System/Process%20and%20Thread.md)
+- [Synchronization](Operating%20System/Synchronization.md)
 - [Memory Management](Operating%20System/Memory%20Management.md)
 - [Device Management](Operating%20System/Device%20Management.md)
+- [Parallel System](Operating%20System/Parallel%20System.md)
+- [Virtualization](Operating%20System/Virtualization.md)
 
 ### Database
 - [Introduction](Database/Introduction.md)

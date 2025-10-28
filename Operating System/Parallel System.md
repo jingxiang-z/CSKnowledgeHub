@@ -480,161 +480,32 @@ Only with minimal shared data structures can services execute truly concurrently
 
 ### Tornado OS: Clustered Objects
 
-Tornado, developed at the University of Toronto, exemplifies scalable OS design for shared memory multiprocessors.
-
-#### Clustered Object Concept
-
-**Core Idea:**
-A single object reference (logical) can have multiple physical representations (replicas or partitions).
-
-**Properties:**
-- **Single Reference:** OS components see one logical object
-- **Multiple Representations:** Underlying implementation may be replicated or partitioned
-- **Degree of Clustering:** Implementation choice (singleton, per-CPU, per-core, per-group)
-
-**Consistency:**
-Software explicitly manages consistency across replicas using protective procedure calls, avoiding reliance on hardware cache coherence.
-
-**Default:**
-When in doubt, use a single representation and rely on hardware cache coherence.
+Tornado, developed at the University of Toronto, exemplifies scalable OS design through its **clustered objects** approach: a single object reference (logical) has multiple physical representations (replicas or partitions). OS components see one logical object, but the implementation can be replicated (per-CPU, per-core) or partitioned based on access patterns. Software explicitly manages consistency across replicas, minimizing reliance on hardware cache coherence.
 
 #### Object-Oriented Memory Management
 
-Tornado decomposes memory management into clustered objects:
+Tornado decomposes memory management into a hierarchy of clustered objects. For example, during a page fault: Process Object → Region Object (address space portion) → File Cache Manager → Page Frame Manager & I/O handler. Each object can have different replication strategies: Process Objects are replicated per-CPU (mostly read-only), Region Objects are partitioned for concurrent page fault handling, and physical memory managers reduce allocation contention through partitioning.
 
-**Process Object:**
-- Equivalent to Process Control Block (PCB)
-- Shared by all threads in a process
-- Logically one, physically can be replicated (e.g., one per CPU)
-- Mostly read-only data
+#### Key Benefits
 
-**Region Object:**
-- Represents a portion of the address space
-- Replaces monolithic page table
-- Can be partitioned or replicated based on access patterns
-- Critical for concurrent page fault handling
-
-**File Cache Manager (FCM):**
-- Backs regions with file data
-- Typically uses partitioned representation
-- Independent FCMs for different files or regions
-
-**Page Frame Manager (DRAM Object):**
-- Manages physical memory allocation
-- Can have multiple representations (e.g., per memory segment)
-- Reduces contention for physical memory
-
-**Cached Object Representation (COR):**
-- Handles I/O between disk and DRAM
-- May be true singleton
-- I/O operations serialize naturally
-
-**Page Fault Workflow:**
-```
-Page Fault → Process Object → Region Object → FCM → DRAM Object & COR
-```
-
-Each object in the chain may have different replication strategies optimized for its access patterns.
-
-#### Advantages of Clustered Objects
-
-**Same Object Reference:**
-Simplifies logical design and implementation. Components use consistent interfaces.
-
-**Incremental Optimization:**
-Can start with singleton implementation and add replication based on profiling. No need to over-optimize initially.
-
-**Reduced Locking:**
-Replicas allow independent access. Less lock contention compared to single shared structure.
-
-**Optimize Common Case:**
-Frequent operations (page faults) scale well. Rare operations (region destruction) may have higher overhead but don't impact overall performance.
-
-#### Implementation Mechanism
-
-**Translation Table:**
-Maps object reference to local physical representation.
-
-**Miss Handling Table:**
-Maps object reference to appropriate miss handler when local representation doesn't exist.
-
-**Global Miss Handler:**
-Replicated on every node. Knows partitioning of miss handling table. Resolves references to remote objects and can create local replicas on demand.
-
-This dynamic resolution enables runtime optimization and load adaptation.
+- **Simplified logical design:** Components use consistent interfaces regardless of physical representation
+- **Incremental optimization:** Start with singleton, add replication based on profiling
+- **Reduced lock contention:** Replicas enable independent concurrent access
+- **Optimized common case:** Frequent operations (page faults) scale well; rare operations may have overhead but don't impact overall performance
 
 #### Non-Hierarchical Locking
 
-Traditional hierarchical locking kills concurrency by requiring locks on entire object hierarchies.
+Traditional hierarchical locking (lock entire object chain: Process → Region → FCM → I/O) prevents concurrent page faults in different regions. Tornado uses **reference counting** instead: increment ref_count on access, decrement after operation. This prevents object destruction during use but doesn't block concurrent access by other threads, enabling parallel operations on different regions with locks scoped to individual objects only.
 
-**Problem with Hierarchical Locking:**
-To handle a page fault:
-- Lock Process Object
-- Lock Region Object
-- Lock FCM
-- Lock COR
+#### Additional Optimizations
 
-This prevents concurrent page faults in different regions of the same process.
+**Software-Managed Consistency:** Updates propagated selectively to relevant replicas only (not broadcast like hardware cache coherence), reducing unnecessary coherence traffic.
 
-**Tornado's Solution: Reference Counting**
+**NUMA-Aware Allocation:** Heap space partitioned and allocated from local physical memory, reducing central allocator contention and minimizing remote memory accesses.
 
-Instead of hierarchical locks, Tornado uses reference counts for existence guarantees:
+#### Inter-Process Communication
 
-```
-Access Object:
-    increment ref_count
-    perform operation
-    decrement ref_count
-```
-
-**Properties:**
-- Object cannot be destroyed while ref_count > 0
-- Prevents destruction or migration during use
-- Does not prevent concurrent access by other threads
-- Locking encapsulated within individual objects
-
-**Benefits:**
-- Parallel operations on different regions
-- Lock scope reduced to individual object
-- Much higher concurrency
-
-#### Software-Managed Consistency
-
-When replicas exist, OS maintains consistency through protective procedure calls:
-
-- Updates propagated to relevant replicas
-- Selective consistency (unlike hardware cache coherence)
-- Application-specific consistency semantics
-- Reduces unnecessary coherence traffic
-
-#### Dynamic Memory Allocation
-
-Heap space is partitioned and allocated from physical memory local to executing threads:
-
-- NUMA-aware allocation
-- Reduces contention on central allocator
-- Minimizes false sharing
-- Memory close to accessing processors
-
-#### Inter-Process Communication (IPC)
-
-**Object Calls:**
-Objects communicate via protective procedure calls.
-
-**Local IPC (Same Processor):**
-Uses handoff scheduling similar to Lightweight RPC:
-- No context switch required
-- Direct thread handoff
-- Efficient domain crossing
-
-**Remote IPC (Different Processors):**
-Full context switch required:
-- Message sent to remote processor
-- Target thread scheduled
-- Reply message sent back
-
-**Replica Management:**
-IPC mechanisms also maintain consistency among object replicas.
+Objects communicate via protective procedure calls. Local IPC (same processor) uses handoff scheduling without context switching; remote IPC (different processors) requires full context switches. IPC mechanisms also maintain consistency among object replicas.
 
 ### Alternative Approaches
 

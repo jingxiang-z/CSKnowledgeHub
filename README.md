@@ -18,18 +18,21 @@ Originated from Georgia Tech and Columbia University computer science courses, t
 - [Design](Data%20Structure%20&%20Algorithm/Design.md)
 
 ### Computer Architecture
-- [Introduction](Computer%20Architecture/Introduction.md)
-- [Processor](Computer%20Architecture/Processor.md)
-- [Memory](Computer%20Architecture/Memory.md)
+- [01-Fundamentals](Computer%20Architecture/01-Fundamentals.md)
+- [02-Processor-Design](Computer%20Architecture/02-Processor-Design.md)
+- [03-Memory-Systems](Computer%20Architecture/03-Memory-Systems.md)
+- [04-Storage-Systems](Computer%20Architecture/04-Storage-Systems.md)
+- [05-GPU-Architecture](Computer%20Architecture/05-GPU-Architecture.md)
+- [06-GPU-Programming](Computer%20Architecture/06-GPU-Programming.md)
 
 ### Operating System
-- [Introduction](Operating%20System/Introduction.md)
-- [Process and Thread](Operating%20System/Process%20and%20Thread.md)
-- [Synchronization](Operating%20System/Synchronization.md)
-- [Memory Management](Operating%20System/Memory%20Management.md)
-- [Device Management](Operating%20System/Device%20Management.md)
-- [Parallel System](Operating%20System/Parallel%20System.md)
-- [Virtualization](Operating%20System/Virtualization.md)
+- [01-Introduction](Operating%20System/01-Introduction.md)
+- [02-Process-and-Thread](Operating%20System/02-Process-and-Thread.md)
+- [03-Synchronization](Operating%20System/03-Synchronization.md)
+- [04-Memory-Management](Operating%20System/04-Memory-Management.md)
+- [05-Device-Management](Operating%20System/05-Device-Management.md)
+- [06-Parallel-System](Operating%20System/06-Parallel-System.md)
+- [07-Virtualization](Operating%20System/07-Virtualization.md)
 
 ### Database
 - [Introduction](Database/Introduction.md)

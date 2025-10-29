@@ -1,4 +1,4 @@
-# Parallel Systems
+# 06 Parallel Systems
 
 ## Table of Contents
 
@@ -552,17 +552,10 @@ Thin virtualization layer (VMM) between guest OS and host OS:
 - VMM manages multiprocessor resources efficiently
 - Enables OS heterogeneity on parallel hardware
 
-## Related Topics
-
-- **[Synchronization](Synchronization.md)** - Comprehensive coverage of synchronization primitives and algorithms
-- **[Process and Thread](Process%20and%20Thread.md)** - Process and thread fundamentals, scheduling, and IPC
-- **[Memory Management](Memory%20Management.md)** - Virtual memory, page tables, and memory hierarchies
-- **[Introduction](Introduction.md)** - Operating system architectures and design principles
-
 ## References
 
 **Course Materials:**
-- cs6210: Advanced Operating Systems - Georgia Tech OMSCS
+- CS 6210: Advanced Operating Systems - Georgia Tech OMSCS
 
 **Foundational Papers:**
 

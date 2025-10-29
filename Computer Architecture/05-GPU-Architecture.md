@@ -1,4 +1,4 @@
-# GPU Architecture
+# 05 GPU Architecture
 
 ## Table of Contents
 1. [Overview](#overview)

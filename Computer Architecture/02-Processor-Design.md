@@ -1,4 +1,4 @@
-# CPU Processor Design
+# 02 CPU Processor Design
 
 ## Table of Contents
 1. [Introduction](#introduction)
@@ -40,25 +40,25 @@ The typical workflow for designing a processor includes:
 
 Different processor designs represent trade-offs between complexity, performance, and power consumption.
 
-### 1. Single-Cycle Processors
+### Single-Cycle Processors
 
 - **Characteristics**: Each instruction is executed in a single clock cycle
 - **Advantages**: Simple design, easy to understand
 - **Disadvantages**: Long clock cycle to accommodate the slowest instruction, poor resource utilization
 
-### 2. Multi-Cycle Processors
+### Multi-Cycle Processors
 
 - **Characteristics**: Instructions are broken down into multiple stages, with each stage executed in a separate clock cycle
 - **Advantages**: Shorter clock cycle, better resource sharing
 - **Disadvantages**: Increased complexity in control unit, still sequential execution
 
-### 3. Pipelined Processors
+### Pipelined Processors
 
 - **Characteristics**: Instructions are divided into stages, and multiple instructions are overlapped in execution
 - **Advantages**: Significantly improved throughput, better resource utilization
 - **Disadvantages**: Requires handling pipeline hazards, increased complexity
 
-### 4. Superscalar Processors
+### Superscalar Processors
 
 - **Characteristics**: Capable of executing multiple instructions simultaneously by having multiple execution units
 - **Types**:
@@ -67,7 +67,7 @@ Different processor designs represent trade-offs between complexity, performance
 - **Advantages**: High performance on general-purpose code
 - **Disadvantages**: Very complex hardware, high power consumption
 
-### 5. VLIW Processors
+### VLIW Processors
 
 - **Characteristics**: Compiler statically schedules multiple operations into long instruction words
 - **Advantages**: Simpler hardware, energy efficient
@@ -134,7 +134,7 @@ Occur due to the pipeline's inability to accurately predict changes in instructi
 
 ### Hazard Resolution Techniques
 
-#### 1. Pipeline Stalls (Bubbles)
+#### Pipeline Stalls (Bubbles)
 
 Temporarily halt the pipeline to resolve hazards by inserting NOPs:
 ```
@@ -145,7 +145,7 @@ SUB R4, R1, R5   # Now R1 is ready
 ```
 - **Impact**: Reduces throughput, increases CPI
 
-#### 2. Forwarding (Bypassing)
+#### Forwarding (Bypassing)
 
 Pass the result of a previous instruction directly to a subsequent instruction without waiting for writeback:
 ```
@@ -157,7 +157,7 @@ SUB:             [IF] [ID] [EX] [MEM] [WB]
 - **Benefit**: Eliminates many stalls
 - **Limitation**: Cannot eliminate all hazards (e.g., load-use hazard still requires one stall)
 
-#### 3. Compiler Reordering
+#### Compiler Reordering
 
 The compiler can reorder independent instructions to avoid hazards:
 ```
@@ -171,7 +171,7 @@ SUB R5, R6, R7   # Independent instruction fills the delay slot
 ADD R3, R1, R4   # Now R1 is ready
 ```
 
-#### 4. Branch Prediction
+#### Branch Prediction
 
 Predict branch outcomes to avoid stalling the pipeline (covered in detail below).
 
@@ -516,7 +516,7 @@ OOO execution extends to memory operations through the Load/Store Queue (LSQ).
 
 Compilers play a vital role in exposing ILP for hardware to exploit.
 
-### 1. Instruction Scheduling
+### Instruction Scheduling
 
 Reorder instructions to separate dependent instructions and fill pipeline stalls:
 
@@ -533,7 +533,7 @@ ADD R3, R1, R4    # R1 now ready
 
 May require changing register destinations or address offsets to maintain correctness.
 
-### 2. Loop Unrolling
+### Loop Unrolling
 
 Replicate the loop body to perform multiple iterations' work in a single iteration:
 
@@ -560,7 +560,7 @@ for (i = 0; i < 100; i += 4) {
 - Code bloat
 - Requires handling remainder iterations
 
-### 3. Function Inlining
+### Function Inlining
 
 Replace function call with the function body:
 
@@ -582,7 +582,7 @@ int result = 5 * 5;
 - Significant code bloat if applied to large functions
 - Increased instruction cache pressure
 
-### 4. Tree Height Reduction
+### Tree Height Reduction
 
 Restructure associative operations to reduce critical path length:
 
@@ -758,15 +758,4 @@ Each core has private memory; communication via explicit messages over a network
 
 ## References
 
-This document synthesizes processor design principles from:
-
-- **Georgia Institute of Technology** - OMSCS CS 6200 and CS 6210 graduate courses
-- **Columbia University** - Graduate Computer Science courses
-- Hennessy, J. L., & Patterson, D. A. (2017). *Computer Architecture: A Quantitative Approach* (6th ed.). Morgan Kaufmann
-- Smith, J. E., & Sohi, G. S. (1995). "The Microarchitecture of Superscalar Processors." *Proceedings of the IEEE*, 83(12), 1609-1624
-- Tomasulo, R. M. (1967). "An Efficient Algorithm for Exploiting Multiple Arithmetic Units." *IBM Journal of Research and Development*, 11(1), 25-33
-
-For related topics, see:
-- [01-Fundamentals.md](01-Fundamentals.md) - Basic architecture and ISA concepts
-- [03-Memory-Systems.md](03-Memory-Systems.md) - Cache design and memory hierarchy
-- [05-GPU-Architecture.md](05-GPU-Architecture.md) - GPU design and SIMT execution
+- CS 6290: High Performance Computer Architecture: Georgia Tech OMSCS

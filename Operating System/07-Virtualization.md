@@ -1,4 +1,4 @@
-# Virtualization
+# 07 Virtualization
 
 ## Table of Contents
 
@@ -419,16 +419,10 @@ Modern processor chips from both Intel and AMD include virtualization support in
 
 Para-virtualized systems like Xen now exploit these hardware features to support unmodified operating systems through hardware-assisted virtualization, combining the benefits of both approaches.
 
-## Related Topics
-
-- **[Process and Thread](Process%20and%20Thread.md)** - Process and thread management, scheduling, and context switching
-- **[Memory Management](Memory%20Management.md)** - Virtual memory and paging mechanisms
-- **[Device Management](Device%20Management.md)** - I/O subsystem architecture
-
 ## References
 
 **Course Materials:**
-- Advanced Operating Systems - Georgia Tech OMSCS
+- CS 6210: Advanced Operating Systems - Georgia Tech OMSCS
 
 **Foundational Systems:**
 - IBM VM/370 - Pioneering virtualization system (1960s-70s)

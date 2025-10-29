@@ -1,4 +1,4 @@
-# CPU Memory Systems
+# 03 CPU Memory Systems
 
 ## Table of Contents
 1. [Introduction](#introduction)
@@ -80,7 +80,7 @@ Memory Address (e.g., 64-bit):
 
 ### Cache Organization Types
 
-#### 1. Direct-Mapped Cache
+#### Direct-Mapped Cache
 
 Each memory block maps to exactly one cache line.
 
@@ -105,7 +105,7 @@ Memory block 0x1234 can ONLY go to line 73
 - High conflict miss rate
 - Poor utilization if addresses map to same line
 
-#### 2. Fully Associative Cache
+#### Fully Associative Cache
 
 Any memory block can be placed in any cache line.
 
@@ -124,7 +124,7 @@ Any memory block can be placed in any cache line.
 
 **Use Case**: TLBs (small, fully associative)
 
-#### 3. N-Way Set-Associative Cache
+#### N-Way Set-Associative Cache
 
 A compromise between direct-mapped and fully associative. Cache is divided into sets, and each memory block can map to any line within its designated set.
 
@@ -267,15 +267,15 @@ Modern processors employ sophisticated techniques to optimize the three componen
 
 ### Reducing Hit Time
 
-#### 1. Smaller, Faster L1 Caches
+#### Smaller, Faster L1 Caches
 
 Keep L1 small (32-64 KB) to minimize access latency. Use L2/L3 for capacity.
 
-#### 2. Pipelined Cache Access
+#### Pipelined Cache Access
 
 Break cache access into multiple pipeline stages to achieve higher clock frequencies, though it increases latency in cycles.
 
-#### 3. Virtually Indexed, Physically Tagged (VIPT) Caches
+#### Virtually Indexed, Physically Tagged (VIPT) Caches
 
 Use virtual address bits for Index (fast) and physical address bits for Tag (correct).
 
@@ -288,7 +288,7 @@ For 4 KB pages: 4-way set-associative cache can be up to 16 KB.
 
 **Benefit**: TLB lookup and cache index can happen in parallel, reducing hit time.
 
-#### 4. Way Prediction
+#### Way Prediction
 
 In set-associative caches, predict which way will hit to reduce latency:
 - Access predicted way first
@@ -297,11 +297,11 @@ In set-associative caches, predict which way will hit to reduce latency:
 
 ### Reducing Miss Rate
 
-#### 1. Larger Cache Size
+#### Larger Cache Size
 
 More capacity reduces capacity misses but increases hit time and cost.
 
-#### 2. Higher Associativity
+#### Higher Associativity
 
 Reduces conflict misses:
 - Direct-mapped → 2-way: ~50% miss rate reduction
@@ -309,13 +309,13 @@ Reduces conflict misses:
 - 4-way → 8-way: ~10% miss rate reduction
 - Diminishing returns beyond 8-way
 
-#### 3. Larger Block Size
+#### Larger Block Size
 
 Exploits spatial locality better:
 - Typical: 64-byte blocks
 - **Trade-off**: Too large increases miss penalty and can cause cache pollution
 
-#### 4. Prefetching
+#### Prefetching
 
 Fetch data into cache before it's explicitly requested.
 
@@ -336,7 +336,7 @@ Fetch data into cache before it's explicitly requested.
 
 **Challenges**: Must balance prefetch aggressiveness vs. bandwidth waste and cache pollution.
 
-#### 5. Compiler Optimizations
+#### Compiler Optimizations
 
 **Loop Interchange**: Reorder nested loops to improve spatial locality:
 ```c
@@ -365,7 +365,7 @@ for (ii = 0; ii < N; ii += BLOCK_SIZE)
 
 ### Reducing Miss Penalty
 
-#### 1. Multi-Level Caches
+#### Multi-Level Caches
 
 Create a hierarchy (L1, L2, L3) where misses in faster caches are served by slower ones before going to main memory.
 
@@ -375,7 +375,7 @@ Create a hierarchy (L1, L2, L3) where misses in faster caches are served by slow
 - L3: 8-32 MB, 16-way, 40 cycles
 - Main Memory: GB-scale, 200+ cycles
 
-#### 2. Non-Blocking Caches
+#### Non-Blocking Caches
 
 Allow cache to continue serving hits while handling outstanding misses.
 
@@ -388,13 +388,13 @@ Allow cache to continue serving hits while handling outstanding misses.
 - Each MSHR tracks one outstanding miss
 - Subsequent accesses to same block wait on that MSHR (don't generate duplicate requests)
 
-#### 3. Critical Word First
+#### Critical Word First
 
 When fetching a cache line, send the requested word first:
 - Processor can resume while rest of line loads
 - Reduces effective miss penalty by ~50% for large blocks
 
-#### 4. Early Restart
+#### Early Restart
 
 As soon as requested word arrives, forward it to processor before entire line is loaded.
 
@@ -805,15 +805,4 @@ void barrier(barrier_t *b) {
 
 ## References
 
-This document synthesizes memory system design principles from:
-
-- **Georgia Institute of Technology** - OMSCS CS 6200 and CS 6210 graduate courses
-- **Columbia University** - Graduate Computer Science courses
-- Hennessy, J. L., & Patterson, D. A. (2017). *Computer Architecture: A Quantitative Approach* (6th ed.). Morgan Kaufmann
-- Culler, D. E., Singh, J. P., & Gupta, A. (1998). *Parallel Computer Architecture: A Hardware/Software Approach*. Morgan Kaufmann
-- Sorin, D. J., Hill, M. D., & Wood, D. A. (2011). *A Primer on Memory Consistency and Cache Coherence*. Morgan & Claypool Publishers
-
-For related topics, see:
-- [01-Fundamentals.md](01-Fundamentals.md) - Basic architecture and performance
-- [02-Processor-Design.md](02-Processor-Design.md) - Pipeline and out-of-order execution
-- [04-Storage-Systems.md](04-Storage-Systems.md) - Secondary storage and RAID systems
+- CS 6290: High Performance Computer Architecture: Georgia Tech OMSCS

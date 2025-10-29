@@ -1,4 +1,4 @@
-# Process and Thread Management
+# 02 Process and Thread Management
 
 ## Table of Contents
 
@@ -1282,13 +1282,6 @@ Thread performance metrics evaluate efficiency, effectiveness, and scalability o
 - **Multiprocessing:** CPU-intensive tasks, strong isolation needed, true parallelism
 - **Event-Driven:** High concurrency I/O operations, network services, low latency
 
-## Related Topics
-
-- **[Synchronization](Synchronization.md)** - Comprehensive coverage of synchronization primitives and algorithms
-- **[Parallel System](Parallel%20System.md)** - Parallel architectures, cache coherence, and scalable OS design
-- **[Memory Management](Memory%20Management.md)** - Virtual memory, paging, and memory allocation
-- **[Introduction](Introduction.md)** - Operating system fundamentals and architectures
-
 ## References
 
 **Course Materials:**
@@ -1297,5 +1290,3 @@ Thread performance metrics evaluate efficiency, effectiveness, and scalability o
 **Textbooks:**
 
 - Arpaci-Dusseau and Arpaci-Dusseau, *Operating Systems: Three Easy Pieces*
-
-*Part of [CSKnowledgeHub](../README.md)*

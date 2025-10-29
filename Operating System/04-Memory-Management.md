@@ -1,4 +1,4 @@
-# Memory Management
+# 04 Memory Management
 
 ## Table of Contents
 
@@ -340,13 +340,6 @@ The choice of memory allocation algorithm depends on several factors:
 - **Overhead**: Metadata and bookkeeping costs
 - **Predictability**: Deterministic vs. best-effort allocation
 
-## Related Topics
-
-- **[Process and Thread Management](Process%20and%20Thread.md)** - Process creation, scheduling, and thread management
-- **[Introduction](Introduction.md)** - Operating system fundamentals and architectures
-- **[Device Management](Device%20Management.md)** - I/O systems and file systems
-- **[Virtualization](Virtualization.md)** - Virtual memory and virtualization techniques
-
 ## References
 
 **Course Materials:**
@@ -354,5 +347,3 @@ The choice of memory allocation algorithm depends on several factors:
 
 **Textbooks:**
 - Arpaci-Dusseau and Arpaci-Dusseau, *Operating Systems: Three Easy Pieces*
-
-*Part of [CSKnowledgeHub](../README.md)*

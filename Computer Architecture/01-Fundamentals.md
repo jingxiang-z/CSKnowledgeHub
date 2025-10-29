@@ -1,4 +1,4 @@
-# CPU Fundamentals
+# 01 CPU Fundamentals
 
 ## Table of Contents
 1. [Introduction](#introduction)
@@ -85,7 +85,7 @@ The **Instruction Set Architecture (ISA)** is the abstract interface between har
 
 ### ISA Components
 
-#### 1. Instructions
+#### Instructions
 
 - **Operation Codes (Opcodes)**: The portion of a machine language instruction that specifies the operation to be performed.
 
@@ -95,16 +95,16 @@ The **Instruction Set Architecture (ISA)** is the abstract interface between har
   - **Control Flow Instructions**: Change the sequence of instruction execution (e.g., JUMP, CALL, RETURN, BRANCH)
   - **Special Instructions**: Specific to the architecture, such as system calls and no-operation (NOP)
 
-#### 2. Data Types
+#### Data Types
 
 Defines the types of data the ISA can handle, such as integer, floating-point, character, and more complex types like vectors and matrices.
 
-#### 3. Registers
+#### Registers
 
 - **General Purpose Registers (GPRs)**: Used for a wide variety of operations
 - **Special Purpose Registers**: Used for specific functions like the Program Counter (PC), Stack Pointer (SP), and Status Register
 
-#### 4. Addressing Modes
+#### Addressing Modes
 
 Methods to specify operands for instructions:
 
@@ -114,15 +114,15 @@ Methods to specify operands for instructions:
 - **Register**: Operand is located in a register
 - **Indexed**: Effective address is computed by adding an index to a base address
 
-#### 5. Memory Architecture
+#### Memory Architecture
 
 Defines the memory model, including address space, data alignment, and the relationship between main memory and cache.
 
-#### 6. Interrupt and Exception Handling
+#### Interrupt and Exception Handling
 
 Mechanisms for handling unexpected events or conditions, such as hardware interrupts or software exceptions.
 
-#### 7. External I/O
+#### External I/O
 
 Methods for the processor to communicate with external devices, often involving specific instructions for input and output operations.
 
@@ -130,7 +130,7 @@ Methods for the processor to communicate with external devices, often involving 
 
 Different architectural philosophies lead to different ISA designs:
 
-#### 1. CISC (Complex Instruction Set Computing)
+#### CISC (Complex Instruction Set Computing)
 
 - **Characteristics**: Large number of complex instructions that can perform multiple operations
 - **Example**: x86 architecture
@@ -143,7 +143,7 @@ Different architectural philosophies lead to different ISA designs:
   - Can limit clock speed and increase power consumption
   - Variable instruction length complicates pipelining
 
-#### 2. RISC (Reduced Instruction Set Computing)
+#### RISC (Reduced Instruction Set Computing)
 
 - **Characteristics**: Small, highly optimized set of simple instructions
 - **Example**: ARM, MIPS architecture
@@ -157,7 +157,7 @@ Different architectural philosophies lead to different ISA designs:
   - Places greater demands on the compiler
   - Higher memory bandwidth requirements
 
-#### 3. VLIW (Very Long Instruction Word)
+#### VLIW (Very Long Instruction Word)
 
 - **Characteristics**: Encodes multiple operations in a single, long instruction word
 - **Example**: Itanium architecture, DSP processors
@@ -170,7 +170,7 @@ Different architectural philosophies lead to different ISA designs:
   - Code bloat due to NOPs
   - Potential inefficiency in handling variable instruction latencies
 
-#### 4. EPIC (Explicitly Parallel Instruction Computing)
+#### EPIC (Explicitly Parallel Instruction Computing)
 
 - **Characteristics**: Similar to VLIW but with additional features to manage parallelism and dependencies
 - **Example**: Intel Itanium
@@ -406,9 +406,4 @@ $$
 
 ## References
 
-This document synthesizes fundamental concepts in computer architecture from:
-
-- **Georgia Institute of Technology** - OMSCS CS 6200 and CS 6210 graduate courses
-- **Columbia University** - Graduate Computer Science courses
-- Patterson, D. A., & Hennessy, J. L. (2017). *Computer Organization and Design: The Hardware/Software Interface* (5th ed.). Morgan Kaufmann
-- Hennessy, J. L., & Patterson, D. A. (2017). *Computer Architecture: A Quantitative Approach* (6th ed.). Morgan Kaufmann
+- CS 6290: High Performance Computer Architecture: Georgia Tech OMSCS

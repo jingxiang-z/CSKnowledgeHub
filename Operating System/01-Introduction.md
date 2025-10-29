@@ -1,4 +1,4 @@
-# Operating System - Introduction
+# 01 Operating System Introduction
 
 ## Table of Contents
 
@@ -698,15 +698,6 @@ Operating systems manage computer resources and provide abstractions that make s
 
 Understanding these foundational concepts is essential for studying advanced operating system topics including process management, memory management, thread management, and device management.
 
-## Related Topics
-
-- **[Process and Thread Management](Process%20and%20Thread.md)** - Process creation, scheduling, thread management, and synchronization
-- **[Memory Management](Memory%20Management.md)** - Virtual memory, paging, and memory allocation
-- **[Device Management](Device%20Management.md)** - I/O systems, device drivers, and file systems
-- **[Synchronization](Synchronization.md)** - Synchronization primitives and concurrent programming
-- **[Parallel System](Parallel%20System.md)** - Parallel computing and distributed systems
-- **[Virtualization](Virtualization.md)** - Virtualization techniques and virtual machines
-
 ## References
 
 **Course Materials:**
@@ -720,5 +711,3 @@ Understanding these foundational concepts is essential for studying advanced ope
 
 **Textbooks:**
 - Arpaci-Dusseau and Arpaci-Dusseau, *Operating Systems: Three Easy Pieces*
-
-*Part of [CSKnowledgeHub](../README.md)*

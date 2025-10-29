@@ -1,4 +1,4 @@
-# Storage and I/O Systems
+# 04 Storage and I/O Systems
 
 ## Table of Contents
 1. [Introduction](#introduction)
@@ -186,7 +186,7 @@ I/O systems manage communication between the CPU and external devices.
 
 ### I/O Communication Methods
 
-#### 1. Programmed I/O (Polling)
+#### Programmed I/O (Polling)
 
 CPU repeatedly checks device status:
 ```c
@@ -198,7 +198,7 @@ read_data_from_device();
 **Pros**: Simple
 **Cons**: Wastes CPU cycles
 
-#### 2. Interrupt-Driven I/O
+#### Interrupt-Driven I/O
 
 Device signals CPU via interrupt when ready:
 ```
@@ -211,7 +211,7 @@ Device signals CPU via interrupt when ready:
 **Pros**: CPU free during I/O
 **Cons**: Interrupt overhead, still requires CPU for data transfer
 
-#### 3. Direct Memory Access (DMA)
+#### Direct Memory Access (DMA)
 
 Dedicated hardware transfers data directly between device and memory:
 ```
@@ -532,15 +532,4 @@ Used extensively in memory systems:
 
 ## References
 
-This document synthesizes storage and I/O system principles from:
-
-- **Georgia Institute of Technology** - OMSCS CS 6200 and CS 6210 graduate courses
-- **Columbia University** - Graduate Computer Science courses
-- Patterson, D. A., Gibson, G., & Katz, R. H. (1988). "A Case for Redundant Arrays of Inexpensive Disks (RAID)." *ACM SIGMOD Record*, 17(3), 109-116
-- Hennessy, J. L., & Patterson, D. A. (2017). *Computer Architecture: A Quantitative Approach* (6th ed.). Morgan Kaufmann
-
-For related topics, see:
-- [01-Fundamentals.md](01-Fundamentals.md) - Performance metrics and system overview
-- [03-Memory-Systems.md](03-Memory-Systems.md) - Memory hierarchy and caching
-- [../Database/](../Database/) - Database storage and indexing systems
-- [../Operating System/](../Operating%20System/) - File systems and I/O management
+- CS 6290: High Performance Computer Architecture: Georgia Tech OMSCS

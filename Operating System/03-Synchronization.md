@@ -1,4 +1,4 @@
-# Synchronization
+# 03 Synchronization
 
 ## Table of Contents
 
@@ -1171,12 +1171,6 @@ void* philosopher(void* arg) {
     return NULL;
 }
 ```
-
-## Related Topics
-
-- **[Process and Thread](Process%20and%20Thread.md)** - Process and thread fundamentals, lifecycle, and scheduling
-- **[Parallel System](Parallel%20System.md)** - Parallel architectures, cache coherence, and scalable OS design
-- **[Memory Management](Memory%20Management.md)** - Virtual memory and memory consistency
 
 ## References
 

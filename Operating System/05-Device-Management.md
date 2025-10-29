@@ -1,4 +1,4 @@
-# Device Management
+# 05 Device Management
 
 ## Table of Contents
 
@@ -309,13 +309,6 @@ Efficient I/O system management is critical for overall system performance and r
 
 I/O system management continues to evolve to support an ever-expanding range of devices and data communication needs in modern computing environments.
 
-## Related Topics
-
-- **[Memory Management](Memory%20Management.md)** - Virtual memory, paging, and memory allocation
-- **[Process and Thread Management](Process%20and%20Thread.md)** - Process creation, scheduling, and thread management
-- **[Introduction](Introduction.md)** - Operating system fundamentals and architectures
-- **[Virtualization](Virtualization.md)** - Virtualization techniques and virtual I/O devices
-
 ## References
 
 **Course Materials:**
@@ -324,5 +317,3 @@ I/O system management continues to evolve to support an ever-expanding range of 
 
 **Textbooks:**
 - Arpaci-Dusseau and Arpaci-Dusseau, *Operating Systems: Three Easy Pieces*
-
-*Part of [CSKnowledgeHub](../README.md)*

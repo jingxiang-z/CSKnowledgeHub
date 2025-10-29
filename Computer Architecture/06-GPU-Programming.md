@@ -1,4 +1,4 @@
-# GPU Programming with CUDA
+# 06 GPU Programming
 
 ## Table of Contents
 1. [Overview](#overview)

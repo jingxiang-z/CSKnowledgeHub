@@ -68,44 +68,15 @@ Originated from Georgia Tech and Columbia University computer science courses, t
 - [Statistical Inference](Statistics/Stats%20Inference.md)
 - [Statistical Modelling](Statistics/Stats%20Modelling.md)
 
-## How to use this hub
+## Contributing
 
-**Get the Full Picture:**  
-Start by exploring the [Topics](#topics) section to understand the breadth of computer science fundamentals. See how algorithms connect to systems, how databases relate to distributed computing, and how ML builds on statistics.
-
-**Targeted Study:**
-- **Exam prep**: Skim each page's top summary for key definitions, formulas, and common pitfalls
-- **Interview prep**: Use diagrams and worked examples to explain concepts clearly and confidently
-- **Knowledge gaps**: Jump to specific topics to fill in missing pieces of your CS foundation
-- **Big picture**: Browse multiple topics to understand how different areas of CS interconnect
-
-## What this hub is not
-
-- **Not a LeetCode problem dump** - This is a fundamentals knowledge base, not a coding practice site
-- **Not a textbook replacement** - Think of it as structured notes and a roadmap; we cite sources for deeper learning
-- **Not framework/tool tutorials** - Focus is on timeless CS fundamentals, not specific technologies
-- **Not a copy-paste resource** - We emphasize understanding concepts and their connections
-
-## Call for contributions
-
-We welcome contributions from the community to help improve this knowledge hub:
-
-- **Error correction**: Fix typos, inaccuracies, or outdated information
-- **New knowledge sharing**: Add new topics or expand coverage of existing areas
-- **Improve existing content**: Enhance explanations, add examples, or clarify complex concepts
-- **Add diagrams**: Create or improve visual representations for better understanding
-- **Add summaries**: Contribute concise summaries to existing pages
-- **Share resources**: Suggest high-quality learning materials and references
-
-Please review our [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines. To suggest improvements or report issues, please open a GitHub issue or submit a pull request.
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## Acknowledgments
 
-This repository originated from coursework and materials from:
+This repository originated from graduate computer science courses at:
 
-- **Georgia Institute of Technology** - Graduate Computer Science courses
-- **Columbia University** - Graduate Computer Science courses
+- **Georgia Institute of Technology** (OMSCS)
+- **Columbia University**
 
-We are deeply grateful to the faculty, teaching assistants, and course designers at both institutions whose excellent teaching formed the foundation of this knowledge base. This repository represents a synthesis, reorganization, and expansion of those materials to help learners grasp the full structure of computer science fundamentals.
-
-Additional contributions from the open-source community continue to enhance and expand this knowledge hub.
+Special thanks to the faculty and course designers whose materials formed the foundation of this knowledge base.

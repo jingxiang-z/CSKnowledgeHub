@@ -92,7 +92,7 @@ We welcome contributions from the community to help improve this knowledge hub:
 - **Add summaries**: Contribute concise summaries to existing pages
 - **Share resources**: Suggest high-quality learning materials and references
 
-Please review our [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines, and feel free to file content requests or report issues via our [issue templates](.github/ISSUE_TEMPLATE/).
+Please review our [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines. To suggest improvements or report issues, please open a GitHub issue or submit a pull request.
 
 ## Acknowledgments
 

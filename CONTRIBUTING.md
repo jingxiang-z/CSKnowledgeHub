@@ -4,9 +4,9 @@ Thank you for helping improve this **Computer Science Fundamentals Knowledge Hub
 
 ## About This Repository
 
-CSKnowledgeHub originated from **Georgia Tech** and **Columbia University** computer science courses. Our mission is to provide learners with a **comprehensive view of CS fundamentals**—helping them understand not just individual topics, but the overall structure and interconnections within computer science.
+CSKnowledgeHub originated from **Georgia Tech** and **Columbia University** computer science courses. The goal is to provide a comprehensive reference for CS fundamentals, helping learners understand not just individual topics but the overall structure and interconnections within computer science.
 
-We welcome contributions that enhance, correct, or expand upon this foundation while maintaining academic integrity, clarity, and proper attribution.
+Contributions that enhance, correct, or expand upon this foundation while maintaining academic integrity, clarity, and proper attribution are welcome.
 
 ## Scope
 
@@ -36,20 +36,20 @@ Out of scope: full problem dumps, proprietary content, AI-generated dumps withou
 3. Add topic files with clear names (e.g., `Transport Layer.md`).
 4. Update the root `README.md` to include your new topic section.
 
-## Git workflow
+## Contribution Workflow
 
 1. **Fork the repository** to your own GitHub account.
 2. **Clone your fork** locally: `git clone https://github.com/YOUR_USERNAME/CSKnowledgeHub.git`
 3. **Create a feature branch** from `master`: `git checkout -b feature/your-topic-name`
-4. **Make your changes** following the content and style guidelines above.
+4. **Make your changes** following the content and style guidelines.
 5. **Commit your changes** with clear, descriptive commit messages.
 6. **Push to your fork**: `git push origin feature/your-topic-name`
 7. **Open a Pull Request** from your fork to the main repository.
-   - Reference any related issues (e.g., "Closes #123")
-   - Fill in the PR template checklist
-   - Ensure your changes pass basic quality checks (markdown formatting, working links)
+   - Provide a clear description of your changes
+   - Reference any related issues if applicable
+   - Ensure markdown formatting is correct and all links work
 
-**Note:** For significant content additions, consider opening an issue first (Content Request) to discuss scope and approach.
+**Note:** For significant content additions or major restructuring, consider opening an issue first to discuss scope and approach.
 
 ## Writing guidelines
 
@@ -63,6 +63,6 @@ Out of scope: full problem dumps, proprietary content, AI-generated dumps withou
 
 This project is licensed under Creative Commons Attribution 4.0 International (CC BY 4.0). By contributing, you agree your contributions will be licensed under the same terms.
 
-## Getting help
+## Questions or Suggestions
 
-Open a Discussion or a Content Request issue if you're unsure about scope or structure.
+If you're unsure about scope, structure, or have suggestions for improvements, please open a GitHub issue to discuss.

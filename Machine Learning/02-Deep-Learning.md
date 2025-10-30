@@ -1,6 +1,42 @@
-# Deep Learning
+# 02 Deep Learning
 
-## Concept
+## Table of Contents
+
+- [Overview](#overview)
+- [Fundamental Concepts](#fundamental-concepts)
+- [Artificial Neural Networks](#artificial-neural-networks)
+- [Practical Aspects of Deep Learning](#practical-aspects-of-deep-learning)
+- [Regularization Techniques](#regularization-techniques)
+- [Machine Learning Strategy](#machine-learning-strategy)
+- [Convolutional Neural Networks](#convolutional-neural-networks)
+- [Object Detection](#object-detection)
+- [Special Applications](#special-applications)
+- [Recurrent Neural Networks](#recurrent-neural-networks)
+- [Sequence Models](#sequence-models)
+- [Generative Models](#generative-models)
+- [References](#references)
+
+## Overview
+
+Deep learning is a subset of machine learning based on artificial neural networks with multiple layers. These deep architectures learn hierarchical representations of data, enabling breakthroughs in computer vision, natural language processing, speech recognition, and many other domains.
+
+### Factors Driving Deep Learning Success
+
+Deep learning's recent success is attributed to three primary factors:
+
+**Data:**
+
+The proliferation of digital devices and the internet has led to an explosion in available data. The performance of deep learning models, especially large ones, scales significantly with the amount of training data, often surpassing traditional machine learning algorithms on massive datasets.
+
+**Computation:**
+
+The development of powerful GPUs, which are highly effective at parallel computation, has made it feasible to train large networks that were previously computationally intractable. Vectorization—replacing explicit loops with matrix operations—is critical for leveraging hardware efficiency.
+
+**Algorithms:**
+
+Innovations in algorithms have been critical. For instance, the switch from sigmoid to the Rectified Linear Unit (ReLU) activation function significantly accelerated training by mitigating the vanishing gradient problem. ReLU helps with faster convergence and is computationally efficient.
+
+## Fundamental Concepts
 
 - **Neural Networks**: At the core of deep learning are artificial neural networks, which consist of neurons (nodes) arranged in layers. A typical network comprises an input layer, multiple hidden layers, and an output layer.
 - **Learning Process**: Neural networks learn by adjusting weights and biases within their neurons. This process is typically achieved through backpropagation, where the network adjusts its parameters based on the error of its predictions.
@@ -32,7 +68,7 @@
 - **Hidden Layers**: One or more layers that perform computations with signals received from the previous layer. Each neuron in these layers applies a weighted sum on its inputs, adds a bias, and then passes the result through an activation function.
 - **Output Layer**: The final layer that produces the network's output. For classification tasks, this layer often uses a softmax activation function to output probabilities corresponding to each class.
 
-### Back Propagation
+### Backpropagation
 
 1. **Initialize Weights**: Randomly initialize the network's weights.
 2. **Perform a Forward Pass**: Compute the output of the network and the loss.
@@ -197,15 +233,189 @@ $$
 W := W - \frac{\alpha}{{\sqrt{s^{corrected}_{dW}} + \epsilon}}v^{corrected}_{dW}
 $$
 
-### Regularization
+## Practical Aspects of Deep Learning
 
-- **Dropout:** Dropout randomly "drops" (i.e., temporarily removes) a proportion of neurons in the network during training at each iteration, preventing them from participating in forward pass and backpropagation. This randomness forces the network to learn more robust features that are useful in conjunction with many different random subsets of the other neurons.
+### Data Splitting and Bias/Variance
 
-- **Batch Normalization:** Batch normalization standardizes the inputs to a layer for each mini-batch. This stabilizes the learning process and dramatically reduces the number of training epochs required to train deep networks.
+The typical machine learning workflow is an iterative loop: Idea → Code → Experiment. To guide this process, data is split into three sets:
 
-- **Early Stopping:** Early stopping involves monitoring the network's performance on a validation set and stopping training when performance deteriorates, as evidenced by an increase in validation set error.
+**Training Set:**
 
-- **Data Augmentation: **Data augmentation artificially increases the size and variability of the training dataset by applying random transformations (e.g., rotation, scaling, cropping, flipping, or changing the lighting conditions) to the existing training samples. This helps the model generalize better to new, unseen data.
+Used to train the model's parameters (weights and biases).
+
+**Development (Dev) Set:**
+
+Used to tune hyperparameters and evaluate different models. Also known as the hold-out cross-validation set.
+
+**Test Set:**
+
+Used for final, unbiased evaluation of the trained model.
+
+**Modern Splitting Ratios:**
+
+For large datasets (>1 million examples), common ratios are 98% train / 1% dev / 1% test. It is critical that the dev and test sets come from the same distribution, reflecting the data the model is expected to see in production.
+
+### Bias-Variance Tradeoff
+
+The bias-variance tradeoff is central to diagnosing model performance:
+
+**High Bias (Underfitting):**
+- Model fails to fit training data well
+- Example: Train error 15%, Dev error 16%
+- Both training and test errors are high
+
+**High Variance (Overfitting):**
+- Model fits training data well but doesn't generalize
+- Example: Train error 1%, Dev error 11%
+- Low training error, high test error
+
+**High Bias and High Variance:**
+- Model fits neither training nor dev set well
+- Example: Train error 15%, Dev error 30%
+
+### Basic Recipe for Machine Learning
+
+1. **Address High Bias:**
+   - Train a bigger network
+   - Train longer
+   - Try advanced optimization algorithms
+
+2. **Address High Variance:**
+   - Get more training data
+   - Apply regularization
+   - Try different network architecture
+
+## Regularization Techniques
+
+Regularization methods prevent overfitting and reduce variance.
+
+### L2 Regularization (Weight Decay)
+
+Adds a penalty term to the cost function:
+$$
+J_{reg}(W,b) = J(W,b) + \frac{\lambda}{2m}\sum_l\|W^{[l]}\|_F^2
+$$
+
+**Effect:**
+
+Encourages smaller weights, leading to smoother, less complex models. The weight update rule becomes:
+$$
+dW^{[l]} = (\text{from backprop}) + \frac{\lambda}{m}W^{[l]}
+$$
+
+This causes weights to "decay" towards zero during training.
+
+### Dropout Regularization
+
+During each training iteration, neurons are randomly "dropped out" (deactivated) with probability $(1 - \text{keep\_prob})$.
+
+**Inverted Dropout:**
+
+Activations are scaled by $1/\text{keep\_prob}$ during training to maintain expected values:
+$$
+A^{[l]} = A^{[l]} / \text{keep\_prob}
+$$
+
+**Benefits:**
+- Prevents units from co-adapting too much
+- Forces network to learn more robust features
+- Not used during testing
+
+### Data Augmentation
+
+Artificially increases training set size by creating modified copies:
+- Image transformations: flipping, rotating, cropping
+- Color adjustments
+- Adding noise
+
+**Effect:**
+
+Helps model generalize better to new, unseen data without collecting more data.
+
+### Early Stopping
+
+Monitor dev set error during training and stop when it begins to increase, saving the model parameters from the point of lowest dev error.
+
+**Tradeoff:**
+
+Simple and effective but combines two concerns (optimizing cost function and preventing overfitting), which contradicts orthogonalization principle.
+
+### Batch Normalization
+
+Normalizes activations of a hidden layer (typically $Z^{[l]}$) to have zero mean and unit variance, followed by re-scaling:
+$$
+\tilde{z}^{(i)} = \gamma z^{(i)}_{norm} + \beta
+$$
+
+where $\gamma$ and $\beta$ are learnable parameters.
+
+**Benefits:**
+- Dramatically speeds up training
+- Makes network more robust to weight initialization
+- Provides slight regularization effect
+- Enables higher learning rates
+
+**At Test Time:**
+
+Mean and variance are estimated using exponentially weighted averages computed during training.
+
+## Machine Learning Strategy
+
+### Orthogonalization
+
+The principle of tuning one control to affect one specific outcome without impacting others.
+
+**In Machine Learning:**
+
+1. Fit training set well (addressing bias)
+2. Fit dev set well (addressing variance)
+3. Fit test set well (ensuring dev set wasn't overfit)
+4. Perform well in real world (ensuring appropriate metric and data distribution)
+
+### Evaluation Metrics
+
+**Single Number Evaluation Metric:**
+
+Having a single, real-valued metric (e.g., F1 score) allows for rapid and unambiguous evaluation of different models.
+
+**Satisficing and Optimizing Metrics:**
+
+- **Optimizing**: Primary metric to improve (e.g., maximize accuracy)
+- **Satisficing**: Metrics that need to meet threshold (e.g., runtime < 100ms)
+
+### Human-Level Performance
+
+Serves as practical proxy for Bayes optimal error (theoretical minimum error).
+
+**Avoidable Bias:**
+$$
+\text{Avoidable Bias} = \text{Training Error} - \text{Human-Level Error}
+$$
+
+Large gap indicates bias problem.
+
+**Variance:**
+$$
+\text{Variance} = \text{Dev Error} - \text{Training Error}
+$$
+
+Large gap indicates variance problem.
+
+**Progress Slowdown:**
+
+Once model surpasses human-level performance, progress often slows as it becomes harder to identify sources of remaining error.
+
+### Error Analysis
+
+Manually examine sample of misclassified examples from dev set and categorize errors:
+- Blurry images
+- Mislabeled data
+- Specific object types
+
+**Benefits:**
+- Reveals most frequent error types
+- Provides "ceiling" on potential improvement
+- Guides prioritization of next steps
 
 ## Convolutional Neural Networks
 
@@ -267,20 +477,189 @@ $$
 - **Fixed Input Size:** VGG networks are trained with a fixed input size of 224x224 RGB images, which means that all images need to be resized to this dimension before being fed into the network.
 - **Pre-training:** VGG networks were pre-trained on the ImageNet dataset, which contains over a million images categorized into 1000 classes. This pre-training helps in transferring learned features to other visual recognition tasks with less data.
 
+### Classic CNN Architectures
+
+**LeNet-5 (1998):**
+
+An early, pioneering CNN for handwritten digit recognition (MNIST dataset).
+
+**Key Features:**
+- Uses convolutional and pooling layers
+- Relatively small architecture
+- Demonstrated feasibility of CNNs for image classification
+
+**AlexNet (2012):**
+
+A much larger network that won the ImageNet competition, convincing many researchers of deep learning's potential.
+
+**Key Features:**
+- Similar structure to LeNet-5 but much deeper
+- Used ReLU activations instead of tanh/sigmoid
+- Employed dropout for regularization
+- Trained on GPUs
+- 60 million parameters
+
+**Impact:**
+
+Triggered the deep learning revolution in computer vision.
+
 ### ResNet
 
-<img src="https://miro.medium.com/v2/resize:fit:850/1*C8jf92MeHZnxnbpMkz6jkQ.png" alt="Resnet Architecture Explained. In their 2015 publication “Deep… | by  Siddhesh Bangar | Medium"  />
+ResNet (Residual Networks) introduced a revolutionary architecture that enables training of very deep neural networks.
 
 - **Residual Blocks:** The core idea behind ResNet is its use of residual blocks. These blocks have a shortcut connection that skips one or more layers and performs identity mapping, adding the input of the block to its output. This design encourages the network to learn residual functions with reference to the layer inputs, making it easier to train deeper networks.
 - **Deep Architectures:** ResNet architectures come in various depths, with ResNet-18, ResNet-34, ResNet-50, ResNet-101, and ResNet-152 being some of the most popular configurations. The number denotes the total layers in the architecture. The deeper versions of ResNet, like ResNet-50 and beyond, use "bottleneck" layers with 1x1, 3x3, and 1x1 convolutional layers in their residual blocks to increase depth without a significant increase in computational complexity.
 - **Batch Normalization:** ResNet applies batch normalization after every convolutional layer. This technique normalizes the output of a previous activation layer by subtracting the batch mean and dividing by the batch standard deviation, which helps in speeding up training and reduces the sensitivity to network initialization.
 - **Global Average Pooling:** Instead of using fully connected layers at the end of the network, ResNet employs global average pooling to reduce the dimensions of the feature maps to the number of classes, which significantly decreases the number of parameters and helps to prevent overfitting.
 
+**Key Innovation:**
+
+Skip connections solve the degrading accuracy problem in very deep networks and enable training of models with over 100 layers.
+
+### Inception Network (GoogLeNet)
+
+**Inception Modules:**
+
+Perform multiple convolutions (1×1, 3×3, 5×5) and pooling in parallel and concatenate their outputs.
+
+**1×1 Convolutions:**
+
+Used as "bottleneck" layers to reduce computational cost by shrinking the number of channels before applying expensive larger convolutions.
+
+**Benefits:**
+- Reduced parameters compared to similarly deep networks
+- Efficient computation
+- Captures features at multiple scales simultaneously
+
+## Object Detection
+
+Object detection extends classification by not only identifying objects but also localizing them with bounding boxes.
+
+### Classification with Localization
+
+In addition to classifying an object, the model outputs a bounding box $(b_x, b_y, b_h, b_w)$ defining its location.
+
+**Output Format:**
+- Class probabilities
+- Bounding box coordinates
+
+### YOLO (You Only Look Once)
+
+A state-of-the-art, real-time object detection system.
+
+**Architecture:**
+
+1. Divides image into grid (e.g., 19×19)
+2. For each grid cell, predicts:
+   - Bounding boxes
+   - Confidence scores for boxes
+   - Class probabilities
+
+**Key Components:**
+
+**Intersection Over Union (IoU):**
+
+Metric to evaluate overlap between predicted and ground-truth bounding boxes:
+$$
+\text{IoU} = \frac{\text{Area of Overlap}}{\text{Area of Union}}
+$$
+
+IoU > 0.5 typically considered correct detection.
+
+**Non-Max Suppression:**
+
+Post-processing step to eliminate multiple overlapping detections:
+1. Select box with highest confidence
+2. Remove all boxes with IoU > threshold with selected box
+3. Repeat for remaining boxes
+
+**Anchor Boxes:**
+
+Pre-defined bounding box shapes to help detect objects of different aspect ratios within same grid cell.
+
+### Region Proposal Networks
+
+**R-CNN Family:**
+
+**R-CNN:**
+- Proposes regions using selective search
+- Runs CNN on each region
+- Slow but accurate
+
+**Fast R-CNN:**
+- Shares computation across proposed regions
+- Significantly faster than R-CNN
+
+**Faster R-CNN:**
+- Integrates region proposal into neural network
+- End-to-end trainable
+- Real-time performance
+
+## Special Applications
+
+### Face Recognition
+
+**One-Shot Learning:**
+
+Challenge of recognizing a person from a single example image.
+
+**Siamese Network:**
+
+Uses two identical CNNs to process two images and outputs vector embedding for each.
+
+**Architecture:**
+1. Pass two images through same CNN
+2. Compute embeddings for each
+3. Compute distance between embeddings
+4. Determine if faces match based on distance threshold
+
+**Triplet Loss:**
+
+Loss function designed to train similarity model:
+$$
+L = \max(0, \|f(A) - f(P)\|^2 - \|f(A) - f(N)\|^2 + \alpha)
+$$
+
+where:
+- $A$: Anchor image
+- $P$: Positive image (same person)
+- $N$: Negative image (different person)
+- $\alpha$: Margin parameter
+
+**Goal:**
+
+Ensure distance between A and P is smaller than distance between A and N by at least margin $\alpha$.
+
+### Neural Style Transfer
+
+Creates new image by combining content of one image with style of another.
+
+**Content Cost:**
+
+Measures difference in high-level feature activations between content image and generated image in deep layer of pre-trained CNN (e.g., VGG):
+$$
+J_{content}(C, G) = \frac{1}{2}\sum_{i,j}(a^{[l](C)}_{ij} - a^{[l](G)}_{ij})^2
+$$
+
+**Style Cost:**
+
+Measures difference in correlations between feature activations across channels, captured by Gram matrix:
+$$
+G_{kk'}^{[l]} = \sum_i\sum_j a^{[l]}_{ijk}a^{[l]}_{ijk'}
+$$
+
+Style cost computed across several layers to capture textures and patterns at different scales.
+
+**Total Cost:**
+$$
+J(G) = \alpha J_{content}(C,G) + \beta J_{style}(S,G)
+$$
+
 ## Recurrent Neural Networks
 
 ### RNN
 
-<img src="https://miro.medium.com/v2/resize:fit:1400/1*HgAY1lLMYSANqtgTgwWeXQ.png" alt="Introduction to the Architecture of Recurrent Neural Networks (RNNs) | by  Manish Nayak | Towards AI" style="zoom:50%;" />
+Recurrent Neural Networks (RNNs) are a class of neural networks designed specifically for processing sequential data.
 
 - **Sequence Processing:** Unlike feedforward neural networks, RNNs are designed to work with sequences of data, where the order and context of the input elements are crucial for making accurate predictions or generating outputs.
 - **Shared Weights:** In an RNN, the same weights are applied across all time steps during the forward and backward passes, which significantly reduces the number of parameters that need to be learned, regardless of the sequence length.
@@ -289,7 +668,7 @@ $$
 
 ### LSTM
 
-<img src="https://miro.medium.com/v2/resize:fit:1400/1*yBXV9o5q7L_CvY7quJt3WQ.png" alt="Illustrated Guide to LSTM's and GRU's: A step by step explanation | by  Michael Phi | Towards Data Science" style="zoom: 50%;" />
+Long Short-Term Memory (LSTM) networks are a powerful variant of RNNs with gating mechanisms that effectively capture long-term dependencies.
 
 - **Forget Gate:** Decides what information is irrelevant and should be thrown away from the cell state.
 
@@ -347,33 +726,206 @@ $$
 h_t = (1 - z_t) * h_{t-1} + z_t * \tilde{h}_t
 $$
 
-### Sequence to Sequence
+**Key Properties:**
 
-<img src="https://miro.medium.com/v2/resize:fit:1400/1*Ismhi-muID5ooWf3ZIQFFg.png" alt="Sequence to sequence model: Introduction and concepts | by Manish Chablani  | Towards Data Science" style="zoom:50%;" />
+GRUs are simpler than LSTMs (fewer parameters) but often perform comparably. They effectively combat vanishing gradients and capture long-term dependencies.
 
-- Encoder: The encoder processes the input sequence one element at a time and transforms it into a fixed-sized context vector. Decoder
+### Bidirectional RNN
 
-- Decoder: The decoder is tasked with generating the output sequence, element by element, using the context vector as its initial state. It is also typically an RNN that is trained to predict the next element of the output sequence, given the previous elements and the context vector.
+Processes sequence in both forward and backward directions, allowing prediction at time $t$ to depend on both past and future context.
+
+**Architecture:**
+
+Two RNN layers:
+- Forward RNN: processes sequence left-to-right
+- Backward RNN: processes sequence right-to-left
+
+Outputs are concatenated at each time step:
+$$
+\hat{y}^{\langle t \rangle} = g(W_y[\overrightarrow{a}^{\langle t \rangle}, \overleftarrow{a}^{\langle t \rangle}] + b_y)
+$$
+
+**Applications:**
+- Very effective for NLP tasks
+- Named entity recognition
+- Machine translation
+- Any task where future context is available
+
+### Deep RNNs
+
+Stacking multiple RNN layers to learn more complex representations of sequential data.
+
+**Architecture:**
+- Each layer takes hidden states from previous layer as input
+- Captures hierarchical features at different temporal scales
+- Typically 2-3 layers (deeper than CNNs due to temporal dimension)
+
+## Sequence Models
+
+### Sequence-to-Sequence
+
+Sequence-to-Sequence (Seq2Seq) models consist of an encoder-decoder architecture designed for tasks where both input and output are sequences of arbitrary length.
+
+**Encoder:**
+
+The encoder processes the input sequence one element at a time and transforms it into a fixed-sized context vector. This context vector captures the semantic meaning of the entire input sequence.
+
+**Decoder:**
+
+The decoder generates the output sequence element by element, using the context vector as its initial state. It is also typically an RNN trained to predict the next element of the output sequence, given the previous elements and the context vector.
+
+**Applications:**
+- Machine translation
+- Text summarization
+- Question answering
+- Speech recognition
+
+**Teacher Forcing:**
+
+Common training technique where true ground-truth token from training data is fed as input for next time-step (instead of decoder's own prediction). Stabilizes and accelerates training.
+
+### Attention Mechanism
+
+Revolutionary improvement to Seq2Seq models that addresses fixed-length context vector bottleneck.
+
+**Problem:**
+
+Basic Seq2Seq forces encoder to compress entire input sequence into single fixed-length vector.
+
+**Solution:**
+
+Attention allows decoder to "look back" at all encoder hidden states at each output generation step.
+
+**Mechanism:**
+
+1. Compute attention scores between current decoder state and all encoder states
+2. Apply softmax to create probability distribution (attention weights)
+3. Create weighted average of encoder states (dynamic context vector)
+4. Use context vector to generate current output token
+
+**Benefits:**
+- Captures long-range dependencies more effectively
+- Allows model to focus on relevant input parts
+- Dramatic improvement in machine translation
+- Interpretable (can visualize what model attends to)
+
+### Beam Search
+
+Heuristic search algorithm for decoding that finds more likely output sequences than greedy search.
+
+**Algorithm:**
+
+1. Initialize with B (beam width) most probable first tokens
+2. At each step, expand each hypothesis with all possible next tokens
+3. Keep B most probable sequences overall (scored by cumulative probability)
+4. Repeat until end token or maximum length
+5. Select sequence with highest score
+
+**Score Normalization:**
+$$
+\frac{1}{T^{\alpha}}\sum_{t=1}^T \log P(y^{\langle t \rangle} | x, y^{\langle 1 \rangle}, ..., y^{\langle t-1 \rangle})
+$$
+
+where $\alpha$ is length normalization parameter to avoid bias toward shorter sequences.
+
+**Tradeoff:**
+- Larger beam width: better results, higher computation
+- Beam width of 10 often sufficient for translation
+
+### BLEU Score
+
+Metric for evaluating machine-generated text by comparing to human reference translations.
+
+**Computation:**
+
+Based on modified n-gram precision:
+$$
+\text{BLEU} = BP \cdot \exp\left(\sum_{n=1}^N w_n \log p_n\right)
+$$
+
+where:
+- $p_n$: modified n-gram precision
+- $BP$: brevity penalty for short outputs
+- $w_n$: weights (typically $1/N$)
+- $N$: maximum n-gram length (typically 4)
+
+**Properties:**
+- Ranges from 0 to 1 (higher is better)
+- Measures overlap with reference translations
+- Not perfect but widely used baseline
 
 ## Generative Models
 
-### VAE
+### Variational Autoencoder (VAE)
 
-<img src="https://lilianweng.github.io/posts/2018-08-12-vae/vae-gaussian.png" alt="From Autoencoder to Beta-VAE | Lil'Log" style="zoom:50%;" />
+Variational Autoencoders are generative models that learn a probabilistic mapping between data and a latent space.
 
-- **Encoding:** The encoder part of a VAE takes an input *x* and encodes it into a latent representation z*. However, instead of encoding x to a single point, the encoder outputs parameters (mean *μ* and variance 2*σ*2) of a probability distribution in the latent space.
-- **Sampling:** A point z* is sampled from the distribution defined by μ* and 2*σ*2. This sampling introduces randomness into the model, which is crucial for the generative process.
-- **Decoding:** The decoder takes the sampled latent point z* and tries to reconstruct the original input *x*.
-- **Loss Function:** The loss function of a VAE is composed of two terms: a reconstruction loss (e.g., Mean Squared Error) that forces the decoded samples to match the original inputs, and a regularization term (Kullback-Leibler divergence) that pushes the latent space distributions to be as close as possible to a prior distribution, typically a standard normal distribution.
+**Architecture:**
 
-### GAN
+- **Encoder**: Maps input $\mathbf{x}$ to latent distribution parameters (mean $\mu$ and variance $\sigma^2$)
+- **Sampling**: Sample latent vector $\mathbf{z} \sim N(\mu, \sigma^2)$ using reparameterization trick
+- **Decoder**: Reconstructs input from sampled latent vector
 
-- **Generator:** The generator network takes random noise as input and generates data (like images) that resemble the training data. The goal of the generator is to produce data so realistic that the discriminator cannot distinguish it from real data.
-- **Discriminator:** The discriminator network takes real data from the training set and fake data from the generator as input and tries to classify them as real or fake. Its goal is to accurately identify whether the input data is coming from the training dataset or was created by the generator.
-
-- **Training: **The training of GANs involves a competitive process where the generator and discriminator are trained simultaneously. The generator aims to maximize the probability of the discriminator making a mistake, while the discriminator aims to minimize this probability. This process can be described as a min-max game with the following objective function:
-
+**Reparameterization Trick:**
 $$
-\min_{G} \max_{D} V(D, G) = \mathbb{E}_{x \sim p_{\text{data}}(x)}[\log D(x)] + \mathbb{E}_{z \sim p_{z}(z)}[\log(1 - D(G(z)))]
+\mathbf{z} = \mu + \sigma \odot \epsilon, \quad \epsilon \sim N(0, I)
 $$
 
+**Loss Function:**
+$$
+\mathcal{L} = \mathbb{E}_{q(\mathbf{z}|\mathbf{x})}[\log p(\mathbf{x}|\mathbf{z})] - D_{KL}(q(\mathbf{z}|\mathbf{x}) \| p(\mathbf{z}))
+$$
+
+**Components:**
+- **Reconstruction Loss**: Ensures decoded samples match original inputs
+- **KL Divergence**: Regularizes latent space to follow prior distribution (typically $N(0, I)$)
+
+**Applications:**
+- Image generation
+- Data compression
+- Anomaly detection
+
+### Generative Adversarial Network (GAN)
+
+GANs consist of two neural networks competing in a zero-sum game framework.
+
+**Generator (G):**
+- Takes random noise $\mathbf{z}$ as input
+- Generates synthetic data $G(\mathbf{z})$ resembling training data
+- Goal: Fool the discriminator into classifying fake data as real
+
+**Discriminator (D):**
+- Takes both real data from training set and fake data from generator
+- Outputs probability that input is real
+- Goal: Correctly classify real vs. fake data
+
+**Objective Function:**
+
+The training involves a min-max game:
+$$
+\min_{G} \max_{D} V(D, G) = \mathbb{E}_{\mathbf{x} \sim p_{data}(\mathbf{x})}[\log D(\mathbf{x})] + \mathbb{E}_{\mathbf{z} \sim p_{\mathbf{z}}(\mathbf{z})}[\log(1 - D(G(\mathbf{z})))]
+$$
+
+**Training Process:**
+1. Train discriminator on batch of real and fake samples
+2. Train generator to maximize discriminator error
+3. Alternate between steps 1 and 2
+
+**Challenges:**
+- Mode collapse: Generator produces limited variety
+- Training instability: Difficult to balance G and D
+- Vanishing gradients: When D becomes too strong
+
+**Variants:**
+- DCGAN: Uses convolutional layers
+- Conditional GAN: Generates data conditioned on labels
+- StyleGAN: Controls image synthesis at different scales
+
+## References
+
+**Course Materials:**
+
+- ECBM E4040 Neural Networks and Deep Learning - Columbia University
+
+**Foundational Resources:**
+- Ian Goodfellow, Yoshua Bengio, Aaron Courville, *Deep Learning*

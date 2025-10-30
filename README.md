@@ -59,15 +59,10 @@ Originated from Georgia Tech and Columbia University computer science courses, t
 - *Coming soon*
 
 ### Machine Learning
-- [Machine Learning](Machine%20Learning/Machine%20Learning.md)
-- [Deep Learning](Machine%20Learning/Deep%20Learning.md)
-- [Computer Vision](Machine%20Learning/Computer%20Vision.md)
-- [Natural Language Processing](Machine%20Learning/Natural%20Language%20Processing.md)
-
-### Statistics
-- [Probabilities and Statistics](Statistics/Probs%20and%20Stats.md)
-- [Statistical Inference](Statistics/Stats%20Inference.md)
-- [Statistical Modelling](Statistics/Stats%20Modelling.md)
+- [00-Mathematical-Foundation](Machine%20Learning/00-Mathematical-Foundation.md)
+- [01-Machine-Learning](Machine%20Learning/01-Machine-Learning.md)
+- [02-Deep-Learning](Machine%20Learning/02-Deep-Learning.md)
+- [03-Natural-Language-Processing](Machine%20Learning/03-Natural-Language-Processing.md)
 
 ## Contributing
 

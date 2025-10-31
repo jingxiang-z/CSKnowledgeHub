@@ -6,6 +6,8 @@ Originated from Georgia Tech and Columbia University computer science courses, t
 
 📖 **[View CS Knowledge Hub Site](https://csknowledgehub.gitbook.io)**
 
+🔗 **[Source Repository](https://github.com/jingxiang-z/CSKnowledgeHub)**
+
 - **License**: CC BY 4.0 (see `LICENSE`)
 - **Contribute**: see `CONTRIBUTING.md`
 - **Status**: Actively curated (accepting contributions)
@@ -44,11 +46,11 @@ Originated from Georgia Tech and Columbia University computer science courses, t
 - [05-Database-Implementation](Database/05-Database-Implementation.md)
 
 ### Computer Network
-- [Introduction](Computer%20Network/Introduction.md)
-- [Application Layer](Computer%20Network/Application%20Layer.md)
-- [Transport Layer](Computer%20Network/Transport%20Layer.md)
-- [Network Layer](Computer%20Network/Network%20Layer.md)
-- [Link Layer](Computer%20Network/Link%20Layer.md)
+- [01-Introduction](Computer%20Network/01-Introduction.md)
+- [02-Application-Layer](Computer%20Network/02-Application-Layer.md)
+- [03-Transport-Layer](Computer%20Network/03-Transport-Layer.md)
+- [04-Network-Layer](Computer%20Network/04-Network-Layer.md)
+- [05-Link-Layer](Computer%20Network/05-Link-Layer.md)
 
 ### Information Security
 - [01-Introduction](Information%20Security/01-Introduction.md)

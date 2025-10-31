@@ -51,9 +51,12 @@ Originated from Georgia Tech and Columbia University computer science courses, t
 - [Link Layer](Computer%20Network/Link%20Layer.md)
 
 ### Information Security
-- [Cryptography](Information%20Security/Cryptography.md)
-- [Database Security](Information%20Security/Database%20Security.md)
-- [Web Security](Information%20Security/Web%20Security.md)
+- [01-Introduction](Information%20Security/01-Introduction.md)
+- [02-Access-Control-and-Authentication](Information%20Security/02-Access-Control-and-Authentication.md)
+- [03-Cryptography](Information%20Security/03-Cryptography.md)
+- [04-Web-Security](Information%20Security/04-Web-Security.md)
+- [05-Network-Security](Information%20Security/05-Network-Security.md)
+- [06-Database-Security](Information%20Security/06-Database-Security.md)
 
 ### Distributed Systems
 - *Coming soon*

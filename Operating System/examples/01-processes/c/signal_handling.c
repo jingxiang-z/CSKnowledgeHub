@@ -26,8 +26,9 @@ void handle_signal(int sig) {
     // fflush() ensures output is written immediately (important before exit)
     fflush(stdout);
     
-    // Exit the program gracefully
-    exit(0);
+    // Exit following Unix convention: 128 + signal number
+    // SIGINT (2) -> 130, SIGTERM (15) -> 143
+    exit(128 + sig);
 }
 
 int main() {

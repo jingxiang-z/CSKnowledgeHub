@@ -12,10 +12,49 @@
 #include <signal.h>
 #include <unistd.h>
 
-int main() {
-    // TODO: Implement signal handling examples
-    printf("Signal handling example - To be implemented\n");
+// Signal handler function
+// Called when the process receives SIGINT or SIGTERM
+void handle_signal(int sig) {
+    if (sig == SIGINT) {
+        // SIGINT is sent when user presses Ctrl+C
+        printf("Caught SIGINT. Cleaning up...\n");
+    } else if (sig == SIGTERM) {
+        // SIGTERM is a termination request (default signal for 'kill' command)
+        printf("Caught SIGTERM. Exiting gracefully...\n");
+    }
     
+    // fflush() ensures output is written immediately (important before exit)
+    fflush(stdout);
+    
+    // Exit the program gracefully
+    exit(0);
+}
+
+int main() {
+    // signal() sets up a signal handler for a specific signal
+    // Returns: SIG_ERR on error, previous handler on success
+    
+    // Register handler for SIGINT (Interrupt signal - Ctrl+C)
+    if (signal(SIGINT, handle_signal) == SIG_ERR) {
+        perror("Failed to set SIGINT handler");
+        exit(1);
+    } else if (signal(SIGTERM, handle_signal) == SIG_ERR) {
+        // Register handler for SIGTERM (Termination signal)
+        perror("Failed to set SIGTERM handler");
+        exit(1);
+    }
+
+    printf("Press Ctrl+C or send SIGTERM to trigger signals.\n");
+    printf("Process PID: %d\n", getpid());
+    printf("To test SIGTERM, run: kill %d\n", getpid());
+
+    // Infinite loop - process will run until it receives a signal
+    // The signal handler will interrupt this loop when a signal arrives
+    while (1) {
+        sleep(1);  // Sleep to avoid consuming CPU
+    }
+    
+    // This line is never reached due to infinite loop (unless signals handled)
     return 0;
 }
 

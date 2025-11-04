@@ -36,4 +36,9 @@ Thank you for helping improve this knowledge hub. This guide covers content guid
 
 ## License
 
-By contributing, you agree your contributions will be licensed under CC BY 4.0.
+By contributing, you agree that your contributions will be licensed as follows:
+
+- **Documentation and notes** (Markdown files, text content): Licensed under [CC BY 4.0](LICENSE)
+- **Code examples** (Source code files): Licensed under [MIT License](LICENSE-CODE)
+
+This dual licensing ensures that educational content remains open and attributed while code examples can be freely used and modified in any project.

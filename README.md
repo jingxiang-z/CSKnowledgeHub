@@ -8,7 +8,9 @@ Originated from Georgia Tech and Columbia University computer science courses, t
 
 🔗 **[Source Repository](https://github.com/jingxiang-z/CSKnowledgeHub)**
 
-- **License**: CC BY 4.0 (see `LICENSE`)
+- **License**: 
+  - Documentation and notes: [CC BY 4.0](LICENSE) 
+  - Code examples: [MIT License](LICENSE-CODE)
 - **Contribute**: see `CONTRIBUTING.md`
 - **Status**: Actively curated (accepting contributions)
 

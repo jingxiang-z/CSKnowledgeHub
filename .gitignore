@@ -23,5 +23,12 @@ Thumbs.db
 *.bak
 *.log
 
+# Build directories and binaries
+bin/
+build/
+*.o
+*.out
+*.exe
+
 .cursorrules
 CLAUDE.md

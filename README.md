@@ -63,7 +63,10 @@ Originated from Georgia Tech and Columbia University computer science courses, t
 - [06-Database-Security](Information%20Security/06-Database-Security.md)
 
 ### Distributed Systems
-- *Coming soon*
+- [01-Foundations](Distributed%20System/01-Foundations.md)
+- [02-Communication](Distributed%20System/02-Communication.md)
+- [03-Storage-Systems](Distributed%20System/03-Storage-Systems.md)
+- [04-Middleware](Distributed%20System/04-Middleware.md)
 
 ### Machine Learning
 - [00-Mathematical-Foundation](Machine%20Learning/00-Mathematical-Foundation.md)

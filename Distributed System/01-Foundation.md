@@ -2,26 +2,23 @@
 
 ## Overview
 
-A distributed system is a collection of autonomous computing nodes that communicate over a network to achieve a common goal. Unlike centralized systems, distributed systems face unique challenges arising from the lack of shared memory, independent node failures, unpredictable network delays, and the fundamental impossibility of perfect coordination. This document establishes the foundational concepts necessary for understanding and building distributed systems: defining characteristics, system models, failure modes, fundamental impossibility results, and key design principles.
+A distributed system is a collection of autonomous computing nodes that communicate over a network to achieve a common goal. Unlike centralized systems, distributed systems face unique challenges arising from the lack of shared memory, independent node failures, unpredictable network delays, and the fundamental impossibility of perfect coordination.
 
 ## Table of Contents
 
-1. [Defining Characteristics](#defining-characteristics)
-2. [System Models](#system-models)
-3. [Failure Models](#failure-models)
-4. [The CAP Theorem](#the-cap-theorem)
-5. [Fundamental Problems](#fundamental-problems)
-6. [Consistency Models](#consistency-models)
-7. [Replication and Fault Tolerance](#replication-and-fault-tolerance)
-8. [Architectural Patterns](#architectural-patterns)
-9. [Design Principles](#design-principles)
-10. [Summary](#summary)
+1. [Introduction](#introduction)
+2. [System and Failure Models](#system-and-failure-models)
+3. [CAP Theorem](#cap-theorem)
+4. [Consistency Models](#consistency-models)
+5. [Fault Tolerance and Replication](#fault-tolerance-and-replication)
+6. [Scalability](#scalability)
+7. [Design Principles](#design-principles)
 
-## Defining Characteristics
+## Introduction
 
-A distributed system is characterized by a set of core properties that distinguish it from centralized and parallel systems.
+A distributed system is a collection of autonomous computing nodes that communicate over a network to achieve a common goal. These systems are characterized by core properties that distinguish them from centralized and parallel systems.
 
-### Core Properties
+### Defining Characteristics
 
 **Interconnected Autonomous Nodes**
 
@@ -47,9 +44,31 @@ Individual nodes or network links can fail independently while the rest of the s
 
 Multiple nodes execute simultaneously, leading to inherent concurrency. Without perfect synchronization, different nodes may observe events in different orders, creating consistency challenges.
 
-## System Models
+### Motivations for Building Distributed Systems
 
-System models define the assumptions about timing, synchronization, and behavior that algorithms can rely upon. The choice of model profoundly affects what is achievable.
+Despite their inherent complexity, engineers build distributed systems for four primary reasons:
+
+- **High Performance:** Achieve parallelism by harnessing many CPUs, memories, and disks. Goal is N× speedup from N machines. Examples: MapReduce, Spark, scientific computing clusters.
+
+- **Fault Tolerance:** Survive component failures through redundancy. If one computer fails, another takes over. Examples: Replicated databases, distributed file systems (HDFS, GFS).
+
+- **Inherent Distribution:** Some problems are naturally geographically distributed, requiring distributed coordination. Examples: Interbank transfers, global CDNs, distributed sensor networks.
+
+- **Security & Isolation:** Isolate untrusted components through well-defined network protocols. Examples: Microservices, sandboxed code execution, multi-tenant cloud platforms.
+
+Modern distributed systems design primarily focuses on achieving **high performance** and **fault tolerance**.
+
+### Core Challenges
+
+**Concurrency:** Multiple computers executing concurrently face complex interactions, timing-dependent bugs (race conditions), non-deterministic behavior, and need for synchronization without shared memory.
+
+**Partial Failure:** Unlike a single computer that either works or crashes completely, distributed systems experience partial failures where some components crash while others continue. Components may run slowly rather than fail, making it difficult to distinguish slow from failed. Failure detection is inherently unreliable in asynchronous systems.
+
+**Achieving Performance:** The goal of N× speedup from N machines is rarely achieved due to communication overhead, bottlenecks (shared resources like databases), load imbalance, and sequential dependencies (Amdahl's Law). Careful architectural design is required to achieve true scalable performance.
+
+## System and Failure Models
+
+System models define the assumptions about timing, synchronization, and behavior that algorithms can rely upon. Failure models characterize the types of failures that can occur. Together, these models define the "rules of the game" for distributed systems design.
 
 ### Timing Models
 
@@ -98,9 +117,7 @@ Messages may be lost, duplicated, corrupted, or reordered. The application must 
 
 The network may split into disconnected components, preventing communication between partitions. Nodes within a partition can communicate, but not across partitions.
 
-## Failure Models
-
-Failure models characterize the types of failures that can occur and define the behavior of faulty components.
+### Failure Models
 
 ### Crash Failures (Fail-Stop)
 
@@ -148,9 +165,9 @@ The network splits into disconnected subnetworks. Nodes within each partition ca
 
 **Common Causes:** Network cable cuts, router failures, firewall misconfigurations, geographic isolation.
 
-## The CAP Theorem
+## CAP Theorem
 
-The CAP theorem (also called Brewer's theorem) is a fundamental impossibility result stating that a distributed system cannot simultaneously guarantee all three of the following properties:
+The CAP theorem (Brewer's theorem) is a fundamental impossibility result: a distributed system cannot simultaneously guarantee all three of the following properties:
 
 ### The Three Properties
 
@@ -200,80 +217,33 @@ Only possible without network partitions, which means the system is not truly di
 
 **Eventually consistent systems:** Many AP systems provide eventual consistency—if writes stop, all replicas eventually converge to the same state.
 
-## Fundamental Problems
-
-Certain problems are fundamental to distributed systems and have been extensively studied. Solutions to these problems form the building blocks of larger systems.
-
-### Consensus
-
-The consensus problem requires a group of processes to agree on a single value, despite failures and asynchrony.
-
-**Properties:**
-- **Agreement:** All non-faulty processes decide on the same value
-- **Validity:** The decided value was proposed by some process
-- **Termination:** All non-faulty processes eventually decide
-
-**FLP Impossibility:** Fischer, Lynch, and Paterson proved that consensus is impossible in an asynchronous system with even one crash failure if we require deterministic termination.
-
-**Practical Solutions:** Real systems circumvent FLP through:
-- Randomization (e.g., Ben-Or algorithm)
-- Partial synchrony assumptions (e.g., Paxos, Raft)
-- Failure detectors (detecting suspected failures)
-
-**Applications:** Leader election, atomic commit (2PC, 3PC), state machine replication.
-
-### Leader Election
-
-Select a single node from a group to coordinate actions, preventing conflicts and providing a single point of decision.
-
-**Challenges:**
-- Handling simultaneous elections
-- Dealing with network partitions (split-brain)
-- Detecting leader failures
-
-**Algorithms:** Bully algorithm, Ring algorithm, Paxos-based election, Raft leader election.
-
-**Use Cases:** Distributed lock managers, cluster coordination (e.g., Zookeeper), primary-backup replication.
-
-### Distributed Transactions
-
-Ensure atomicity across multiple nodes: either all operations commit or all abort.
-
-**Two-Phase Commit (2PC):**
-- Phase 1 (Prepare): Coordinator asks all participants if they can commit
-- Phase 2 (Commit/Abort): Based on votes, coordinator tells all to commit or abort
-
-*Problem:* Blocking protocol—if coordinator crashes after participants vote yes, they're stuck waiting.
-
-**Three-Phase Commit (3PC):** Non-blocking variant that adds a pre-commit phase, but requires synchrony assumptions.
-
-**Modern Approaches:** Eventual consistency, CRDTs (Conflict-free Replicated Data Types), consensus-based transactions (e.g., Spanner).
-
-### Mutual Exclusion
-
-Ensure that only one process accesses a critical section at a time, without shared memory.
-
-**Approaches:**
-- Token-based (circulating token)
-- Permission-based (Ricart-Agrawala algorithm)
-- Quorum-based
-- Coordinator-based (centralized lock manager)
-
-**Metrics:** Message complexity, latency, fault tolerance.
-
 ## Consistency Models
 
-Consistency models define the guarantees about the order and visibility of operations in a distributed system. Stronger models are easier to reason about but harder to implement efficiently.
+Consistency models define the guarantees about the order and visibility of operations in a distributed system. In a replicated storage system, **consistency defines the rules about what a client will see when reading data after it has been written**. With multiple replicas of data distributed across different machines, ambiguity can arise about which version of the data is "correct."
+
+### The Fundamental Trade-off
+
+**Example:** A distributed key-value store has two replicas with `k1=20`. A client updates Replica A to `k1=21`, but the update doesn't reach Replica B before the client crashes. A subsequent `get("k1")` could return either `21` or `20`, depending on which replica responds.
+
+This leads to a fundamental trade-off:
+
+- **Strong Consistency:** Always returns the most recent write (`21`). Requires expensive coordination between replicas on every operation. Use for financial transactions and inventory systems.
+
+- **Weak Consistency:** May return stale data (`20`). No coordination needed, providing low latency and high availability. Use for social media feeds and content delivery networks.
+
+The trade-off becomes acute with geographic distribution. Cross-continent communication latency (100-200ms) makes strong consistency prohibitively expensive for interactive applications.
 
 ### Strong Consistency (Linearizability)
 
 Operations appear to occur instantaneously at some point between invocation and completion. Equivalent to a single, global, correct order.
 
-**Guarantee:** If operation A completes before operation B begins, then A appears before B in the global order.
+**Guarantee:** If operation A completes before operation B begins, then A appears before B in the global order. A read always returns the value from the most recent completed write.
 
-**Cost:** High latency, reduced availability (requires coordination).
+**Cost:** High latency, reduced availability (requires coordination between replicas).
 
-**Example:** Read returns the value of the most recent completed write.
+**Implementation:** Typically requires consensus protocols (Paxos, Raft) or quorum-based coordination.
+
+**Example:** Read returns the value of the most recent completed write, even if replicas are distributed globally.
 
 ### Sequential Consistency
 
@@ -303,17 +273,31 @@ If no new updates are made, all replicas eventually converge to the same state.
 
 **Challenges:** Application must handle stale reads, conflicts, and convergence detection.
 
-## Replication and Fault Tolerance
+## Fault Tolerance and Replication
+
+At scale, component failures become a constant reality rather than exceptional events. While a single server might have a mean time between failures of one year, a system built from 1,000 computers will experience approximately **three failures per day** (1000 machines ÷ 365 days). Failures—crashed machines, faulty network cables, overheated switches, power outages—must be treated as a normal, constant state of operation, not a rare anomaly.
 
 Replication is the primary mechanism for achieving fault tolerance and high availability in distributed systems.
 
+### Availability vs. Recoverability
+
+- **Availability:** System continues operating *during* failures. Achieved through **replication**—multiple copies of services and data route around failures. Example: A web service with 5 replicas continues serving requests even if 2 crash.
+
+- **Recoverability:** System can restart correctly *after* failures are repaired. Achieved through **non-volatile storage**—persisting state to disk via checkpoints or logs. Example: A database restarts from its write-ahead log and recovers all committed transactions.
+
+### Two Primary Tools for Fault Tolerance
+
+**Non-Volatile Storage:** Persists system state using checkpointing (periodic snapshots), write-ahead logging (recording operations before applying), or journaling (maintaining a log of recent changes). Essential for recoverability but does not provide availability.
+
+**Replication:** Maintains multiple copies of data or services on different machines. If one replica fails, others immediately take over. The central challenge is ensuring replicas stay consistent (see Consistency Models section).
+
 ### Why Replicate?
 
-**Fault Tolerance:** If one replica fails, others can continue serving requests.
+**Fault Tolerance:** If one replica fails, others can continue serving requests without interruption.
 
 **High Availability:** Distribute load across replicas, reducing latency and increasing throughput.
 
-**Locality:** Place replicas geographically close to users for faster access.
+**Locality:** Place replicas geographically close to users for faster access (e.g., CDNs with servers on every continent).
 
 ### Replication Strategies
 
@@ -351,110 +335,51 @@ Require agreement from a majority (or weighted quorum) of replicas before comple
 
 **Trade-off:** Tune R and W for consistency vs. availability. High W = strong consistency but lower write availability.
 
-## Architectural Patterns
+## Scalability
 
-Common architectural patterns shape how distributed systems are structured.
+Scalability is the ability of a system to handle increasing load by adding resources. The ultimate goal is **scalable speed-up**: N× resources yields N× performance or throughput.
 
-### Client-Server
+### Horizontal vs. Vertical Scaling
 
-Clients request services from centralized servers. Servers manage state and provide responses.
+**Horizontal Scaling (Scale Out):** Add more nodes to the system. Preferred approach for distributed systems as it's more cost-effective and provides better fault tolerance through redundancy.
 
-**Advantages:** Simple, centralized control, easier to secure.
+**Vertical Scaling (Scale Up):** Upgrade to more powerful nodes (more CPU, RAM, storage). Limited by hardware constraints and cost. Single point of failure remains.
 
-**Disadvantages:** Server is a bottleneck and single point of failure.
+### Bottlenecks and Performance Challenges
 
-**Examples:** Web applications, database systems, traditional file servers.
+**Scalability is rarely infinite.** Bottlenecks emerge as systems grow:
 
-### Peer-to-Peer (P2P)
+**Common Bottleneck Pattern:** A website scales by adding web servers until the shared database becomes the bottleneck. Adding more web servers yields no improvement—further scaling requires re-architecting the database through sharding, replication, or caching. Each resolved bottleneck often reveals the next.
 
-All nodes are equal peers, both clients and servers. No central coordination.
+**Key Challenges:**
+- **Communication Overhead:** Network latency dominates, making coordination expensive (Tm >> Te)
+- **Shared Resources:** Databases, coordinators, and shared state limit parallelism
+- **Load Imbalance:** Work may not distribute evenly across nodes
+- **Amdahl's Law:** Sequential dependencies limit maximum speedup
 
-**Advantages:** Highly scalable, no single point of failure, self-organizing.
+### Techniques for Scalability
 
-**Disadvantages:** Complex coordination, challenging to secure, harder to maintain consistency.
+**Partitioning/Sharding:** Divide data across multiple nodes based on a partition key. Enables parallel processing and distributes load.
 
-**Examples:** BitTorrent, blockchain networks, distributed hash tables (Chord, Kademlia).
+**Caching:** Store frequently accessed data in fast storage (memory) closer to clients. Reduces load on backend systems.
 
-### Multi-Tier (N-Tier)
+**Load Balancing:** Distribute requests evenly across multiple servers. Prevents hotspots and maximizes resource utilization.
 
-System is divided into layers: presentation tier (UI), application tier (business logic), data tier (storage).
-
-**Advantages:** Separation of concerns, independent scaling of tiers, easier to maintain.
-
-**Disadvantages:** Increased complexity, network latency between tiers.
-
-**Examples:** Enterprise web applications, microservices architectures.
-
-### Microservices
-
-System is composed of small, independent services that communicate via APIs.
-
-**Advantages:** Independent deployment, technology diversity, fault isolation.
-
-**Disadvantages:** Distributed system complexity (consensus, consistency), operational overhead.
-
-**Examples:** Netflix, Amazon, Uber, modern cloud-native applications.
+**Asynchronous Processing:** Decouple request handling from processing. Use message queues to handle bursts and smooth load.
 
 ## Design Principles
 
-The fundamental characteristics of distributed systems lead to several important design principles:
+Key principles for designing distributed systems:
 
-### Minimize Communication
+**Design for Partial Failure:** Individual components will fail independently. Systems must detect failures, isolate faulty components, and continue operating with reduced capacity. Use health checks, timeouts, circuit breakers, and graceful degradation.
 
-Since communication dominates computation time (Tm >> Te), algorithms should maximize local work and minimize message passing. Batch operations when possible.
+**Minimize Communication:** Since communication dominates computation time (Tm >> Te), algorithms should maximize local work and minimize message passing. Batch operations when possible. Avoid distributed state—shared mutable state across nodes is expensive to maintain consistently. Prefer immutable data, local state, and stateless services.
 
-### Embrace Asynchrony
+**Use Idempotent Operations:** Design operations that can be safely retried without changing the result. Critical for handling message duplication and failures. Example: `SET x = 5` is idempotent, but `INCREMENT x` is not.
 
-Systems cannot rely on global clocks or instantaneous communication. Design for asynchronous message passing with unbounded delays. Use event-driven architectures.
-
-### Design for Partial Failure
-
-Individual components will fail independently. Systems must detect failures, isolate faulty components, and continue operating with reduced capacity.
-
-**Techniques:** Health checks, timeouts, circuit breakers, graceful degradation.
-
-### Avoid Distributed State When Possible
-
-Shared mutable state across nodes is expensive to maintain consistently. Prefer:
-- Immutable data
-- Local state
-- Eventual consistency where appropriate
-- Stateless services
-
-### Use Idempotent Operations
-
-Operations that can be safely retried without changing the result. Critical for handling message duplication and failures.
-
-**Example:** `SET x = 5` is idempotent, but `INCREMENT x` is not.
-
-### Plan for Scalability
-
-Design systems to scale horizontally (add more nodes) rather than vertically (larger nodes). Use partitioning/sharding to distribute data and load.
-
-### Observe and Monitor
-
-Distributed systems are inherently complex. Comprehensive logging, metrics, and distributed tracing are essential for understanding behavior and diagnosing issues.
-
-### Accept Trade-offs
-
-Perfect solutions don't exist. CAP theorem, FLP impossibility, and latency constraints force trade-offs between consistency, availability, performance, and simplicity. Choose trade-offs that align with application requirements.
-
-## Summary
-
-Distributed systems are characterized by autonomous nodes communicating over networks where message delays dominate computation time. The absence of shared memory, inevitability of partial failures, and impossibility of perfect coordination create fundamental challenges. System models define assumptions about timing and communication, while failure models characterize how components can fail, from simple crash failures to Byzantine faults.
-
-The CAP theorem establishes that distributed systems must choose between consistency and availability during network partitions, which are unavoidable in practice. Fundamental problems like consensus, leader election, and distributed transactions form the building blocks of distributed systems, though impossibility results like FLP show that some problems cannot be solved perfectly in asynchronous systems.
-
-Consistency models range from strong linearizability (expensive but simple to reason about) to eventual consistency (highly available but complex to use correctly). Replication is the primary mechanism for fault tolerance, with various strategies trading consistency for availability. Common architectural patterns like client-server, peer-to-peer, and microservices shape system structure, each with distinct trade-offs.
-
-Successful distributed systems embrace these challenges through careful design: minimizing communication, designing for partial failure, avoiding shared state, using idempotent operations, and accepting that perfect solutions don't exist. The art of distributed systems lies in understanding these fundamental principles and making informed trade-offs that align with application requirements.
+**Accept Trade-offs:** Perfect solutions don't exist. CAP theorem, FLP impossibility, and latency constraints force trade-offs between consistency, availability, performance, and simplicity. Choose trade-offs that align with application requirements.
 
 ## References
 
-- Lamport, L. (1978). "Time, Clocks, and the Ordering of Events in a Distributed System." *Communications of the ACM*, 21(7), 558-565.
-- Fischer, M. J., Lynch, N. A., & Paterson, M. S. (1985). "Impossibility of Distributed Consensus with One Faulty Process." *Journal of the ACM*, 32(2), 374-382.
-- Gilbert, S., & Lynch, N. (2002). "Brewer's Conjecture and the Feasibility of Consistent, Available, Partition-Tolerant Web Services." *ACM SIGACT News*, 33(2), 51-59.
-- Brewer, E. A. (2000). "Towards Robust Distributed Systems." *Proceedings of the 19th Annual ACM Symposium on Principles of Distributed Computing*.
-- Vogels, W. (2009). "Eventually Consistent." *Communications of the ACM*, 52(1), 40-44.
-- Tanenbaum, A. S., & Van Steen, M. (2017). *Distributed Systems: Principles and Paradigms* (3rd ed.). CreateSpace Independent Publishing Platform.
-- Graduate courses from Georgia Institute of Technology and Columbia University
+- CS 6210: Advanced Operating Systems - Georgia Tech OMSCS
+- MIT 6.824: Distributed Systems

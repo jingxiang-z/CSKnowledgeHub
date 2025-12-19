@@ -8,15 +8,16 @@ A distributed system is a collection of autonomous computing nodes that communic
 
 1. [Introduction](#introduction)
 2. [System and Failure Models](#system-and-failure-models)
-3. [CAP Theorem](#cap-theorem)
-4. [Consistency Models](#consistency-models)
-5. [Fault Tolerance and Replication](#fault-tolerance-and-replication)
-6. [Scalability](#scalability)
-7. [Design Principles](#design-principles)
+3. [Time, Ordering, and Coordination](#time-ordering-and-coordination)
+4. [CAP Theorem](#cap-theorem)
+5. [Consistency](#consistency)
+6. [Fault Tolerance](#fault-tolerance)
+7. [Scalability](#scalability)
+8. [Design Principles](#design-principles)
 
 ## Introduction
 
-A distributed system is a collection of autonomous computing nodes that communicate over a network to achieve a common goal. These systems are characterized by core properties that distinguish them from centralized and parallel systems.
+Distributed systems are built because single machines hit limits (performance, reliability, geography, isolation). The price is that the network becomes part of your computer: **latency, partial failure, and concurrency become the default**.
 
 ### Defining Characteristics
 
@@ -70,100 +71,57 @@ Modern distributed systems design primarily focuses on achieving **high performa
 
 System models define the assumptions about timing, synchronization, and behavior that algorithms can rely upon. Failure models characterize the types of failures that can occur. Together, these models define the "rules of the game" for distributed systems design.
 
-### Timing Models
+### Safety vs. Liveness
 
-**Synchronous System**
+- **Safety**: "nothing bad happens" (e.g., never return two different committed values).
+- **Liveness**: "something good eventually happens" (e.g., requests eventually complete).
 
-A system where there exist known upper bounds on:
-- Message delivery time
-- Processing time for each step
-- Clock drift rate
+Many results are phrased as: under certain assumptions you can guarantee safety, but liveness may be impossible (or vice versa).
 
-*Advantages:* Enables timeout-based failure detection. If a node doesn't respond within the bound, it can be declared failed with certainty.
+### Timing / System Models
 
-*Disadvantages:* Difficult to achieve in practice, especially in WANs. Requires conservative bounds, leading to poor performance.
+| Model | Assumptions | What it enables | Key limitation |
+|------|-------------|-----------------|----------------|
+| **Synchronous** | Known upper bounds on message delay, processing time, and clock drift | **Reliable timeouts** → accurate failure detection | Hard to guarantee in practice (especially WANs) |
+| **Asynchronous** | No timing bounds (messages can be arbitrarily delayed; processes arbitrarily slow) | Simple modeling of the Internet | **No perfect failure detection**; FLP shows consensus can’t be guaranteed with 1 crash fault |
+| **Partially synchronous** | Bounds exist but are unknown, or hold only after some unknown stabilization time | Practical consensus (e.g., Raft) via timeouts + eventual stability | During unstable periods it behaves like async |
 
-*Example:* Hard real-time systems, tightly-coupled clusters with reliable networks.
+### Communication Assumptions
 
-**Asynchronous System**
-
-A system with no timing assumptions. Messages can be arbitrarily delayed, processes can be arbitrarily slow, and there are no clock bounds.
-
-*Advantages:* Realistic model for the Internet and most distributed systems.
-
-*Disadvantages:* Fundamentally limits what can be achieved. The FLP impossibility result shows that consensus is impossible in asynchronous systems with even one crash failure.
-
-*Key Challenge:* Cannot distinguish between a slow node and a crashed node using timeouts alone.
-
-**Partially Synchronous System**
-
-A middle ground: the system behaves asynchronously during periods of instability but eventually stabilizes to synchronous behavior. Most real-world systems fall into this category.
-
-*Characteristics:* Bounds exist but are unknown, or the system eventually satisfies bounds after an unknown stabilization period.
-
-*Examples:* Modern cloud environments, Internet protocols with adaptive timeouts.
-
-### Communication Models
-
-**Reliable Communication**
-
-Messages are eventually delivered without corruption, duplication, or reordering. Lost messages are automatically retransmitted by lower layers (e.g., TCP).
-
-**Unreliable Communication**
-
-Messages may be lost, duplicated, corrupted, or reordered. The application must handle these scenarios (e.g., UDP).
-
-**Network Partitions**
-
-The network may split into disconnected components, preventing communication between partitions. Nodes within a partition can communicate, but not across partitions.
+| Assumption | Meaning | Practical note |
+|-----------|---------|----------------|
+| **Reliable channel** | Messages aren’t lost/corrupted (or are retransmitted) | TCP-like behavior (still can have partitions) |
+| **Unreliable channel** | Loss/duplication/reordering may occur | UDP-like; app must add retries/dedup |
+| **Partition possible** | Network can split so some nodes can’t talk | Treat as a first-class fault in design |
 
 ### Failure Models
 
-### Crash Failures (Fail-Stop)
+| Failure | What happens | Notes |
+|--------|--------------|------|
+| **Crash (fail-stop)** | Node halts and stops responding | Common model for consensus/replication |
+| **Omission** | Node drops some sends/receives | Includes message loss behaviors |
+| **Timing** | Node misses known deadlines | Mostly relevant under synchronous assumptions |
+| **Byzantine** | Node behaves arbitrarily/maliciously | Expensive: typically **3f+1** replicas to tolerate **f** faults |
+| **Partition** | Network splits into components | Can cause split-brain without coordination |
 
-A node stops executing and never recovers. Once crashed, it sends no further messages and performs no further computations. This is the simplest and most commonly assumed failure model.
+**Rule of thumb:** most production data systems assume **crash failures + partial synchrony**, and then engineer around partitions via quorums/consensus.
 
-**Detection:** Difficult in asynchronous systems (indistinguishable from slow nodes) but straightforward in synchronous systems using timeouts.
+## Time, Ordering, and Coordination
 
-**Recovery:** No recovery—the node is permanently failed. However, state may be recovered from persistent storage or replicas.
+Distributed systems often need to answer: **in what order did things happen?** On a single machine, a shared clock and shared memory make this feel easy. In a distributed system, it’s not.
 
-### Omission Failures
+### Why ordering is hard (3 bullets)
 
-A node fails to send or receive messages, but otherwise continues executing correctly. Can be subdivided into:
-- **Send omission:** Node fails to send some messages
-- **Receive omission:** Node fails to receive some messages
+- **No global clock**: clocks drift; synchronization reduces error but never eliminates it.
+- **Unpredictable delay**: message latency varies and reordering can occur.
+- **Failures look like slowness**: timeouts can’t perfectly distinguish a slow node from a crashed/partitioned one.
 
-**Relationship to Crash:** Crash failures are a special case where all subsequent sends and receives are omitted.
+### What systems do about it
 
-### Timing Failures
+- Use **logical time / causality** tools (happened-before, Lamport clocks, vector clocks) to reason about ordering.
+- Use **coordination** (e.g., consensus + state machine replication) when replicas must agree on one order.
 
-In synchronous systems, a node fails to respond within the expected time bounds. Examples include:
-- Response arrives too late
-- Clock drift exceeds allowed bounds
-
-These are critical in real-time systems but less relevant in asynchronous models.
-
-### Byzantine Failures (Arbitrary Failures)
-
-The most severe failure model: a faulty node can exhibit arbitrary, even malicious, behavior. It may:
-- Send incorrect or contradictory messages
-- Collude with other faulty nodes
-- Corrupt local state
-- Impersonate other nodes
-
-**Examples:** Security attacks, software bugs, hardware corruption, compromised nodes.
-
-**Cost:** Byzantine fault tolerance requires significantly more resources (typically 3f+1 replicas to tolerate f failures, compared to f+1 for crash failures).
-
-**Byzantine Generals Problem:** The classic formulation: how can loyal generals coordinate an attack when some generals may be traitors sending conflicting messages?
-
-### Network Partition Failures
-
-The network splits into disconnected subnetworks. Nodes within each partition can communicate, but not across partitions.
-
-**Split-Brain Problem:** Each partition may independently elect a leader or modify state, leading to inconsistency when partitions heal.
-
-**Common Causes:** Network cable cuts, router failures, firewall misconfigurations, geographic isolation.
+For the detailed treatment of causality and Lamport clocks, see `Distributed System/02-Communication.md`.
 
 ## CAP Theorem
 
@@ -171,13 +129,15 @@ The CAP theorem (Brewer's theorem) is a fundamental impossibility result: a dist
 
 ### The Three Properties
 
+![CAP Theorem](../assets/distributed-system-cap-theorem.png)
+
 **Consistency (C)**
 
-Every read receives the most recent write or an error. All nodes see the same data at the same time. Equivalent to linearizability or strong consistency.
+All clients observe operations as if there were a single, up-to-date copy of the data (commonly interpreted as **linearizability** for reads/writes).
 
 **Availability (A)**
 
-Every request (read or write) receives a non-error response, without guarantee that it contains the most recent write. The system remains operational for all requests.
+Every request to a **non-failed** node eventually receives a (non-error) response. The response may be stale if you choose availability over consistency during a partition.
 
 **Partition Tolerance (P)**
 
@@ -205,7 +165,7 @@ Sacrifice consistency during partitions. All nodes remain available but may retu
 
 **CA Systems (Consistency + Availability)**
 
-Only possible without network partitions, which means the system is not truly distributed or operates within a single data center with reliable networking.
+Only possible if you **assume partitions do not occur** (or you are willing to treat partitions as failures that break availability/operation). In practice, partitions can happen even within a single data center.
 
 *Examples:* Traditional RDBMS (PostgreSQL, MySQL) on a single node or with synchronous replication in a tightly-coupled cluster.
 
@@ -217,7 +177,7 @@ Only possible without network partitions, which means the system is not truly di
 
 **Eventually consistent systems:** Many AP systems provide eventual consistency—if writes stop, all replicas eventually converge to the same state.
 
-## Consistency Models
+## Consistency
 
 Consistency models define the guarantees about the order and visibility of operations in a distributed system. In a replicated storage system, **consistency defines the rules about what a client will see when reading data after it has been written**. With multiple replicas of data distributed across different machines, ambiguity can arise about which version of the data is "correct."
 
@@ -273,7 +233,7 @@ If no new updates are made, all replicas eventually converge to the same state.
 
 **Challenges:** Application must handle stale reads, conflicts, and convergence detection.
 
-## Fault Tolerance and Replication
+## Fault Tolerance
 
 At scale, component failures become a constant reality rather than exceptional events. While a single server might have a mean time between failures of one year, a system built from 1,000 computers will experience approximately **three failures per day** (1000 machines ÷ 365 days). Failures—crashed machines, faulty network cables, overheated switches, power outages—must be treated as a normal, constant state of operation, not a rare anomaly.
 
@@ -301,13 +261,15 @@ Replication is the primary mechanism for achieving fault tolerance and high avai
 
 ### Replication Strategies
 
+![Replication Strategies](../assets/distributed-system-replication-strategies.png)
+
 **Primary-Backup (Master-Slave)**
 
 One primary replica handles all writes; backups passively replicate the primary's state.
 
 *Advantages:* Simple, strong consistency.
 
-*Disadvantages:* Primary is a bottleneck and single point of failure.
+*Disadvantages:* Primary can be a bottleneck and, without automated failover, a single point of failure.
 
 **Multi-Primary (Multi-Master)**
 
@@ -327,13 +289,15 @@ Replicas start in the same state and deterministically apply the same operations
 
 ### Quorum Systems
 
+![Quorum Systems](../assets/distributed-system-quorum-systems.png)
+
 Require agreement from a majority (or weighted quorum) of replicas before completing operations.
 
-**Read Quorum (R) + Write Quorum (W) > N:** Ensures reads see most recent writes.
+**Read Quorum (R) + Write Quorum (W) > N:** Ensures read and write quorums **overlap** (quorum intersection), which is a building block for strong behavior.
 
 **Example:** In a system with 5 replicas, W=3 and R=3 ensures consistency.
 
-**Trade-off:** Tune R and W for consistency vs. availability. High W = strong consistency but lower write availability.
+**Trade-off:** Tune R and W for consistency vs. availability/latency. Higher W/R increases coordination cost and reduces availability during failures.
 
 ## Scalability
 
@@ -376,6 +340,8 @@ Key principles for designing distributed systems:
 **Minimize Communication:** Since communication dominates computation time (Tm >> Te), algorithms should maximize local work and minimize message passing. Batch operations when possible. Avoid distributed state—shared mutable state across nodes is expensive to maintain consistently. Prefer immutable data, local state, and stateless services.
 
 **Use Idempotent Operations:** Design operations that can be safely retried without changing the result. Critical for handling message duplication and failures. Example: `SET x = 5` is idempotent, but `INCREMENT x` is not.
+
+**Plan for Retries and Deduplication:** At-least-once delivery is common in real systems. Add request IDs, dedupe tables, and careful semantics at boundaries (HTTP, queues, RPC).
 
 **Accept Trade-offs:** Perfect solutions don't exist. CAP theorem, FLP impossibility, and latency constraints force trade-offs between consistency, availability, performance, and simplicity. Choose trade-offs that align with application requirements.
 

@@ -1,31 +1,13 @@
 # 02-Distributed Communication
 
-## Overview
-
-This document explores four fundamental aspects of distributed systems: understanding causality and event ordering, establishing temporal ordering through clock mechanisms, optimizing inter-process communication for performance, and the evolution toward programmable networks. The "Happened Before" relationship provides a formal basis for reasoning about causality without global clocks. Lamport's Clocks build on this foundation to assign timestamps to events. Performance in distributed systems is critically dependent on minimizing communication latency, particularly for Remote Procedure Calls (RPCs). Finally, Active Networks and Software Defined Networking (SDN) represent the evolution toward programmable, virtualized network infrastructure that has become essential in modern cloud and data center environments.
-
 ## Table of Contents
 
-1. [Event Ordering in Distributed Systems](#event-ordering-in-distributed-systems)
-   - [The "Happened Before" Relationship](#the-happened-before-relationship)
-   - [Concurrent Events and Partial Ordering](#concurrent-events-and-partial-ordering)
+1. [Event Ordering](#event-ordering)
 2. [Clocks and Synchronization](#clocks-and-synchronization)
-   - [Lamport's Logical Clock](#lamports-logical-clock)
-   - [Achieving Total Order](#achieving-total-order)
-   - [Application: Distributed Mutual Exclusion](#application-distributed-mutual-exclusion)
-   - [Lamport's Physical Clock](#lamports-physical-clock)
 3. [Communication and Remote Procedure Calls](#communication-and-remote-procedure-calls)
-   - [Components of RPC Latency](#components-of-rpc-latency)
-   - [Marshaling and Data Copying](#marshaling-and-data-copying)
-   - [Control Transfer (Context Switches)](#control-transfer-context-switches)
-   - [Protocol Processing](#protocol-processing)
-4. [Active Networks and Software Defined Networking](#active-networks-and-software-defined-networking)
-   - [The Vision of Active Networks](#the-vision-of-active-networks)
-   - [The ANTS Toolkit](#the-ants-toolkit-a-practical-approach)
-   - [Evolution to SDN](#feasibility-and-evolution-to-sdn)
-5. [Summary](#summary)
+4. [Software Defined Networking (SDN)](#software-defined-networking-sdn)
 
-## Event Ordering in Distributed Systems
+## Event Ordering
 
 In distributed systems where communication time dominates computation time (Tm >> Te), establishing a consistent ordering of events across autonomous nodes becomes a fundamental challenge. Without a shared global clock or shared memory, we need formal mechanisms to reason about causality and event relationships.
 
@@ -34,6 +16,8 @@ In distributed systems where communication time dominates computation time (Tm >
 To reason about causality and event order without a global clock, Lamport introduced the **"Happened Before"** relationship, denoted by `A -> B` ("A happened before B"). This relationship establishes a partial ordering of events based on causal relationships.
 
 #### Definition
+
+![Happened Before Relationship](../assets/distributed-system-happened-before.png)
 
 The "Happened Before" relationship is defined by two conditions:
 
@@ -49,19 +33,9 @@ The transitivity property allows us to establish causal chains across multiple p
 
 ### Concurrent Events and Partial Ordering
 
-Events that are not related by the "Happened Before" relationship (either directly or transitively) are considered **concurrent**. Understanding concurrency is critical to building correct distributed systems.
+Events that are not related by the "Happened Before" relationship (either directly or transitively) are considered **concurrent**. If events A and B are concurrent, it is impossible to definitively state that one occurred before the other—in different executions, their real-time ordering can vary.
 
-#### Concurrency Definition
-
-If events A and B are concurrent, it is impossible to definitively state that one occurred before the other. In different executions of the same program, the real-time ordering of concurrent events can vary.
-
-#### Partial Order
-
-This concurrency means the "Happened Before" relationship provides only a **partial order** of all events in the system. Not all pairs of events can be ordered with respect to each other.
-
-#### Common Pitfall
-
-Assuming a specific order for concurrent events is a common source of timing bugs in distributed programs. Robust distributed algorithms must explicitly recognize which events are causally related and which are concurrent.
+This concurrency means the "Happened Before" relationship provides only a **partial order** of all events in the system. Not all pairs of events can be ordered with respect to each other. Robust distributed algorithms must explicitly recognize which events are causally related and which are concurrent, as assuming a specific order for concurrent events is a common source of timing bugs.
 
 ## Clocks and Synchronization
 
@@ -77,11 +51,9 @@ The logical clock is a simple, monotonically increasing counter (or "clock"), `C
 
    - Specifically, the receiving process `Pj` sets its local clock `Cj` to `MAX(current Cj, incoming C(send)) + 1` (or some other increment). This ensures the causality principle (a message cannot be received before it is sent) is respected in the logical timeline.
 
-#### Partial Order Implication
+#### Key Property
 
-If an event `a` happened before `b` (`a -> b`), then it is guaranteed that `C(a) < C(b)`. However, the converse is not true. If `C(x) < C(y)`, it **does not** necessarily mean that `x -> y`. The events `x` and `y` could be concurrent, and their timestamp ordering might be arbitrary.
-
-Lamport's Logical Clock thus provides a partial order, not a total one.
+If an event `a` happened before `b` (`a -> b`), then `C(a) < C(b)`. However, the converse is not true: `C(x) < C(y)` does **not** necessarily mean `x -> y`. The events could be concurrent, with arbitrary timestamp ordering.
 
 #### Example
 
@@ -116,7 +88,7 @@ An event `a` in process `Pi` is said to precede event `b` in process `Pj` in the
 
 Any arbitrary, globally-known condition can be used for tie-breaking. This mechanism allows every node to independently derive the exact same total ordering of all events in the system.
 
-### Application: Distributed Mutual Exclusion
+### Distributed Mutual Exclusion
 
 This algorithm uses Lamport's total order to implement a lock without shared memory, demonstrating the power of logical timestamps in coordination protocols.
 
@@ -160,38 +132,17 @@ Computer clocks are imperfect and can drift, running faster or slower than real 
 
 #### Real-World Anomaly Example
 
-Consider an email system:
-1. Alice sends an email at 10:00:05 AM (according to her clock)
-2. Bob receives it instantly and replies at 10:00:03 AM (according to his clock)
-3. Alice receives the reply at 10:00:04 AM (according to her clock)
+Consider an email system where Alice sends an email at 10:00:05, Bob receives it and replies at 10:00:03 (his clock is slow), and Alice receives the reply at 10:00:04. The timestamps suggest Bob replied before Alice sent the original message—a causality violation caused by clock drift.
 
-The timestamps suggest Bob replied before Alice sent the original message, creating a causality violation.
-
-#### Physical Clock Conditions (PC1 & PC2)
+#### Physical Clock Conditions
 
 To prevent time-related anomalies, two conditions must be met:
 
-1. **PC1 - Bounded Individual Drift:** The rate of drift for any clock `Ci(t)` with respect to real time `t` must be bounded by a very small constant `k`.
+1. **PC1 - Bounded Individual Drift:** Each clock's drift rate relative to real time must be bounded by a small constant `k` (typically < 10⁻⁶).
 
-   ```
-   |dCi(t)/dt - 1| < k
-   ```
+2. **PC2 - Bounded Mutual Drift:** The difference between any two clocks at the same moment must be bounded by a small constant `ε`.
 
-2. **PC2 - Bounded Mutual Drift:** The difference in readings between any two clocks `Ci(t)` and `Cj(t)` at the same real time `t` must be bounded by a small constant `ε`.
-
-   ```
-   |Ci(t) - Cj(t)| < ε
-   ```
-
-#### Key Insight
-
-Essentially, these conditions ensure that the inter-process communication time `μ` is significantly larger than any potential clock drift. Formally:
-
-```
-μ ≥ ε / (1 - k)
-```
-
-If communication time dominates drift, anomalies can be avoided. This relationship shows that physical clocks can be synchronized well enough for distributed systems as long as the network is reasonably fast relative to clock drift rates.
+**Key Insight:** If the inter-process communication time `μ` is significantly larger than the potential clock drift (`μ ≥ ε / (1 - k)`), anomalies can be avoided. In practice, this means physical clocks can be synchronized well enough for distributed systems as long as network latency dominates clock drift rates.
 
 #### Practical Implementation
 
@@ -204,277 +155,122 @@ In practice, this is achieved through clock synchronization protocols such as:
 
 ### Components of RPC Latency
 
-The end-to-end latency of an RPC involves numerous steps, with overhead added by both software and hardware. Understanding each step is crucial for identifying optimization opportunities.
+The end-to-end latency of an RPC involves several phases, each adding overhead:
 
-| Step # | Phase              | Description                                                  | Overhead Type              |
-|--------|--------------------|--------------------------------------------------------------|----------------------------|
-| 1      | Client Call        | Client application sets up arguments and makes a kernel call. Kernel marshals arguments into a packet. | Software                   |
-| 2      | Controller Latency | Network controller DMAs the packet from system memory to its buffer and puts it on the wire. | Hardware                   |
-| 3      | Time on Wire       | Packet travels across the network to the server.             | Physical                   |
-| 4      | Interrupt Handling | Server's network card interrupts the OS, which moves the packet from the controller into memory. | Software/Hardware          |
-| 5      | Server Setup       | OS locates and dispatches the server procedure, unmarshaling the arguments from the packet. | Software                   |
-| 6      | Server Execution   | The server procedure executes its logic and prepares a reply. | Application                |
-| 7-10   | Return Path        | Steps 2, 3, and 4 are repeated in reverse as the reply is sent back to the client. | Hardware/Physical/Software |
-| 11     | Client Setup       | Client OS receives the interrupt for the reply and reactivates the original client process to receive the results. | Software                   |
+| Phase              | Description                                                  | Overhead Type |
+|--------------------|--------------------------------------------------------------|---------------|
+| Client Call        | Marshal arguments, make kernel call                          | Software      |
+| Network Send       | DMA to network controller, transmit packet                   | Hardware      |
+| Network Transit    | Packet travels across network                                | Physical      |
+| Server Receive     | Interrupt handling, move packet to memory                    | HW/SW         |
+| Server Dispatch    | Unmarshal arguments, locate and invoke server procedure      | Software      |
+| Server Execution   | Execute procedure logic, prepare reply                       | Application   |
+| Return Path        | Send, transit, and receive reply (reverse of above steps)    | HW/Physical/SW|
+| Client Resume      | Receive interrupt, reactivate client process                 | Software      |
 
-#### Dominant Overhead Sources
-
-The key sources of software overhead that OS designers focus on optimizing are:
-1. **Marshaling and data copying** (Steps 1, 5, 11)
-2. **Control transfers/context switches** (Steps 1, 5, 11)
-3. **Protocol processing** (Steps 1-5, 7-11)
+The key optimization targets are **marshaling/data copying**, **context switches**, and **protocol processing**.
 
 ### Marshaling and Data Copying
 
-This is often the largest source of overhead. A naive implementation can involve three distinct memory copies before a packet is sent.
+This is often the largest source of overhead. A naive implementation involves three memory copies:
+1. **Client stub** copies arguments from stack to user-space buffer
+2. **Kernel** copies from user-space to kernel buffer
+3. **DMA** copies from kernel buffer to network controller
 
-#### The Three-Copy Problem
+**Optimization Techniques:**
 
-1. **Client Stub Copy:** The client stub copies arguments from the process stack into a contiguous RPC message buffer in user space.
-2. **Kernel Copy:** The kernel copies the RPC message from user space into its own internal buffer.
-3. **DMA Copy:** The network controller DMAs the message from the kernel's buffer to its own hardware buffer.
+The DMA copy is unavoidable, but the first two can be reduced:
 
-#### Optimization Techniques
+- **Push Stub into Kernel:** Install stub code in kernel at bind time, allowing direct marshaling from client stack to kernel buffer (eliminates one copy)
+- **Shared Descriptors:** User-space stub creates a descriptor of argument layout; kernel performs "gather" operation directly into network buffer (eliminates one copy, maintains user-space model)
 
-The DMA copy is generally unavoidable due to hardware constraints. However, the first two copies can be eliminated or reduced:
-
-**Push Stub into Kernel:**
-- The client stub code can be installed directly into the kernel at bind time
-- The stub can then marshal arguments directly from the client's stack into the kernel buffer
-- Eliminates the intermediate user-space copy
-- Reduces data movement from 3 copies to 2 copies
-
-**Shared Descriptors:**
-- The user-space stub creates a "shared descriptor" that describes the layout (address and length) of each argument on the stack
-- The kernel reads this descriptor and performs a "gather" operation
-- Copies disparate data directly into its network buffer
-- Again avoids the intermediate copy
-- More flexible than pushing stub into kernel, maintains user-space programming model
-
-#### Performance Impact
-
-```
-Traditional approach:  Stack -> User buffer -> Kernel buffer -> NIC buffer (3 copies)
-Optimized approach:    Stack -> Kernel buffer -> NIC buffer (2 copies)
-Reduction:             ~33% fewer memory operations
-```
+Both optimizations reduce the copy count from 3 to 2 (~33% reduction).
 
 ### Control Transfer (Context Switches)
 
-A full RPC round-trip can involve four context switches, two of which are on the critical path for latency.
+A full RPC round-trip can involve up to four context switches:
+- Client blocks → switch to another process (overlappable with network I/O)
+- Server woken up → **critical switch**
+- Server replies → switch to another process (overlappable)
+- Client woken up → **critical switch**
 
-#### The Four Context Switches
-
-- **Switch 1 (Client):** Client calls RPC → OS blocks client → OS switches to another process `C1`. **(Not critical)**
-- **Switch 2 (Server):** RPC arrives → OS switches from current process `S1` to the server process `S`. **(Critical)**
-- **Switch 3 (Server):** Server replies → OS switches from `S` to another process `S2`. **(Not critical)**
-- **Switch 4 (Client):** Reply arrives → OS switches from current process `C2` back to the original client `C`. **(Critical)**
-
-#### Optimization Techniques
-
-**Reduce to Two Switches:**
-The non-critical switches (1 and 3) can be overlapped with network transmission time, effectively removing them from the latency calculation. The OS can schedule other work while the packet is in transit.
-
-**Reduce to One Switch:**
-For very fast RPCs on a LAN, the client can **spin-wait** instead of being context-switched out:
-- Eliminates switches 1 and 4
-- Client remains scheduled, polling for the reply
-- Underutilizes the client CPU but minimizes latency
-- Only remaining switch is the critical one on the server side (Switch 2)
-- Effective when RPC latency < scheduling quantum
-
-#### Trade-offs
-
-```
-Four switches:   Maximum CPU utilization, higher latency
-Two switches:    Balanced approach, overlap with I/O
-One switch:      Minimum latency, CPU underutilization
-Zero switches:   Only possible with dedicated hardware (e.g., RDMA)
-```
+**Optimizations:**
+- **Overlap with I/O:** Non-critical switches (1 and 3) can be hidden during network transmission, leaving only two critical switches
+- **Spin-waiting:** For fast LANs, client can poll for the reply instead of blocking, eliminating client-side switches entirely (trades CPU utilization for latency)
 
 ### Protocol Processing
 
-For reliable LANs, general-purpose protocols like TCP/IP introduce unnecessary overhead. A leaner, RPC-specific protocol can be designed by making certain assumptions about the network and RPC semantics.
+For reliable LANs, general-purpose protocols like TCP/IP introduce unnecessary overhead. A leaner RPC-specific protocol can make optimizations:
 
-#### Optimization Techniques
+**Key Optimizations:**
+- **Implicit ACKs:** The server's reply acknowledges the request; the client's next action acknowledges the reply (eliminates separate ACK packets, ~40% fewer messages)
+- **Hardware checksums:** Offload validation to NIC hardware
+- **Smart buffering:** Client needn't buffer requests (can regenerate on loss); server buffers replies during transmission only
 
-**Eliminate Low-Level ACKs:**
-- In RPC, the reply from the server serves as an implicit acknowledgment of the request
-- The client's next action (or timeout) serves as an implicit ACK of the reply
-- Eliminates the need for separate, low-level ACK packets
-- Reduces message count by ~40%
+**RPC-Specific Features:** Connection-less operation, idempotency tracking, at-most-once semantics via request IDs, adaptive timeouts, and request batching.
 
-**Use Hardware Checksum:**
-- Offload checksum calculation from software to the network hardware
-- Modern NICs support this in hardware at line speed
-- Frees CPU cycles for application work
+### RPC Implementations
 
-**Avoid Client-Side Buffering:**
-- Since the client is blocked waiting for a response, if a request is lost, it can be regenerated and resent
-- No need for the OS to buffer the outgoing packet after transmission
-- Saves kernel memory and reduces buffer management overhead
+**Java RMI (Historical):** An early object-oriented RPC system for distributed Java applications. It provided remote object references, automatic marshaling via serialization, and integrated naming services. However, it was Java-only and used synchronous blocking calls.
 
-**Overlap Server-Side Buffering:**
-- The server should buffer the reply in case a retransmission is needed
-- This buffering can be overlapped with the actual transmission of the reply packet
-- Hides buffering latency from the critical path
-- Reply buffer can be freed after timeout period or upon receiving next request from same client
+**Modern RPC (gRPC, Thrift):** Contemporary systems use language-agnostic protocols with:
+- **Interface Definition Languages (IDL):** Protocol Buffers, Thrift IDL for cross-language compatibility
+- **HTTP/2-based transport:** Multiplexing, streaming, flow control
+- **Code generation:** Automatic client/server stub generation from IDL
+- **Async support:** Non-blocking calls, streaming RPCs (unary, server-streaming, client-streaming, bidirectional)
 
-#### RPC-Specific Protocol Features
+Modern RPC frameworks address Java RMI's limitations while maintaining the core benefits of abstraction, type safety, and automatic serialization.
 
-A specialized RPC protocol might include:
-- **Connection-less operation** for single request-reply exchanges
-- **Idempotency tracking** to handle duplicate requests safely
-- **At-most-once semantics** through request IDs
-- **Adaptive timeout** based on measured RTT
-- **Batching** for multiple small RPCs to the same server
+## Software Defined Networking (SDN)
 
-## Active Networks and Software Defined Networking
+### Historical Context: Active Networks
 
-### The Vision of Active Networks
+Active Networks (1990s-2000s) was a research paradigm proposing programmable routers that could execute application-supplied code on packets at intermediate nodes. While never deployed at scale due to security concerns, performance limitations, and vendor resistance, it introduced foundational concepts that profoundly influenced modern networking.
 
-Active Networks is a research paradigm that explores making the network itself programmable and intelligent, representing a visionary approach to network architecture that has influenced modern cloud computing and SDN.
+**Key Idea:** Separate network intelligence (control plane) from packet forwarding (data plane), enabling dynamic, programmable network behavior.
 
-Instead of routers being passive devices that simply forward packets based on static routing tables, Active Networks proposes that packets can carry code that is executed by intermediate routers. This allows for customized, application-specific routing and in-network processing.
+### Modern SDN
 
-#### Key Concepts
+**Software Defined Networking (SDN)** realizes the Active Networks vision in a practical, secure form, dominating modern data center and cloud networking.
 
-**Programmable Routers:** Network nodes can execute application-supplied code, enabling dynamic behavior adaptation.
+**Core Principles:**
+- **Control/Data Plane Separation:** Centralized controller programs distributed switches
+- **Programmable Behavior:** Network policies defined in software, not hardware
+- **Network Virtualization:** Multiple logical networks on shared infrastructure
+- **Open APIs:** Standardized protocols (e.g., OpenFlow) for vendor-agnostic control
 
-**In-Network Processing:** Computation can occur at intermediate nodes, not just endpoints.
-
-**Application-Specific Behavior:** Each application can define custom packet processing logic.
-
-#### Example Use Case
-
-A single "greeting" message could be sent, and an active router near the destination could execute code to demultiplex it into multiple copies for different recipients, saving bandwidth:
-
+**Architecture:**
 ```
-Traditional approach:
-Client -> Send N messages -> Router (forward) -> N recipients
-Bandwidth: N × message_size
-
-Active Networks approach:
-Client -> Send 1 message with demux code -> Router (execute, replicate) -> N recipients
-Bandwidth: 1 × message_size + code_size (amortized)
+┌──────────────────────────────────┐
+│   SDN Controller (Control Plane)  │  ← Centralized logic
+│   (OpenDaylight, ONOS, proprietary)│
+└──────────────┬───────────────────┘
+               │ OpenFlow / P4
+    ┌──────────┼──────────┐
+    ↓          ↓          ↓
+┌────────┐ ┌────────┐ ┌────────┐
+│Switch 1│ │Switch 2│ │Switch N│  ← Data plane (forwarding only)
+└────────┘ └────────┘ └────────┘
 ```
 
-### The ANTS Toolkit: A Practical Approach
+**Modern Use Cases:**
+- **Cloud Multi-Tenancy:** Isolate traffic between tenants (AWS VPC, Azure VNet)
+- **Dynamic Traffic Engineering:** Google B4 WAN optimizes bandwidth utilization
+- **Network Function Virtualization (NFV):** Software firewalls, load balancers
+- **Datacenter Networking:** Scalable, programmable fabric (Cisco ACI, VMware NSX)
 
-The Active Node Transfer System (ANTS) toolkit was developed to implement this vision practically, without requiring a complete overhaul of the internet.
+**Benefits:**
+- Centralized policy management
+- Rapid provisioning and configuration
+- Vendor-agnostic hardware (commoditization)
+- Easier troubleshooting and monitoring
 
-#### Design Principles
-
-**Application-Level Toolkit:**
-- ANTS operates as a user-level library
-- Avoids complex kernel modifications
-- Can be deployed incrementally
-
-**Edge-Focused:**
-- Assumes that intelligence (active nodes) resides at the edges of the network
-- Leaves the core IP network unchanged
-- Pragmatic approach to deployment
-
-#### The ANTS Capsule
-
-The ANTS toolkit wraps the application payload into a "capsule":
-
-**Structure:** An ANTS packet consists of `[IP Header | ANTS Header | Payload]`.
-
-**ANTS Header:** Contains two key fields:
-
-- `type`: A cryptographic fingerprint (e.g., MD5 hash) of the code needed to process the capsule
-- `prev`: The address of the upstream node that last processed a capsule of this type
-
-#### Capsule Implementation and Processing
-
-ANTS uses a "code-by-reference" model to avoid sending executable code in every packet:
-
-1. **Code Retrieval:** When an active node receives a capsule, it checks its local cache ("soft-store") for the code corresponding to the capsule's `type` field.
-
-2. **Cache Miss:** If the code is not in the cache, the node requests it from the `prev` node specified in the header. The previous node, having just processed it, likely has the code cached.
-
-3. **Verification:** Upon receiving the code, the node computes its hash and verifies that it matches the `type` fingerprint in the capsule to prevent code spoofing.
-
-4. **Execution and Caching:** The node executes the verified code to process the capsule (e.g., forward it, modify it, duplicate it) and caches the code for future packets in the same flow.
-
-5. **Failure:** If a node cannot retrieve the code, it simply drops the capsule, relying on higher-level transport protocols for retransmission.
-
-**Processing Flow:**
-```
-Capsule arrives at active node
-    ↓
-Check local cache for code (type field)
-    ↓
-    Cache hit? → Execute code
-    ↓
-    Cache miss? → Request code from prev node
-                    ↓
-                  Verify hash matches type
-                    ↓
-                  Cache code
-                    ↓
-                  Execute code
-```
-
-### Feasibility and Evolution to SDN
-
-While a powerful concept, Active Networks faced significant roadblocks in achieving widespread adoption.
-
-#### Challenges
-
-**Vendor Resistance:** Reluctance of router vendors to open their hardware platforms to arbitrary code execution.
-
-**Performance:** Immense challenge of software-based routing in the high-speed internet core where hardware switching dominates.
-
-**Security:** Concerns about malicious code execution in critical network infrastructure.
-
-**Standardization:** Difficulty in establishing common frameworks and APIs across vendors.
-
-#### Evolution to Software Defined Networking
-
-However, the core idea of virtualizing the network and separating the control plane from the data plane has been highly influential. This vision has found new life in **Software Defined Networking (SDN)**, a dominant paradigm in modern data centers and cloud computing.
-
-**Key SDN Principles from Active Networks:**
-- Separation of control and data planes
-- Programmable network behavior
-- Network virtualization
-- Centralized control with distributed forwarding
-
-**Modern Applications:**
-- Multi-tenant cloud environments
-- Traffic isolation in shared infrastructure
-- Dynamic policy enforcement
-- Network function virtualization (NFV)
-
-**Examples:**
-- OpenFlow protocol
-- Google's B4 wide-area network
-- Amazon VPC (Virtual Private Cloud)
-- Azure Virtual Network
-
-## Summary
-
-This document explored four fundamental pillars of distributed systems communication:
-
-**Event Ordering:** The "Happened Before" relationship provides a formal foundation for reasoning about causality in distributed systems without requiring global clocks. It establishes a partial order of events based on process execution order and message passing, explicitly acknowledging the existence of concurrent events that cannot be definitively ordered.
-
-**Clocks and Synchronization:** Lamport's Clocks build on the event ordering foundation to assign timestamps. Logical Clocks establish a partial order using timestamps, which can be extended to a total order through deterministic tie-breaking rules—a concept essential for algorithms like distributed mutual exclusion. To address anomalies in real-world scenarios, Lamport's Physical Clocks introduce conditions to bound clock drift relative to inter-process communication time, ensuring that timestamps reflect actual causality.
-
-**Communication Optimization:** Optimizing communication latency requires a systematic approach to reducing overhead at multiple layers. The three key optimization areas are: (1) Marshaling/Data Copying—reduce memory copies from 3 to 2 through kernel-integrated stubs or shared descriptors; (2) Context Switches—reduce critical switches from 4 to 1 through overlapping and spin-waiting techniques; (3) Protocol Processing—design lean, RPC-specific protocols that eliminate unnecessary acknowledgments and leverage hardware offloads.
-
-**Programmable Networks:** Active Networks proposed making routers intelligent and programmable through in-network code execution. While not widely adopted in its original form, its core concepts—separation of control and data planes, network virtualization, and programmable behavior—have profoundly influenced modern Software Defined Networking (SDN), which dominates cloud and data center networking today. SDN enables dynamic policy enforcement, multi-tenant isolation, and network function virtualization essential for modern cloud infrastructure.
-
-Together, these mechanisms enable building efficient distributed systems that can reduce RPC latency by orders of magnitude, maintain correct temporal ordering and causality tracking, and dynamically adapt network behavior to application requirements.
+**Examples in Production:**
+- Google B4: SDN-based WAN connecting datacenters
+- Amazon VPC: Virtual networks in AWS cloud
+- OpenFlow: Standard protocol for SDN switch control
+- P4: Programming language for defining switch behavior
 
 ## References
 
-- Lamport, L. (1978). "Time, Clocks, and the Ordering of Events in a Distributed System." *Communications of the ACM*, 21(7), 558-565.
-- Birrell, A. D., & Nelson, B. J. (1984). "Implementing Remote Procedure Calls." *ACM Transactions on Computer Systems*, 2(1), 39-59.
-- Schroeder, M. D., & Burrows, M. (1990). "Performance of Firefly RPC." *ACM Transactions on Computer Systems*, 8(1), 1-17.
-- Thekkath, C. A., et al. (1993). "Implementing Network Protocols at User Level." *IEEE/ACM Transactions on Networking*, 1(5), 554-565.
-- Ricciardi, A., & Birman, K. (1991). "Using Process Groups to Implement Failure Detection in Asynchronous Environments." *Proceedings of the 10th Annual ACM Symposium on Principles of Distributed Computing*.
-- Wetherall, D. J., et al. (1998). "ANTS: A Toolkit for Building and Dynamically Deploying Network Protocols." *IEEE OPENARCH*.
-- Tennenhouse, D. L., & Wetherall, D. J. (1996). "Towards an Active Network Architecture." *ACM SIGCOMM Computer Communication Review*, 26(2), 5-17.
-- McKeown, N., et al. (2008). "OpenFlow: Enabling Innovation in Campus Networks." *ACM SIGCOMM Computer Communication Review*, 38(2), 69-74.
-- Graduate courses from Georgia Institute of Technology and Columbia University
+- CS 6210: Advanced Operating Systems - Georgia Tech OMSCS

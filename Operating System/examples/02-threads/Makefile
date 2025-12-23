@@ -15,19 +15,17 @@ BIN_DIR = bin
 C_TARGETS = $(BIN_DIR)/thread_pool_c \
             $(BIN_DIR)/producer_consumer_c \
             $(BIN_DIR)/reader_writer_c \
-            $(BIN_DIR)/boss_worker_c \
             $(BIN_DIR)/pipeline_c
 
 CPP_TARGETS = $(BIN_DIR)/thread_pool_cpp \
               $(BIN_DIR)/producer_consumer_cpp \
-              $(BIN_DIR)/reader_writer_cpp \
-              $(BIN_DIR)/boss_worker_cpp
+              $(BIN_DIR)/reader_writer_cpp
 
 ALL_TARGETS = $(C_TARGETS) $(CPP_TARGETS)
 
 # Source files
-C_SOURCES = thread_pool.c producer_consumer.c reader_writer.c boss_worker.c pipeline.c
-CPP_SOURCES = thread_pool.cpp producer_consumer.cpp reader_writer.cpp boss_worker.cpp
+C_SOURCES = thread_pool.c producer_consumer.c reader_writer.c pipeline.c
+CPP_SOURCES = thread_pool.cpp producer_consumer.cpp reader_writer.cpp
 
 # Default target: build all executables
 all: $(ALL_TARGETS)
@@ -53,11 +51,6 @@ $(BIN_DIR)/producer_consumer_c: producer_consumer.c | $(BIN_DIR)
 $(BIN_DIR)/reader_writer_c: reader_writer.c | $(BIN_DIR)
 	$(CC) $(CFLAGS) -o $@ $< $(LDFLAGS)
 
-# Build boss_worker C executable
-# Demonstrates boss-worker (master-slave) pattern
-$(BIN_DIR)/boss_worker_c: boss_worker.c | $(BIN_DIR)
-	$(CC) $(CFLAGS) -o $@ $< $(LDFLAGS)
-
 # Build pipeline C executable
 # Demonstrates pipeline pattern for data processing
 $(BIN_DIR)/pipeline_c: pipeline.c | $(BIN_DIR)
@@ -78,11 +71,6 @@ $(BIN_DIR)/producer_consumer_cpp: producer_consumer.cpp | $(BIN_DIR)
 # Build reader_writer C++ executable
 # Demonstrates reader-writer lock pattern using C++11
 $(BIN_DIR)/reader_writer_cpp: reader_writer.cpp | $(BIN_DIR)
-	$(CXX) $(CXXFLAGS) -o $@ $< $(LDFLAGS)
-
-# Build boss_worker C++ executable
-# Demonstrates boss-worker pattern using C++11 threads
-$(BIN_DIR)/boss_worker_cpp: boss_worker.cpp | $(BIN_DIR)
 	$(CXX) $(CXXFLAGS) -o $@ $< $(LDFLAGS)
 
 # ==================== Run Targets ====================
@@ -116,9 +104,6 @@ run-producer-consumer-c: $(BIN_DIR)/producer_consumer_c
 run-reader-writer-c: $(BIN_DIR)/reader_writer_c
 	$(BIN_DIR)/reader_writer_c
 
-run-boss-worker-c: $(BIN_DIR)/boss_worker_c
-	$(BIN_DIR)/boss_worker_c
-
 run-pipeline-c: $(BIN_DIR)/pipeline_c
 	$(BIN_DIR)/pipeline_c
 
@@ -131,9 +116,6 @@ run-producer-consumer-cpp: $(BIN_DIR)/producer_consumer_cpp
 
 run-reader-writer-cpp: $(BIN_DIR)/reader_writer_cpp
 	$(BIN_DIR)/reader_writer_cpp
-
-run-boss-worker-cpp: $(BIN_DIR)/boss_worker_cpp
-	$(BIN_DIR)/boss_worker_cpp
 
 # ==================== Utility Targets ====================
 
@@ -153,8 +135,6 @@ help:
 	@echo "  $(BIN_DIR)/producer_consumer_cpp  - Build producer-consumer (C++)"
 	@echo "  $(BIN_DIR)/reader_writer_c        - Build reader-writer (C)"
 	@echo "  $(BIN_DIR)/reader_writer_cpp      - Build reader-writer (C++)"
-	@echo "  $(BIN_DIR)/boss_worker_c          - Build boss-worker (C)"
-	@echo "  $(BIN_DIR)/boss_worker_cpp        - Build boss-worker (C++)"
 	@echo "  $(BIN_DIR)/pipeline_c             - Build pipeline (C)"
 	@echo ""
 	@echo "Run examples:"
@@ -167,8 +147,6 @@ help:
 	@echo "  run-producer-consumer-cpp - Run producer-consumer (C++)"
 	@echo "  run-reader-writer-c    - Run reader-writer (C)"
 	@echo "  run-reader-writer-cpp  - Run reader-writer (C++)"
-	@echo "  run-boss-worker-c      - Run boss-worker (C)"
-	@echo "  run-boss-worker-cpp    - Run boss-worker (C++)"
 	@echo "  run-pipeline-c         - Run pipeline (C)"
 	@echo ""
 	@echo "Utility:"
@@ -180,6 +158,5 @@ help:
         run-thread-pool-c run-thread-pool-cpp \
         run-producer-consumer-c run-producer-consumer-cpp \
         run-reader-writer-c run-reader-writer-cpp \
-        run-boss-worker-c run-boss-worker-cpp \
         run-pipeline-c help
 

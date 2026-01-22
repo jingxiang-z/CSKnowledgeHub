@@ -200,50 +200,7 @@ The stack and heap are two distinct regions within a process's address space ser
 
 ### Process Lifecycle
 
-```
-                    ┌─────────────────────┐
-                    │                     │
-                    │        NEW          │
-                    │  (Being Created)    │
-                    │                     │
-                    └──────────┬──────────┘
-                               │
-                               │ admit
-                               ↓
-                    ┌─────────────────────┐
-         ┌─────────>│                     │
-         │          │       READY         │<──────────┐
-         │          │  (Waiting for CPU)  │           │
-         │          │                     │           │
-         │          └──────────┬──────────┘           │
-         │                     │                      │
-         │           dispatch  │                      │
-         │          (schedule) │                      │
-         │                     ↓                      │
-         │          ┌─────────────────────┐           │
-         │          │                     │           │
-         │ timeout  │      RUNNING        │           │
-         │ (preempt)│   (Executing on     │           │
-         └──────────┤       CPU)          │           │
-                    │                     │           │
-                    └──────┬───────┬──────┘           │
-                           │       │                  │
-                  I/O or   │       │ exit             │
-                  event    │       │                  │
-                  wait     │       ↓                  │
-                           │   ┌─────────────────┐    │
-                           │   │   TERMINATED    │    │
-                           │   │   (Completed)   │    │
-                           │   └─────────────────┘    │
-                           │                          │
-                           ↓                          │
-                    ┌─────────────────────┐           │
-                    │                     │  I/O or   │
-                    │      BLOCKED        │  event    │
-                    │     (Waiting)       │ complete  │
-                    │                     │           │
-                    └─────────────────────┘───────────┘
-```
+![image-20260108213943040](C:\Users\78649\CSKnowledgeHub\assets\os-process-lifecycle.png)
 
 The process lifecycle refers to the various states and transitions that a process goes through during its existence. These states are managed by the operating system's process scheduler.
 

@@ -112,7 +112,7 @@ def quick_sort_helper(arr, left, right):
 
 def quick_sort(arr):
     """
-    Sorts an array in-place using quick sort algorithm.
+    Sorts an array in-place using quick sort algorithm with Lomuto partition.
 
     Args:
         arr: Array of integers to sort
@@ -131,9 +131,103 @@ def quick_sort(arr):
     quick_sort_helper(arr, left, right)
 
 
+def partition_hoare(arr, left, right):
+    """
+    Partitions the array segment arr[left:right+1] using Hoare's partition scheme.
+    More efficient than Lomuto - does about 3x fewer swaps on average.
+
+    Args:
+        arr: Array to partition
+        left: Start index (inclusive)
+        right: End index (inclusive)
+
+    Returns:
+        Index that splits the array such that elements to the left are <= pivot
+        and elements to the right are >= pivot. Note: pivot may not be at this index.
+
+    Key differences from Lomuto:
+        - Uses two pointers moving from both ends toward center
+        - Fewer swaps (more efficient)
+        - Pivot ends up somewhere in the middle, not necessarily at the partition index
+        - Returns partition index, not final pivot position
+    """
+    # Choose the middle element as pivot (better for sorted/reverse sorted arrays)
+    pivot = arr[(left + right) // 2]
+
+    # Two pointers: i moves right, j moves left
+    i = left - 1
+    j = right + 1
+
+    while True:
+        # Move i right until we find an element >= pivot
+        i += 1
+        while arr[i] < pivot:
+            i += 1
+
+        # Move j left until we find an element <= pivot
+        j -= 1
+        while arr[j] > pivot:
+            j -= 1
+
+        # If pointers crossed, we're done partitioning
+        if i >= j:
+            return j
+
+        # Swap elements that are on the wrong side
+        arr[i], arr[j] = arr[j], arr[i]
+
+
+def quick_sort_hoare_helper(arr, left, right):
+    """
+    Helper function that recursively sorts arr[left:right+1] using Hoare partition.
+
+    Args:
+        arr: Array to sort
+        left: Start index (inclusive)
+        right: End index (inclusive)
+    """
+    # Base case: array segment has 0 or 1 element
+    if left >= right:
+        return
+
+    # Divide: partition the array using Hoare's scheme
+    partition_index = partition_hoare(arr, left, right)
+
+    # Conquer: recursively sort both halves
+    # Note: In Hoare's scheme, the partition index is included in the left subarray
+    quick_sort_hoare_helper(arr, left, partition_index)
+    quick_sort_hoare_helper(arr, partition_index + 1, right)
+
+
+def quick_sort_hoare(arr):
+    """
+    Sorts an array in-place using quick sort with Hoare partition scheme.
+    Generally more efficient than Lomuto partition (fewer swaps).
+
+    Args:
+        arr: Array of integers to sort
+
+    Time complexity:
+        - Average case: O(n log n)
+        - Worst case: O(n²) (less likely with middle element as pivot)
+    Space complexity: O(log n) average for recursion stack, O(n) worst case
+    """
+    # Base case: empty or single-element arrays are already sorted
+    if len(arr) <= 1:
+        return
+
+    # Sort the entire array using Hoare partition
+    left, right = 0, len(arr) - 1
+    quick_sort_hoare_helper(arr, left, right)
+
+
 
 
 if __name__ == "__main__":
+    print("=" * 60)
+    print("LOMUTO PARTITION SCHEME")
+    print("=" * 60)
+
     # Test case 1: Standard unsorted array
     arr1 = [38, 27, 43, 3, 9, 82, 10]
     quick_sort(arr1)
@@ -141,10 +235,10 @@ if __name__ == "__main__":
           f"  Result: {arr1}\n"
           f"  Expected: [3, 9, 10, 27, 38, 43, 82]\n")
 
-    # Test case 2: Already sorted array (worst case for this implementation)
+    # Test case 2: Already sorted array (worst case for Lomuto with last element pivot)
     arr2 = [1, 2, 3, 4, 5]
     quick_sort(arr2)
-    print(f"Test 2 - Already sorted array (worst case):\n"
+    print(f"Test 2 - Already sorted array (worst case for Lomuto):\n"
           f"  Result: {arr2}\n"
           f"  Expected: [1, 2, 3, 4, 5]\n")
 
@@ -153,4 +247,39 @@ if __name__ == "__main__":
     quick_sort(arr3)
     print(f"Test 3 - Array with duplicates:\n"
           f"  Result: {arr3}\n"
-          f"  Expected: [1, 2, 2, 5, 5, 5, 8, 9]")
+          f"  Expected: [1, 2, 2, 5, 5, 5, 8, 9]\n")
+
+    print("=" * 60)
+    print("HOARE PARTITION SCHEME")
+    print("=" * 60)
+
+    # Test case 1: Standard unsorted array
+    arr1_hoare = [38, 27, 43, 3, 9, 82, 10]
+    quick_sort_hoare(arr1_hoare)
+    print(f"Test 1 - Standard unsorted array:\n"
+          f"  Result: {arr1_hoare}\n"
+          f"  Expected: [3, 9, 10, 27, 38, 43, 82]\n")
+
+    # Test case 2: Already sorted array (better performance with middle pivot)
+    arr2_hoare = [1, 2, 3, 4, 5]
+    quick_sort_hoare(arr2_hoare)
+    print(f"Test 2 - Already sorted array (better with Hoare):\n"
+          f"  Result: {arr2_hoare}\n"
+          f"  Expected: [1, 2, 3, 4, 5]\n")
+
+    # Test case 3: Array with duplicates
+    arr3_hoare = [5, 2, 8, 2, 9, 1, 5, 5]
+    quick_sort_hoare(arr3_hoare)
+    print(f"Test 3 - Array with duplicates:\n"
+          f"  Result: {arr3_hoare}\n"
+          f"  Expected: [1, 2, 2, 5, 5, 5, 8, 9]\n")
+
+    # Test case 4: Reverse sorted (challenging for both)
+    arr4_lomuto = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+    arr4_hoare = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+    quick_sort(arr4_lomuto)
+    quick_sort_hoare(arr4_hoare)
+    print(f"Test 4 - Reverse sorted array:\n"
+          f"  Lomuto result: {arr4_lomuto}\n"
+          f"  Hoare result:  {arr4_hoare}\n"
+          f"  Expected:      [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]\n")

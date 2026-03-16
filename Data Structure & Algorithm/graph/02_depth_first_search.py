@@ -69,7 +69,12 @@ def depth_first_search(graph, start=None):
         post[v] = clock
         clock += 1
 
-    vertices = [start] if start is not None else list(graph)
+    if start is None:
+        vertices = list(graph)
+    elif isinstance(start, list):
+        vertices = start
+    else:
+        vertices = [start]
     for v in vertices:
         if v not in visited:
             component += 1

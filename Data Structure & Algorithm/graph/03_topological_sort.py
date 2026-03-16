@@ -16,6 +16,14 @@ DFS iterates over every vertex and edge in the graph exactly once,
 so the time complexity is O(V + E) where V = number of vertices and E = number of edges.
 """
 
+import importlib.util, pathlib
+
+_mod_path = pathlib.Path(__file__).parent / "02_depth_first_search.py"
+_spec = importlib.util.spec_from_file_location("depth_first_search", _mod_path)
+_mod = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(_mod)
+depth_first_search = _mod.depth_first_search
+
 
 def topological_sort(graph):
     # Input:
@@ -26,29 +34,7 @@ def topological_sort(graph):
     #   This output is indexed numerically rather than by vertex.
     # - all outputs from the run of depth_first_search() are also available
     #   to you: ccnum, prev, pre, and post.
-    visited = set()
-    ccnum = {}
-    prev = {}
-    pre, post = {}, {}
-    clock = 1
-    component = 0
-    def explore(v):
-        nonlocal clock, component
-        pre[v] = clock
-        clock += 1
-        visited.add(v)
-        ccnum[v] = component
-        for neighbor in graph[v]:
-            if neighbor not in visited:
-                prev[neighbor] = v
-                explore(neighbor)
-        post[v] = clock
-        clock += 1
-    vertices = list(graph)
-    for v in vertices:
-        if v not in visited:
-            component += 1
-            explore(v)
+    _, _, _, post = depth_first_search(graph)
     order = sorted(post.keys(), key=lambda k: post[k], reverse=True)
     return order
 

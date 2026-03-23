@@ -118,3 +118,20 @@ Graphs model relationships between entities. A graph has vertices (nodes) and ed
 4. **Using Dijkstra with negative weights** - Dijkstra requires non-negative edge weights
 5. **Forgetting disconnected cases** - Some vertices may be unreachable
 6. **Ignoring representation costs** - Adjacency lists and matrices have different trade-offs
+
+## Implementations
+
+| File | Algorithm | Runtime | Notes |
+|------|-----------|---------|-------|
+| [01_breadth_first_search.py](01_breadth_first_search.py) | BFS | O(V + E) | Shortest paths in unweighted graphs |
+| [02_depth_first_search.py](02_depth_first_search.py) | DFS | O(V + E) | Pre/post timestamps, connected components |
+| [03_topological_sort.py](03_topological_sort.py) | Topological Sort | O(V + E) | DAG ordering via DFS post-order |
+| [04_strongly_connected_components.py](04_strongly_connected_components.py) | SCC (Kosaraju) | O(V + E) | Groups of mutually reachable vertices |
+| [05_dijkstra.py](05_dijkstra.py) | Dijkstra | O((V + E) log V) | Single-source shortest paths, non-negative weights only |
+| [06_bellman_ford.py](06_bellman_ford.py) | Bellman-Ford | O(VE) | Single-source shortest paths, handles negative weights |
+| [07_floyd_warshall.py](07_floyd_warshall.py) | Floyd-Warshall | O(V³) | All-pairs shortest paths |
+| [08_kruskal.py](08_kruskal.py) | Kruskal | O(E log E) | MST via edge sorting and Union-Find |
+| [09_prim.py](09_prim.py) | Prim | O(E log V) | MST via min-heap |
+| [10_ford_fulkerson.py](10_ford_fulkerson.py) | Ford-Fulkerson | O(E · C) | Maximum flow; C = max flow value |
+| [11_edmonds_karp.py](11_edmonds_karp.py) | Edmonds-Karp | O(VE²) | Maximum flow with BFS guarantee on termination |
+| [12_two_sat.py](12_two_sat.py) | 2-SAT | O(V + E) | Boolean satisfiability via SCC on implication graph |

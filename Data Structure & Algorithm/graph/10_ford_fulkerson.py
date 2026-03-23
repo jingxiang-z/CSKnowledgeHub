@@ -176,3 +176,4 @@ if __name__ == "__main__":
     test_simple_two_paths()
     test_bottleneck_edge()
     test_backward_edge_needed()
+    print("All tests passed.")

@@ -94,35 +94,52 @@ def edmonds_karp(graph, capacities, source, sink):
     return flow, C
 
 
+def test_two_parallel_paths():
+    """Two parallel paths, each with equal capacity."""
+    #
+    #   0 --10--> 1 --10--> 3
+    #   0 --10--> 2 --10--> 3
+    #
+    # Max flow = 20 (both paths fully used)
+    graph = {0: [1, 2], 1: [3], 2: [3], 3: []}
+    caps = {(0, 1): 10, (0, 2): 10, (1, 3): 10, (2, 3): 10}
+    flow, C = edmonds_karp(graph, caps, source=0, sink=3)
+    assert C == 20, f"Expected 20, got {C}"
+    assert flow[(0, 1)] == 10
+    assert flow[(0, 2)] == 10
+    print("test_two_parallel_paths passed")
+
+
+def test_bottleneck_edge():
+    """A single bottleneck edge limits the max flow."""
+    #
+    #   0 --8--> 1 --3--> 2 --7--> 3
+    #
+    # Max flow = 3 (bottleneck at 1->2)
+    graph = {0: [1], 1: [2], 2: [3], 3: []}
+    caps = {(0, 1): 8, (1, 2): 3, (2, 3): 7}
+    flow, C = edmonds_karp(graph, caps, source=0, sink=3)
+    assert C == 3, f"Expected 3, got {C}"
+    assert flow[(1, 2)] == 3
+    print("test_bottleneck_edge passed")
+
+
+def test_multi_path_with_shared_edges():
+    """Multiple paths sharing intermediate edges."""
+    #
+    #   Edges: 0->1(3), 0->2(2), 1->2(1), 1->3(2), 2->3(3)
+    #
+    # Max flow = 5
+    graph = {0: [1, 2], 1: [2, 3], 2: [3], 3: []}
+    caps = {(0, 1): 3, (0, 2): 2, (1, 2): 1, (1, 3): 2, (2, 3): 3}
+    flow, C = edmonds_karp(graph, caps, source=0, sink=3)
+    assert C == 5, f"Expected 5, got {C}"
+    assert flow[(0, 1)] + flow[(0, 2)] == 5
+    print("test_multi_path_with_shared_edges passed")
+
+
 if __name__ == "__main__":
-    # Test 1: Two parallel paths, each with equal capacity
-    # 0 --10--> 1 --10--> 3
-    # 0 --10--> 2 --10--> 3
-    # Expected max flow: 20
-    graph1 = {0: [1, 2], 1: [3], 2: [3], 3: []}
-    caps1  = {(0,1): 10, (0,2): 10, (1,3): 10, (2,3): 10}
-    flow1, C1 = edmonds_karp(graph1, caps1, source=0, sink=3)
-    print(f"Test 1 — Max flow: {C1} (expected 20)")
-    print(f"         Edge flows: {flow1}\n")
-
-    # Test 2: Classic bottleneck example
-    # 0 --3--> 1 --2--> 3
-    #  \      / \
-    #  2->  1   -> 3 (cap 2, from 1->3 directly)
-    #    -> 2 --3-> 3
-    # Edges: 0->1(3), 0->2(2), 1->2(1), 1->3(2), 2->3(3)
-    # Expected max flow: 5
-    graph2 = {0: [1, 2], 1: [2, 3], 2: [3], 3: []}
-    caps2  = {(0,1): 3, (0,2): 2, (1,2): 1, (1,3): 2, (2,3): 3}
-    flow2, C2 = edmonds_karp(graph2, caps2, source=0, sink=3)
-    print(f"Test 2 — Max flow: {C2} (expected 5)")
-    print(f"         Edge flows: {flow2}\n")
-
-    # Test 3: Single path with a tight bottleneck in the middle
-    # 0 --8--> 1 --3--> 2 --7--> 3
-    # Expected max flow: 3 (limited by the middle edge)
-    graph3 = {0: [1], 1: [2], 2: [3], 3: []}
-    caps3  = {(0,1): 8, (1,2): 3, (2,3): 7}
-    flow3, C3 = edmonds_karp(graph3, caps3, source=0, sink=3)
-    print(f"Test 3 — Max flow: {C3} (expected 3)")
-    print(f"         Edge flows: {flow3}")
+    test_two_parallel_paths()
+    test_bottleneck_edge()
+    test_multi_path_with_shared_edges()
+    print("All tests passed.")

@@ -6,6 +6,7 @@
    - [Variables](#variables)
    - [Scope and Constants](#scope-and-constants)
    - [Basic Data Types](#basic-data-types)
+   - [Types, Inference, and Runtime Checks](#types-inference-and-runtime-checks)
    - [Collections](#collections)
    - [Type Conversion](#type-conversion)
 3. [Functions and Program Structure](#functions-and-program-structure)
@@ -17,6 +18,7 @@
    - [Multiple Conditions and Logical Operators](#multiple-conditions-and-logical-operators)
    - [Multi-Way Branching](#multi-way-branching)
    - [Loops](#loops)
+   - [Early Exit and Loop Control](#early-exit-and-loop-control)
 5. [Documentation](#documentation)
    - [Comments](#comments)
 6. [Comparison](#comparison)
@@ -238,6 +240,14 @@ C++ is statically typed. The `auto` keyword can ask the compiler to infer a vari
 ~~~cpp
 auto count = 42; // inferred as int
 ~~~
+
+### Types, Inference, and Runtime Checks
+
+A **type** describes the operations that are valid for a value. **Type inference** lets a compiler determine a type from context; it does not make a statically typed language dynamically typed. Rust, Go, and C++ reject many type mismatches before the program runs. Python associates types with runtime objects, so incompatible operations usually fail only when execution reaches them.
+
+For example, `count = "42"` changes the meaning of `count` in Python, but an equivalent reassignment is rejected by Rust, Go, and C++ when `count` was declared as an integer. Python type hints improve editor and static-analysis feedback, but they are not normally enforced by the Python runtime.
+
+**Common mistake:** type conversion can lose information. Check that an input can be parsed and that a numeric conversion has the range and precision you expect. Error-handling strategies are developed further in later notes; do not ignore Go's `err` value or use Rust's `expect` for ordinary user input.
 
 ### Collections
 
@@ -925,6 +935,12 @@ for (int number = 1; number <= 5; ++number) {
 }
 ~~~
 
+### Early Exit and Loop Control
+
+`break` stops the nearest loop, `continue` skips to its next iteration, and `return` leaves the current function. Use them to keep the main path readable, but make loop conditions and exit paths easy to see.
+
+**Common mistakes:** an off-by-one boundary, a loop whose state never changes, and changing the collection being iterated. In particular, mutations can invalidate iterators or views in C++, and can have surprising effects in Python and Go. Prefer building a new collection when that makes the intended transformation clearer.
+
 ## Documentation
 
 ### Comments
@@ -957,6 +973,14 @@ Comments are ignored by the compiler or interpreter and are intended for human r
 
 All four languages also support multi-line comment syntax, although Python commonly uses triple-quoted strings for documentation rather than ordinary comments.
 
+Assertions complement comments by checking an assumption while the program runs. Use an assertion for an internal invariant that indicates a programming error if broken; use ordinary validation and error handling for invalid external input.
+
+~~~python
+def discount(price: float, percent: float) -> float:
+    assert 0 <= percent <= 100
+    return price * (1 - percent / 100)
+~~~
+
 ## Comparison
 
 ### Key Differences
@@ -970,4 +994,3 @@ All four languages also support multi-line comment syntax, although Python commo
 | Memory management | Ownership and borrowing | Garbage collection | Garbage collection | Manual, RAII, or smart pointers |
 
 The most important conceptual difference is memory management. Rust checks ownership and borrowing at compile time, Go and Python use garbage collection, and C++ offers several approaches including manual management and RAII.
-

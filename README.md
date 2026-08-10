@@ -16,6 +16,12 @@ Originated from Georgia Tech and Columbia University computer science courses, t
 
 ## Topics
 
+### Programming Languages
+- [01-Basic-Programming-Concepts](Programming%20Languages/01-Basic-Programming-Concepts.md)
+- [02-Data-Modeling-Structs-and-Classes](Programming%20Languages/02-Data-Modeling-Structs-and-Classes.md)
+- [03-Memory-Ownership-and-References](Programming%20Languages/03-Memory-Ownership-and-References.md)
+- [04-Code-Organization-Packages-and-Dependencies](Programming%20Languages/04-Code-Organization-Packages-and-Dependencies.md)
+
 ### Data Structures & Algorithms
 - [Sorting and Searching](Data%20Structure%20&%20Algorithm/Sorting%20and%20Searching.md)
 - [Tree](Data%20Structure%20&%20Algorithm/Tree.md)
@@ -73,9 +79,6 @@ Originated from Georgia Tech and Columbia University computer science courses, t
 - [01-Machine-Learning](Machine%20Learning/01-Machine-Learning.md)
 - [02-Deep-Learning](Machine%20Learning/02-Deep-Learning.md)
 - [03-Natural-Language-Processing](Machine%20Learning/03-Natural-Language-Processing.md)
-
-### Programming Languages
-- [01-Basic-Programming-Concepts](Programming%20Languages/01-Basic-Programming-Concepts.md)
 
 ## Contributing
 

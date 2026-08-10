@@ -1,4 +1,4 @@
-# Backtrack
+# Backtracking
 
 ## Introduction
 

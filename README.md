@@ -23,11 +23,11 @@ Originated from Georgia Tech and Columbia University computer science courses, t
 - [04-Code-Organization-Packages-and-Dependencies](Programming%20Languages/04-Code-Organization-Packages-and-Dependencies.md)
 
 ### Data Structures & Algorithms
-- [Sorting and Searching](Data%20Structure%20&%20Algorithm/Sorting%20and%20Searching.md)
-- [Tree](Data%20Structure%20&%20Algorithm/Tree.md)
-- [Graph](Data%20Structure%20&%20Algorithm/Graph.md)
-- [Backtrack](Data%20Structure%20&%20Algorithm/Backtrack.md)
-- [Design](Data%20Structure%20&%20Algorithm/Design.md)
+- [DSA Index](Data%20Structure%20&%20Algorithm/README.md)
+- [Data Structures](Data%20Structure%20&%20Algorithm/01-data-structures/README.md)
+- [Algorithm Techniques](Data%20Structure%20&%20Algorithm/02-algorithm-techniques/README.md)
+- [Graph Algorithms](Data%20Structure%20&%20Algorithm/03-graph-algorithms/README.md)
+- [Optimization and Complexity](Data%20Structure%20&%20Algorithm/04-optimization-and-complexity/README.md)
 
 ### Computer Architecture
 - [01-Fundamentals](Computer%20Architecture/01-Fundamentals.md)

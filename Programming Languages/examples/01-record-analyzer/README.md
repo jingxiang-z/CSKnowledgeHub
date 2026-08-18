@@ -2,6 +2,38 @@
 
 Implement a score reporter for records containing a student name and numeric score.
 
+## Input / Output
+
+**Input:** Records provided as lines of text (hardcoded list or stdin), each in the format:
+
+```
+<Name> <Score>
+```
+
+Example input:
+```
+Alice 92
+Bob abc
+Charlie 45
+
+David 78
+```
+
+**Output:** For each valid record, print the student name, score, and pass/fail classification.
+After processing all records, print the count of skipped (malformed) records and the top scorer.
+
+Example output (pass threshold = 60):
+```
+Alice: 92 — PASS
+Charlie: 45 — FAIL
+David: 78 — PASS
+Skipped 2 malformed record(s).
+Highest score: Alice with 92
+```
+
+A record is **malformed** if the score field is missing, non-numeric, or negative; blank lines are also skipped.
+If there are no valid records, print a message such as `"No valid records."` instead of a top scorer.
+
 ## Requirements
 
 - Store the input, score, threshold, and result in appropriately typed variables; use named constants where appropriate.

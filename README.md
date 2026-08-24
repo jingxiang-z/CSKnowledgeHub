@@ -17,10 +17,17 @@ Originated from Georgia Tech and Columbia University computer science courses, t
 ## Topics
 
 ### Programming Languages
+- [Programming Languages Index](Programming%20Languages/README.md)
 - [01-Basic-Programming-Concepts](Programming%20Languages/01-Basic-Programming-Concepts.md)
 - [02-Data-Modeling-Structs-and-Classes](Programming%20Languages/02-Data-Modeling-Structs-and-Classes.md)
 - [03-Memory-Ownership-and-References](Programming%20Languages/03-Memory-Ownership-and-References.md)
 - [04-Code-Organization-Packages-and-Dependencies](Programming%20Languages/04-Code-Organization-Packages-and-Dependencies.md)
+- [05-Error-Handling-and-Recovery](Programming%20Languages/05-Error-Handling-and-Recovery.md)
+- [06-Interfaces-Traits-Generics-and-Polymorphism](Programming%20Languages/06-Interfaces-Traits-Generics-and-Polymorphism.md)
+- [07-Functional-Programming-and-Iteration](Programming%20Languages/07-Functional-Programming-and-Iteration.md)
+- [08-Concurrency-and-Asynchronous-Programming](Programming%20Languages/08-Concurrency-and-Asynchronous-Programming.md)
+- [09-Testing-Debugging-and-Tooling](Programming%20Languages/09-Testing-Debugging-and-Tooling.md)
+- [10-Type-Systems-and-Language-Semantics](Programming%20Languages/10-Type-Systems-and-Language-Semantics.md)
 
 ### Data Structures & Algorithms
 - [DSA Index](Data%20Structure%20&%20Algorithm/README.md)

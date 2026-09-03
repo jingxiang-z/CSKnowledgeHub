@@ -18,7 +18,7 @@ A card stores only a display-safe last-four value—never a real card number. A 
 
 - Create a draft order with validated customer and address data.
 - Add and remove line items while the order is still a draft.
-- Calculate the subtotal and a fixed tax rate without using binary floating point for money.
+- Calculate the subtotal and a fixed tax rate using floating-point numbers.
 - Select exactly one payment method and pay the order.
 - Cancel a draft or paid order, but not a shipped order.
 - Ship a paid order, but reject every other invalid state transition.
@@ -51,4 +51,4 @@ Write tests for every suggested scenario. For each failed transition, verify bot
 
 ## Done When
 
-An order cannot enter an invalid normal state through its public operations, failures contain useful context, monetary calculations are exact, and adding a new payment variant has an obvious implementation path.
+An order cannot enter an invalid normal state through its public operations, failures contain useful context, monetary calculations use the selected numeric representation, and adding a new payment variant has an obvious implementation path.

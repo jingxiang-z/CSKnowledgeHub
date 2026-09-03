@@ -1,6 +1,6 @@
 # `nvmlctl` — NVML GPU Monitor CLI Capstone
 
-Build a production-style, read-only command-line tool for inspecting NVIDIA GPU state and health through the NVIDIA Management Library (NVML). Implement equivalent behavior across the languages in this learning path so the same realistic infrastructure problem exposes each language's design and error-model choices.
+Build a production-style, read-only command-line tool for inspecting NVIDIA GPU state and metrics through the NVIDIA Management Library (NVML). Implement equivalent behavior across the languages in this learning path so the same realistic infrastructure problem exposes each language's design and error-model choices.
 
 The goal is to practice idiomatic language design, concurrency, interface design, error handling, testing, and graceful shutdown while working with a real native-library boundary. A live integration run requires an NVIDIA GPU and driver; unit tests must use a fake provider and require no hardware.
 
@@ -12,20 +12,18 @@ Support commands equivalent to:
 nvmlctl gpu system
 nvmlctl gpu list
 nvmlctl gpu info 0
-nvmlctl gpu health 0
 nvmlctl gpu processes 0
 nvmlctl gpu watch --interval 2s --count 10
 nvmlctl gpu list --output json
 ```
 
-`0` is an NVML index. Also support selection by UUID or PCI bus identifier where the language's CLI parser makes it practical. Support human-readable tables and JSON for `system`, `list`, `info`, and `health`.
+`0` is an NVML index. Also support selection by UUID or PCI bus identifier where the language's CLI parser makes it practical. Support human-readable tables and JSON for `system`, `list`, and `info`.
 
 The tool must be able to:
 
 - list available GPUs;
 - display static GPU information and dynamic metrics;
 - show active compute processes and their GPU memory use;
-- run basic, configurable health checks;
 - watch metrics continuously with a bounded `--count` for repeatable runs;
 - query multiple GPUs concurrently while keeping final output ordered by NVML index;
 - respond to cancellation and shut down cleanly.
@@ -76,30 +74,6 @@ The adapter owns NVML initialization and shutdown exactly once per command invoc
 
 Define a narrow provider abstraction that lists devices and fetches device details, metrics, and processes. `DeviceSelector` should explicitly represent the supported selectors (index, UUID, or PCI bus ID), rather than treating every identifier as an ambiguous string. Implement a fake provider for tests.
 
-## Health Checks
-
-Convert raw metrics into typed health results in the domain layer:
-
-```text
-NVML → raw metrics → health rules → health results → CLI / JSON
-```
-
-Health rules should be pure functions with documented, configurable thresholds. Start with temperature and memory-pressure checks; do not silently invent values for unsupported metrics.
-
-```json
-{
-  "status": "warning",
-  "checks": [
-    {
-      "name": "temperature",
-      "status": "warning",
-      "value": 91,
-      "message": "GPU temperature exceeds threshold"
-    }
-  ]
-}
-```
-
 ## Concurrency, Cancellation, and Lifecycle
 
 - Use bounded concurrency when gathering information for multiple GPUs.
@@ -130,7 +104,6 @@ Cover at least:
 - partial device failure during concurrent collection;
 - context cancellation and timeouts;
 - bounded watch collection and cleanup;
-- health-rule thresholds;
 - exact raw JSON fields and units;
 - JSON rendering and CLI exit behavior.
 

@@ -5,16 +5,16 @@ Build a bounded worker pool that processes independent jobs concurrently and shu
 ## Requirements
 
 - Accept a configurable positive worker count.
-- Send jobs through a bounded queue/channel and return results through a results channel or collection.
+- Submit jobs through a bounded work queue and collect their results.
 - Process each accepted job at most once; completion order is not submission order.
-- Use cancellation (`context.Context` in Go) to stop accepting work after the first fatal error.
-- Wait for every owned worker before returning.
-- Close channels only from their owning side and avoid sending on a closed channel.
+- Record job failures without stopping other jobs or rejecting new submissions.
+- Wait for every worker created by the pool before returning.
+- Give the pool clear ownership of its queue and shutdown lifecycle; do not submit work after shutdown begins.
 - Add per-job timeout support as an extension.
 
 ## Tests
 
-Test empty input, one worker, fewer jobs than workers, bounded queue behavior, deterministic failure, cancellation, and clean shutdown. Repeat tests with race analysis where available.
+Test empty input, one worker, fewer jobs than workers, bounded queue behavior, deterministic failure, cancellation, and clean shutdown. Use the language's concurrency or race-analysis tools when available.
 
 ## Done When
 

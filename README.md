@@ -14,13 +14,15 @@ Originated from Georgia Tech and Columbia University computer science courses, t
 
 ## Topics
 
-### Computer Systems
+### Courses
 
 - [Computer Architecture](courses/computer-architecture/)
 - [Operating Systems](courses/operating-systems/)
 - [Computer Networks](courses/computer-networks/)
 - [Database Systems](courses/database-systems/)
 - [Distributed Systems](courses/distributed-systems/)
+- [Information Security](courses/information-security/)
+- [Machine Learning](courses/machine-learning/)
 
 ### Foundations
 

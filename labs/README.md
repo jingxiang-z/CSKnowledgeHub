@@ -13,6 +13,7 @@ These exercises are larger implementation tasks connected to the computer-system
 | [05 Rate Limiter](05-rate-limiter) | synchronization, time, and API design | networks, resource limits |
 | [06 Producer → Consumer Pipeline](06-producer-consumer-pipeline) | channels, backpressure, and cancellation | concurrency |
 | [07 HTTP Key-Value Server](07-http-key-value-server) | HTTP, JSON, concurrent handlers, and graceful shutdown | networks, storage, concurrency |
+| [08 NVML CLI](08-nvml-cli) | GPU monitoring, native-library integration, and resource lifecycle | GPU architecture, concurrency, tooling |
 
 ## Workflow
 
@@ -21,7 +22,7 @@ Start with one language and make the behavior correct and tested. Add the second
 Each Lab may contain language-specific directories, for example:
 
 ```text
-05-thread-safe-ttl-cache/
+02-thread-safe-ttl-cache/
 ├── README.md
 ├── python/
 └── go/

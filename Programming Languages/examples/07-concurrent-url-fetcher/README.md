@@ -5,11 +5,11 @@ Fetch a supplied list of URLs with bounded concurrency, cancellation, and per-re
 ## Requirements
 
 - Accept up to 100 URLs and a positive concurrency limit.
-- Use a worker pool or semaphore so no more than `N` requests are active.
-- Apply a caller-provided context and request timeout.
+- Ensure no more than the specified concurrency limit of requests are active at once.
+- Support caller-initiated cancellation and a configurable per-request timeout.
 - Return one result per URL containing URL, status code when available, body size, and error.
 - Continue after ordinary request failures; cancel promptly when the caller cancels.
-- Close response bodies on every path and avoid goroutine leaks.
+- Release response resources on every path and ensure all background work terminates.
 - Preserve input ordering in the final result collection.
 
 ## Tests

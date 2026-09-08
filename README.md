@@ -31,8 +31,6 @@ Originated from Georgia Tech and Columbia University computer science courses, t
 
 - [Lab Index](labs/README.md)
 
-Older GPU, NVML, information security, and machine learning notes are retained in `archive/` and are outside the current systems mainline.
-
 ## Contributing
 
 Contributions are welcome. Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.

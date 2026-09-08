@@ -14,8 +14,6 @@ These exercises are larger implementation tasks connected to the computer-system
 | [06 Producer → Consumer Pipeline](06-producer-consumer-pipeline) | channels, backpressure, and cancellation | concurrency |
 | [07 HTTP Key-Value Server](07-http-key-value-server) | HTTP, JSON, concurrent handlers, and graceful shutdown | networks, storage, concurrency |
 
-The former GPU monitor exercise is retained under `archive/nvml-cli/` and is outside the current systems Lab path.
-
 ## Workflow
 
 Start with one language and make the behavior correct and tested. Add the second implementation with the same external contract, while using that language's natural types, concurrency primitives, and error model. Compare implementations only where the comparison explains a meaningful systems or language trade-off.

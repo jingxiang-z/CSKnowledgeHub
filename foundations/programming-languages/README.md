@@ -20,7 +20,3 @@ This section provides the language foundations needed to understand systems code
 ## Practice
 
 Foundational examples are in [examples](examples/) and practice types, data modeling, state transitions, and error handling. Larger systems exercises are in the [Lab index](../../labs/README.md), starting with Python and Go implementations and adding C++ and Rust later as needed.
-
-## Scope
-
-These notes emphasize practical language concepts rather than compiler construction. Parsing, abstract syntax trees, interpreters, compiler passes, and formal operational semantics are natural follow-on topics, but are outside the current learning path.

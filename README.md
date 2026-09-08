@@ -2,100 +2,39 @@
 
 **Computer Science Knowledge Hub**
 
-Originated from Georgia Tech and Columbia University computer science courses, this repository provides a comprehensive overview of core CS knowledge. Whether you're preparing for exams, technical interviews, or seeking to understand the full landscape of computer science, this hub offers a structured view of CS fundamentals.
+Originated from Georgia Tech and Columbia University computer science courses, this repository provides structured notes and practical exercises for computer systems. It is intended for readers who want to review computer science fundamentals, prepare for technical interviews, or understand how programs execute, manage resources, communicate, and store data.
 
 📖 **[View CS Knowledge Hub Site](https://csknowledgehub.gitbook.io)**
 
 🔗 **[Source Repository](https://github.com/jingxiang-z/CSKnowledgeHub)**
 
-- **License**: 
-  - Documentation and notes: [CC BY 4.0](LICENSE) 
-  - Code examples: [MIT License](LICENSE-CODE)
-- **Contribute**: see `CONTRIBUTING.md`
-- **Status**: Actively curated (accepting contributions)
+- **License**: documentation and notes use [CC BY 4.0](LICENSE); code examples use the [MIT License](LICENSE-CODE).
+- **Contribute**: see [CONTRIBUTING.md](CONTRIBUTING.md).
+- **Status**: Actively curated.
 
 ## Topics
 
-### Programming Languages
-- [Programming Languages Index](Programming%20Languages/README.md)
-- [01-Basic-Programming-Concepts](Programming%20Languages/01-Basic-Programming-Concepts.md)
-- [02-Data-Modeling-Structs-and-Classes](Programming%20Languages/02-Data-Modeling-Structs-and-Classes.md)
-- [03-Memory-Ownership-and-References](Programming%20Languages/03-Memory-Ownership-and-References.md)
-- [04-Code-Organization-Packages-and-Dependencies](Programming%20Languages/04-Code-Organization-Packages-and-Dependencies.md)
-- [05-Error-Handling-and-Recovery](Programming%20Languages/05-Error-Handling-and-Recovery.md)
-- [06-Interfaces-Traits-Generics-and-Polymorphism](Programming%20Languages/06-Interfaces-Traits-Generics-and-Polymorphism.md)
-- [07-Functional-Programming-and-Iteration](Programming%20Languages/07-Functional-Programming-and-Iteration.md)
-- [08-Concurrency-and-Asynchronous-Programming](Programming%20Languages/08-Concurrency-and-Asynchronous-Programming.md)
-- [09-Testing-Debugging-and-Tooling](Programming%20Languages/09-Testing-Debugging-and-Tooling.md)
-- [10-Type-Systems-and-Language-Semantics](Programming%20Languages/10-Type-Systems-and-Language-Semantics.md)
+### Computer Systems
 
-### Data Structures & Algorithms
-- [DSA Index](Data%20Structure%20&%20Algorithm/README.md)
-- [Data Structures](Data%20Structure%20&%20Algorithm/01-data-structures/README.md)
-- [Algorithm Techniques](Data%20Structure%20&%20Algorithm/02-algorithm-techniques/README.md)
-- [Graph Algorithms](Data%20Structure%20&%20Algorithm/03-graph-algorithms/README.md)
-- [Optimization and Complexity](Data%20Structure%20&%20Algorithm/04-optimization-and-complexity/README.md)
+- [Computer Architecture](courses/computer-architecture/)
+- [Operating Systems](courses/operating-systems/)
+- [Computer Networks](courses/computer-networks/)
+- [Database Systems](courses/database-systems/)
+- [Distributed Systems](courses/distributed-systems/)
 
-### Computer Architecture
-- [01-Fundamentals](Computer%20Architecture/01-Fundamentals.md)
-- [02-Processor-Design](Computer%20Architecture/02-Processor-Design.md)
-- [03-Memory-Systems](Computer%20Architecture/03-Memory-Systems.md)
-- [04-Storage-Systems](Computer%20Architecture/04-Storage-Systems.md)
-- [05-GPU-Architecture](Computer%20Architecture/05-GPU-Architecture.md)
-- [06-GPU-Programming](Computer%20Architecture/06-GPU-Programming.md)
+### Foundations
 
-### Operating System
-- [01-Introduction](Operating%20System/01-Introduction.md)
-- [02-Process-and-Thread](Operating%20System/02-Process-and-Thread.md)
-- [03-Synchronization](Operating%20System/03-Synchronization.md)
-- [04-Memory-Management](Operating%20System/04-Memory-Management.md)
-- [05-Device-Management](Operating%20System/05-Device-Management.md)
-- [06-Parallel-System](Operating%20System/06-Parallel-System.md)
-- [07-Virtualization](Operating%20System/07-Virtualization.md)
+- [Programming Languages](foundations/programming-languages/)
+- [Data Structures and Algorithms](foundations/data-structures/)
 
-### Database
-- [01-Introduction](Database/01-Introduction.md)
-- [02-Data-Model](Database/02-Data-Model.md)
-- [03-Database-Design](Database/03-Database-Design.md)
-- [04-SQL](Database/04-SQL.md)
-- [05-Database-Implementation](Database/05-Database-Implementation.md)
+### Labs
 
-### Computer Network
-- [01-Introduction](Computer%20Network/01-Introduction.md)
-- [02-Application-Layer](Computer%20Network/02-Application-Layer.md)
-- [03-Transport-Layer](Computer%20Network/03-Transport-Layer.md)
-- [04-Network-Layer](Computer%20Network/04-Network-Layer.md)
-- [05-Link-Layer](Computer%20Network/05-Link-Layer.md)
-
-### Information Security
-- [01-Introduction](Information%20Security/01-Introduction.md)
-- [02-Access-Control-and-Authentication](Information%20Security/02-Access-Control-and-Authentication.md)
-- [03-Cryptography](Information%20Security/03-Cryptography.md)
-- [04-Web-Security](Information%20Security/04-Web-Security.md)
-- [05-Network-Security](Information%20Security/05-Network-Security.md)
-- [06-Database-Security](Information%20Security/06-Database-Security.md)
-
-### Distributed Systems
-- [01-Foundations](Distributed%20System/01-Foundations.md)
-- [02-Communication](Distributed%20System/02-Communication.md)
-- [03-Storage-Systems](Distributed%20System/03-Storage-Systems.md)
-- [04-Middleware](Distributed%20System/04-Middleware.md)
-
-### Machine Learning
-- [00-Mathematical-Foundation](Machine%20Learning/00-Mathematical-Foundation.md)
-- [01-Machine-Learning](Machine%20Learning/01-Machine-Learning.md)
-- [02-Deep-Learning](Machine%20Learning/02-Deep-Learning.md)
-- [03-Natural-Language-Processing](Machine%20Learning/03-Natural-Language-Processing.md)
+- [Lab Index](labs/README.md)
 
 ## Contributing
 
-Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+Contributions are welcome. Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## Acknowledgments
 
-This repository originated from graduate computer science courses at:
-
-- **Georgia Institute of Technology** (OMSCS)
-- **Columbia University**
-
-Special thanks to the faculty and course designers whose materials formed the foundation of this knowledge base.
+This repository originated from graduate computer science courses at Georgia Institute of Technology (OMSCS) and Columbia University.

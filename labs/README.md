@@ -11,7 +11,7 @@ These exercises are larger implementation tasks connected to the computer-system
 | [03 Worker Pool](03-worker-pool) | workers, queues, cancellation, and shutdown | operating systems |
 | [04 Concurrent URL Fetcher](04-concurrent-url-fetcher) | bounded concurrency, timeout, and HTTP clients | networks, concurrency |
 | [05 Rate Limiter](05-rate-limiter) | synchronization, time, and API design | networks, resource limits |
-| [06 Producer → Consumer Pipeline](06-producer-consumer-pipeline) | channels, backpressure, and cancellation | concurrency |
+| [06 Producer–Consumer](06-producer-consumer-pipeline) | bounded buffers, backpressure, and shutdown | concurrency |
 | [07 HTTP Key-Value Server](07-http-key-value-server) | HTTP, JSON, concurrent handlers, and graceful shutdown | networks, storage, concurrency |
 | [08 NVML CLI](08-nvml-cli) | GPU monitoring, native-library integration, and resource lifecycle | GPU architecture, concurrency, tooling |
 

@@ -1,21 +1,22 @@
-# Producer → Consumer Pipeline
+# Producer–Consumer
 
-Build a multi-stage concurrent pipeline that consumes input, transforms it, and aggregates a summary.
+Build producers and consumers connected by one bounded buffer, using your
+language's concurrency primitives.
 
 ## Requirements
 
-- Model `input → transform → aggregate` as distinct stages connected by bounded channels/queues.
-- Allow multiple transform workers while retaining a clear ownership rule for each channel.
-- Propagate cancellation through all stages.
-- Stop producers when downstream stages fail or the caller cancels.
-- Close every channel exactly once from its sending owner.
-- Avoid unbounded buffering; make backpressure observable.
-- Return an aggregate result plus meaningful stage errors.
+- Support configurable producer and consumer counts.
+- Block producers when the buffer is full and consumers when it is empty.
+- On success, consume every item exactly once and stop every worker.
+- On cancellation, report it and unblock all workers.
+- Define who signals completion and how consumers learn no more items will arrive.
 
 ## Tests
 
-Test empty input, normal transformation, transform failure, aggregate failure, cancellation, a slow consumer, and worker shutdown. Include a test that would hang if a channel is closed or drained incorrectly.
+Cover empty input, multiple producers and consumers, slow consumers,
+cancellation, and shutdown. Use timeouts to catch deadlocks.
 
 ## Done When
 
-Every stage exits on success, error, or cancellation, and no goroutine/thread is left waiting on a channel/queue.
+No lost or duplicate items on success, no buffer overflow, and no stranded
+workers after completion or cancellation.

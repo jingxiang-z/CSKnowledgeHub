@@ -9,15 +9,16 @@ Build a small concurrent HTTP JSON service backed by an in-memory key-value stor
 - `DELETE /keys/{key}`: delete a value and return an appropriate status.
 - `GET /health`: return service health.
 
+Keys must contain 1–128 ASCII letters, digits, underscores, or hyphens. Invalid keys return `400`.
+
 ## Requirements
 
-- Use the language’s standard HTTP server facilities (`net/http` in Go).
 - Parse and serialize JSON with useful validation errors.
 - Make the backing store safe for concurrent handlers.
-- Use appropriate status codes: `200`, `201`, `204`, `400`, `404`, and `405`.
-- Keep routing, HTTP translation, store operations, and executable setup separate.
-- Add request logging/recovery middleware.
-- Shut down gracefully: stop accepting new requests, honor a shutdown context, and wait for in-flight requests within a deadline.
+- Use the HTTP framework's default responses for malformed JSON and unsupported methods.
+- Keep the implementation straightforward; a single file is fine.
+- Log requests and return a server error for unexpected failures.
+- Shut down gracefully: stop accepting new requests and allow in-flight requests to finish within a deadline.
 
 ## Tests
 

@@ -133,6 +133,11 @@ This is a small, reliable systems tool—not a full monitoring platform. The ini
 
 The implementation passes the fake-provider tests and successfully queries a real GPU when available. It exposes the required raw fields and units, handles partial failures without losing useful data, stops cleanly on cancellation, and keeps binding-specific types behind the adapter boundary.
 
+## Implementations
+
+- [Go](go/): Cobra commands and the Go NVML binding.
+- [Python](python/README.md): argparse commands and the Python NVML binding.
+
 ## References
 
 - [NVIDIA NVML API Reference](https://docs.nvidia.com/deploy/nvml-api/nvml-api-reference.html)
